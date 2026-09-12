@@ -1,30 +1,27 @@
 /**
   ******************************************************************************
-  * @file    Project/STM32F10x_StdPeriph_Template/stm32f10x_conf.h 
+  * @file    Project/STM32F10x_StdPeriph_Template/stm32f10x_conf.h
   * @author  MCD Application Team
   * @version V3.5.0
   * @date    08-April-2011
-  * @brief   Library configuration file.
+  * @brief   库配置文件。
   ******************************************************************************
   * @attention
   *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  * 本固件仅供参考，其目的在于为客户提供有关其产品的编码信息，以帮助客户节省时间。
+  * 因此，对于因本固件的内容和/或客户将其中所含编码信息用于其产品而产生的任何索赔
+  * 所造成的任何直接、间接或后果性损害，STMicroelectronics 概不承担任何责任。
   *
   * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
   ******************************************************************************
   */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
+/* 定义以下宏，以防止本头文件被递归包含 -------------------------------------*/
 #ifndef __STM32F10x_CONF_H
 #define __STM32F10x_CONF_H
 
-/* Includes ------------------------------------------------------------------*/
-/* Uncomment/Comment the line below to enable/disable peripheral header file inclusion */
+/* 头文件包含 ------------------------------------------------------------------*/
+/* 对下面这行取消注释/加注释，即可启用/禁用外设头文件的包含 */
 #include "stm32f10x_adc.h"
 #include "stm32f10x_bkp.h"
 #include "stm32f10x_can.h"
@@ -47,26 +44,26 @@
 #include "stm32f10x_tim.h"
 #include "stm32f10x_usart.h"
 #include "stm32f10x_wwdg.h"
-#include "misc.h" /* High level functions for NVIC and SysTick (add-on to CMSIS functions) */
+#include "misc.h" /* NVIC 与 SysTick 的高层函数（CMSIS 函数的补充） */
 
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-/* Uncomment the line below to expanse the "assert_param" macro in the 
-   Standard Peripheral Library drivers code */
-/* #define USE_FULL_ASSERT    1 */
+/* 导出的类型 ------------------------------------------------------------*/
+/* 导出的常量 --------------------------------------------------------*/
+/* 对下面这行取消注释，即可在标准外设库的驱动代码中
+   展开 "assert_param" 宏 */
+/* #define USE_FULL_ASSERT    1    —— 取消注释本行即可启用完整断言 */
 
-/* Exported macro ------------------------------------------------------------*/
+/* 导出的宏 ------------------------------------------------------------*/
 #ifdef  USE_FULL_ASSERT
 
 /**
-  * @brief  The assert_param macro is used for function's parameters check.
-  * @param  expr: If expr is false, it calls assert_failed function which reports 
-  *         the name of the source file and the source line number of the call 
-  *         that failed. If expr is true, it returns no value.
-  * @retval None
+  * @brief  assert_param 宏用于对函数参数进行检查。
+  * @param  expr: 若 expr 为假，则调用 assert_failed 函数，
+  *         由该函数报告调用失败处的源文件名与源码行号。
+  *         若 expr 为真，则本宏不返回任何值。
+  * @retval 无
   */
   #define assert_param(expr) ((expr) ? (void)0 : assert_failed((uint8_t *)__FILE__, __LINE__))
-/* Exported functions ------------------------------------------------------- */
+/* 导出的函数 ------------------------------------------------------- */
   void assert_failed(uint8_t* file, uint32_t line);
 #else
   #define assert_param(expr) ((void)0)
@@ -74,4 +71,4 @@
 
 #endif /* __STM32F10x_CONF_H */
 
-/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2011 STMicroelectronics *****文件结束****/
