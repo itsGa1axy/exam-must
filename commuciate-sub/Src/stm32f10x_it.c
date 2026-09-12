@@ -1,152 +1,150 @@
 /**
   ******************************************************************************
-  * @file    Project/STM32F10x_StdPeriph_Template/stm32f10x_it.c 
+  * @file    Project/STM32F10x_StdPeriph_Template/stm32f10x_it.c
   * @author  MCD Application Team
   * @version V3.5.0
   * @date    08-April-2011
-  * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
-  *          peripherals interrupt service routine.
+  * @brief   主中断服务例程。
+  *          本文件为所有异常处理函数和外设中断服务
+  *          例程提供模板。
   ******************************************************************************
   * @attention
   *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  * 本固件仅供指导之用，旨在为客户提供与其产品相关的编码信息，
+  * 以帮助客户节省时间。因此，对于因本固件的内容和/或客户将其中所含
+  * 编码信息用于其产品而产生的任何索赔所导致的任何直接、间接或
+  * 后果性损害，STMicroelectronics 概不承担任何责任。
   *
   * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
   ******************************************************************************
   */
 
-/* Includes ------------------------------------------------------------------*/
+/* 头文件包含 ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 
-/** @addtogroup STM32F10x_StdPeriph_Template
+/** @addtogroup STM32F10x_StdPeriph_Template  STM32F10x 标准外设库模板
   * @{
   */
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
+/* 私有类型定义 -----------------------------------------------------------*/
+/* 私有宏定义 ------------------------------------------------------------*/
+/* 私有宏 -------------------------------------------------------------*/
+/* 私有变量 ---------------------------------------------------------*/
+/* 私有函数原型 -----------------------------------------------*/
+/* 私有函数 ---------------------------------------------------------*/
 
 /******************************************************************************/
-/*            Cortex-M3 Processor Exceptions Handlers                         */
+/*            Cortex-M3 处理器异常处理函数                         */
 /******************************************************************************/
 
 /**
-  * @brief  This function handles NMI exception.
-  * @param  None
-  * @retval None
+  * @brief  本函数处理 NMI 异常。
+  * @param  无
+  * @retval 无
   */
 void NMI_Handler(void)
 {
 }
 
 /**
-  * @brief  This function handles Hard Fault exception.
-  * @param  None
-  * @retval None
+  * @brief  本函数处理 Hard Fault 异常。
+  * @param  无
+  * @retval 无
   */
 void HardFault_Handler(void)
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
+  /* 发生 Hard Fault 异常时进入无限循环 */
   while (1)
   {
   }
 }
 
 /**
-  * @brief  This function handles Memory Manage exception.
-  * @param  None
-  * @retval None
+  * @brief  本函数处理 Memory Manage 异常。
+  * @param  无
+  * @retval 无
   */
 void MemManage_Handler(void)
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
+  /* 发生 Memory Manage 异常时进入无限循环 */
   while (1)
   {
   }
 }
 
 /**
-  * @brief  This function handles Bus Fault exception.
-  * @param  None
-  * @retval None
+  * @brief  本函数处理 Bus Fault 异常。
+  * @param  无
+  * @retval 无
   */
 void BusFault_Handler(void)
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
+  /* 发生 Bus Fault 异常时进入无限循环 */
   while (1)
   {
   }
 }
 
 /**
-  * @brief  This function handles Usage Fault exception.
-  * @param  None
-  * @retval None
+  * @brief  本函数处理 Usage Fault 异常。
+  * @param  无
+  * @retval 无
   */
 void UsageFault_Handler(void)
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
+  /* 发生 Usage Fault 异常时进入无限循环 */
   while (1)
   {
   }
 }
 
 /**
-  * @brief  This function handles SVCall exception.
-  * @param  None
-  * @retval None
+  * @brief  本函数处理 SVCall 异常。
+  * @param  无
+  * @retval 无
   */
 void SVC_Handler(void)
 {
 }
 
 /**
-  * @brief  This function handles Debug Monitor exception.
-  * @param  None
-  * @retval None
+  * @brief  本函数处理 Debug Monitor 异常。
+  * @param  无
+  * @retval 无
   */
 void DebugMon_Handler(void)
 {
 }
 
 /**
-  * @brief  This function handles PendSVC exception.
-  * @param  None
-  * @retval None
+  * @brief  本函数处理 PendSVC 异常。
+  * @param  无
+  * @retval 无
   */
 void PendSV_Handler(void)
 {
 }
 
 /**
-  * @brief  This function handles SysTick Handler.
-  * @param  None
-  * @retval None
+  * @brief  本函数处理 SysTick 处理函数。
+  * @param  无
+  * @retval 无
   */
 void SysTick_Handler(void)
 {
 }
 
 /******************************************************************************/
-/*                 STM32F10x Peripherals Interrupt Handlers                   */
-/*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
-/*  available peripheral interrupt handler's name please refer to the startup */
-/*  file (startup_stm32f10x_xx.s).                                            */
+/*                 STM32F10x 外设中断处理函数                   */
+/*  在此添加所用外设（PPP）的中断处理函数，可用的  */
+/*  外设中断处理函数名称请参阅启动 */
+/*  文件（startup_stm32f10x_xx.s）。                                            */
 /******************************************************************************/
 
 /**
-  * @brief  This function handles PPP interrupt request.
-  * @param  None
-  * @retval None
+  * @brief  本函数处理 PPP 中断请求。
+  * @param  无
+  * @retval 无
   */
 /*void PPP_IRQHandler(void)
 {
@@ -157,4 +155,4 @@ void SysTick_Handler(void)
   */ 
 
 
-/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2011 STMicroelectronics *****文件结束****/

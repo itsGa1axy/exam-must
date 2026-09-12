@@ -1,32 +1,29 @@
 /**************************************************************************//**
  * @file     core_cm3.h
- * @brief    CMSIS Cortex-M3 Core Peripheral Access Layer Header File
+ * @brief    CMSIS Cortex-M3 内核外设访问层头文件
  * @version  V1.30
- * @date     30. October 2009
+ * @date     2009 年 10 月 30 日
  *
  * @note
- * Copyright (C) 2009 ARM Limited. All rights reserved.
+ * 版权所有 (C) 2009 ARM Limited。保留所有权利。
  *
  * @par
- * ARM Limited (ARM) is supplying this software for use with Cortex-M 
- * processor based microcontrollers.  This file can be freely distributed 
- * within development tools that are supporting such ARM based processors. 
+ * ARM Limited (ARM) 提供本软件用于基于 Cortex-M 处理器的微控制器。
+ * 本文件可在支持此类 ARM 处理器的开发工具中自由分发。
  *
  * @par
- * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
- * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
- * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
- * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
+ * 本软件按“原样”提供。对于本软件，不提供任何明示、默示或法定的担保，
+ * 包括但不限于对适销性和特定用途适用性的默示担保。
+ * 在任何情况下，ARM 均不对因任何原因造成的特殊、附带或间接损害承担责任。
  *
  ******************************************************************************/
 
 #ifndef __CM3_CORE_H__
 #define __CM3_CORE_H__
 
-/** @addtogroup CMSIS_CM3_core_LintCinfiguration CMSIS CM3 Core Lint Configuration
+/** @addtogroup CMSIS_CM3_core_LintCinfiguration CMSIS CM3 内核 Lint 配置
  *
- * List of Lint messages which will be suppressed and not shown:
+ * 以下列出将被抑制且不显示的 Lint 消息清单：
  *   - Error 10: \n
  *     register uint32_t __regBasePri         __asm("basepri"); \n
  *     Error 10: Expecting ';'
@@ -34,7 +31,7 @@
  *   - Error 530: \n
  *     return(__regBasePri); \n
  *     Warning 530: Symbol '__regBasePri' (line 264) not initialized
- * . 
+ * .
  *   - Error 550: \n
  *     __regBasePri = (basePri & 0x1ff); \n
  *     Warning 550: Symbol '__regBasePri' (line 271) not accessed
@@ -55,7 +52,7 @@
  *     } InterruptType_Type; \n
  *     Info 751: local typedef 'InterruptType_Type' (line 170, file ./cm3_core.h) not referenced
  * .
- * Note:  To re-enable a Message, insert a space before 'lint' *
+ * 注意：  要重新启用某条消息，请在 'lint' 前插入一个空格 *
  *
  */
 
@@ -69,11 +66,11 @@
 /*lint -e751 */
 
 
-/** @addtogroup CMSIS_CM3_core_definitions CM3 Core Definitions
-  This file defines all structures and symbols for CMSIS core:
-    - CMSIS version number
-    - Cortex-M core registers and bitfields
-    - Cortex-M core peripheral base address
+/** @addtogroup CMSIS_CM3_core_definitions CM3 内核定义
+  本文件定义 CMSIS 内核的所有结构和符号：
+    - CMSIS 版本号
+    - Cortex-M 内核寄存器与位域
+    - Cortex-M 内核外设基地址
   @{
  */
 
@@ -81,686 +78,686 @@
  extern "C" {
 #endif 
 
-#define __CM3_CMSIS_VERSION_MAIN  (0x01)                                                       /*!< [31:16] CMSIS HAL main version */
-#define __CM3_CMSIS_VERSION_SUB   (0x30)                                                       /*!< [15:0]  CMSIS HAL sub version  */
-#define __CM3_CMSIS_VERSION       ((__CM3_CMSIS_VERSION_MAIN << 16) | __CM3_CMSIS_VERSION_SUB) /*!< CMSIS HAL version number       */
+#define __CM3_CMSIS_VERSION_MAIN  (0x01)                                                       /*!< [31:16] CMSIS HAL 主版本号 */
+#define __CM3_CMSIS_VERSION_SUB   (0x30)                                                       /*!< [15:0]  CMSIS HAL 次版本号  */
+#define __CM3_CMSIS_VERSION       ((__CM3_CMSIS_VERSION_MAIN << 16) | __CM3_CMSIS_VERSION_SUB) /*!< CMSIS HAL 版本号       */
 
-#define __CORTEX_M                (0x03)                                                       /*!< Cortex core                    */
+#define __CORTEX_M                (0x03)                                                       /*!< Cortex 内核                    */
 
-#include <stdint.h>                           /* Include standard types */
+#include <stdint.h>                           /* 包含标准类型定义 */
 
 #if defined (__ICCARM__)
-  #include <intrinsics.h>                     /* IAR Intrinsics   */
+  #include <intrinsics.h>                     /* IAR 内建函数   */
 #endif
 
 
 #ifndef __NVIC_PRIO_BITS
-  #define __NVIC_PRIO_BITS    4               /*!< standard definition for NVIC Priority Bits */
+  #define __NVIC_PRIO_BITS    4               /*!< NVIC 优先级位数的标准定义 */
 #endif
 
 
 
 
 /**
- * IO definitions
+ * IO 定义
  *
- * define access restrictions to peripheral registers
+ * 定义外设寄存器的访问限制
  */
 
 #ifdef __cplusplus
-  #define     __I     volatile                /*!< defines 'read only' permissions      */
+  #define     __I     volatile                /*!< 定义“只读”权限      */
 #else
-  #define     __I     volatile const          /*!< defines 'read only' permissions      */
+  #define     __I     volatile const          /*!< 定义“只读”权限      */
 #endif
-#define     __O     volatile                  /*!< defines 'write only' permissions     */
-#define     __IO    volatile                  /*!< defines 'read / write' permissions   */
+#define     __O     volatile                  /*!< 定义“只写”权限     */
+#define     __IO    volatile                  /*!< 定义“读 / 写”权限   */
 
 
 
 /*******************************************************************************
- *                 Register Abstraction
+ *                 寄存器抽象
  ******************************************************************************/
-/** @addtogroup CMSIS_CM3_core_register CMSIS CM3 Core Register
+/** @addtogroup CMSIS_CM3_core_register CMSIS CM3 内核寄存器
  @{
 */
 
 
 /** @addtogroup CMSIS_CM3_NVIC CMSIS CM3 NVIC
-  memory mapped structure for Nested Vectored Interrupt Controller (NVIC)
+  嵌套向量中断控制器（NVIC）的存储器映射结构
   @{
  */
 typedef struct
 {
-  __IO uint32_t ISER[8];                      /*!< Offset: 0x000  Interrupt Set Enable Register           */
+  __IO uint32_t ISER[8];                      /*!< 偏移: 0x000  中断置位使能寄存器           */
        uint32_t RESERVED0[24];                                   
-  __IO uint32_t ICER[8];                      /*!< Offset: 0x080  Interrupt Clear Enable Register         */
+  __IO uint32_t ICER[8];                      /*!< 偏移: 0x080  中断清零使能寄存器         */
        uint32_t RSERVED1[24];                                    
-  __IO uint32_t ISPR[8];                      /*!< Offset: 0x100  Interrupt Set Pending Register          */
+  __IO uint32_t ISPR[8];                      /*!< 偏移: 0x100  中断置位挂起寄存器          */
        uint32_t RESERVED2[24];                                   
-  __IO uint32_t ICPR[8];                      /*!< Offset: 0x180  Interrupt Clear Pending Register        */
+  __IO uint32_t ICPR[8];                      /*!< 偏移: 0x180  中断清零挂起寄存器        */
        uint32_t RESERVED3[24];                                   
-  __IO uint32_t IABR[8];                      /*!< Offset: 0x200  Interrupt Active bit Register           */
+  __IO uint32_t IABR[8];                      /*!< 偏移: 0x200  中断活动位寄存器           */
        uint32_t RESERVED4[56];                                   
-  __IO uint8_t  IP[240];                      /*!< Offset: 0x300  Interrupt Priority Register (8Bit wide) */
+  __IO uint8_t  IP[240];                      /*!< 偏移: 0x300  中断优先级寄存器（8 位宽） */
        uint32_t RESERVED5[644];                                  
-  __O  uint32_t STIR;                         /*!< Offset: 0xE00  Software Trigger Interrupt Register     */
+  __O  uint32_t STIR;                         /*!< 偏移: 0xE00  软件触发中断寄存器     */
 }  NVIC_Type;                                               
-/*@}*/ /* end of group CMSIS_CM3_NVIC */
+/*@}*/ /* CMSIS_CM3_NVIC 分组结束 */
 
 
 /** @addtogroup CMSIS_CM3_SCB CMSIS CM3 SCB
-  memory mapped structure for System Control Block (SCB)
+  系统控制块（SCB）的存储器映射结构
   @{
  */
 typedef struct
 {
-  __I  uint32_t CPUID;                        /*!< Offset: 0x00  CPU ID Base Register                                  */
-  __IO uint32_t ICSR;                         /*!< Offset: 0x04  Interrupt Control State Register                      */
-  __IO uint32_t VTOR;                         /*!< Offset: 0x08  Vector Table Offset Register                          */
-  __IO uint32_t AIRCR;                        /*!< Offset: 0x0C  Application Interrupt / Reset Control Register        */
-  __IO uint32_t SCR;                          /*!< Offset: 0x10  System Control Register                               */
-  __IO uint32_t CCR;                          /*!< Offset: 0x14  Configuration Control Register                        */
-  __IO uint8_t  SHP[12];                      /*!< Offset: 0x18  System Handlers Priority Registers (4-7, 8-11, 12-15) */
-  __IO uint32_t SHCSR;                        /*!< Offset: 0x24  System Handler Control and State Register             */
-  __IO uint32_t CFSR;                         /*!< Offset: 0x28  Configurable Fault Status Register                    */
-  __IO uint32_t HFSR;                         /*!< Offset: 0x2C  Hard Fault Status Register                            */
-  __IO uint32_t DFSR;                         /*!< Offset: 0x30  Debug Fault Status Register                           */
-  __IO uint32_t MMFAR;                        /*!< Offset: 0x34  Mem Manage Address Register                           */
-  __IO uint32_t BFAR;                         /*!< Offset: 0x38  Bus Fault Address Register                            */
-  __IO uint32_t AFSR;                         /*!< Offset: 0x3C  Auxiliary Fault Status Register                       */
-  __I  uint32_t PFR[2];                       /*!< Offset: 0x40  Processor Feature Register                            */
-  __I  uint32_t DFR;                          /*!< Offset: 0x48  Debug Feature Register                                */
-  __I  uint32_t ADR;                          /*!< Offset: 0x4C  Auxiliary Feature Register                            */
-  __I  uint32_t MMFR[4];                      /*!< Offset: 0x50  Memory Model Feature Register                         */
-  __I  uint32_t ISAR[5];                      /*!< Offset: 0x60  ISA Feature Register                                  */
+  __I  uint32_t CPUID;                        /*!< 偏移: 0x00  CPU ID 基址寄存器                                  */
+  __IO uint32_t ICSR;                         /*!< 偏移: 0x04  中断控制状态寄存器                      */
+  __IO uint32_t VTOR;                         /*!< 偏移: 0x08  向量表偏移寄存器                          */
+  __IO uint32_t AIRCR;                        /*!< 偏移: 0x0C  应用中断 / 复位控制寄存器        */
+  __IO uint32_t SCR;                          /*!< 偏移: 0x10  系统控制寄存器                               */
+  __IO uint32_t CCR;                          /*!< 偏移: 0x14  配置控制寄存器                        */
+  __IO uint8_t  SHP[12];                      /*!< 偏移: 0x18  系统处理函数优先级寄存器 (4-7, 8-11, 12-15) */
+  __IO uint32_t SHCSR;                        /*!< 偏移: 0x24  系统处理函数控制与状态寄存器             */
+  __IO uint32_t CFSR;                         /*!< 偏移: 0x28  可配置错误状态寄存器                    */
+  __IO uint32_t HFSR;                         /*!< 偏移: 0x2C  硬错误状态寄存器                            */
+  __IO uint32_t DFSR;                         /*!< 偏移: 0x30  调试错误状态寄存器                           */
+  __IO uint32_t MMFAR;                        /*!< 偏移: 0x34  存储器管理地址寄存器                           */
+  __IO uint32_t BFAR;                         /*!< 偏移: 0x38  总线错误地址寄存器                            */
+  __IO uint32_t AFSR;                         /*!< 偏移: 0x3C  辅助错误状态寄存器                       */
+  __I  uint32_t PFR[2];                       /*!< 偏移: 0x40  处理器特性寄存器                            */
+  __I  uint32_t DFR;                          /*!< 偏移: 0x48  调试特性寄存器                                */
+  __I  uint32_t ADR;                          /*!< 偏移: 0x4C  辅助特性寄存器                            */
+  __I  uint32_t MMFR[4];                      /*!< 偏移: 0x50  存储模型特性寄存器                         */
+  __I  uint32_t ISAR[5];                      /*!< 偏移: 0x60  ISA 特性寄存器                                  */
 } SCB_Type;                                                
 
-/* SCB CPUID Register Definitions */
-#define SCB_CPUID_IMPLEMENTER_Pos          24                                             /*!< SCB CPUID: IMPLEMENTER Position */
-#define SCB_CPUID_IMPLEMENTER_Msk          (0xFFul << SCB_CPUID_IMPLEMENTER_Pos)          /*!< SCB CPUID: IMPLEMENTER Mask */
+/* SCB CPUID 寄存器定义 */
+#define SCB_CPUID_IMPLEMENTER_Pos          24                                             /*!< SCB CPUID: IMPLEMENTER 位置 */
+#define SCB_CPUID_IMPLEMENTER_Msk          (0xFFul << SCB_CPUID_IMPLEMENTER_Pos)          /*!< SCB CPUID: IMPLEMENTER 掩码 */
 
-#define SCB_CPUID_VARIANT_Pos              20                                             /*!< SCB CPUID: VARIANT Position */
-#define SCB_CPUID_VARIANT_Msk              (0xFul << SCB_CPUID_VARIANT_Pos)               /*!< SCB CPUID: VARIANT Mask */
+#define SCB_CPUID_VARIANT_Pos              20                                             /*!< SCB CPUID: VARIANT 位置 */
+#define SCB_CPUID_VARIANT_Msk              (0xFul << SCB_CPUID_VARIANT_Pos)               /*!< SCB CPUID: VARIANT 掩码 */
 
-#define SCB_CPUID_PARTNO_Pos                4                                             /*!< SCB CPUID: PARTNO Position */
-#define SCB_CPUID_PARTNO_Msk               (0xFFFul << SCB_CPUID_PARTNO_Pos)              /*!< SCB CPUID: PARTNO Mask */
+#define SCB_CPUID_PARTNO_Pos                4                                             /*!< SCB CPUID: PARTNO 位置 */
+#define SCB_CPUID_PARTNO_Msk               (0xFFFul << SCB_CPUID_PARTNO_Pos)              /*!< SCB CPUID: PARTNO 掩码 */
 
-#define SCB_CPUID_REVISION_Pos              0                                             /*!< SCB CPUID: REVISION Position */
-#define SCB_CPUID_REVISION_Msk             (0xFul << SCB_CPUID_REVISION_Pos)              /*!< SCB CPUID: REVISION Mask */
+#define SCB_CPUID_REVISION_Pos              0                                             /*!< SCB CPUID: REVISION 位置 */
+#define SCB_CPUID_REVISION_Msk             (0xFul << SCB_CPUID_REVISION_Pos)              /*!< SCB CPUID: REVISION 掩码 */
 
-/* SCB Interrupt Control State Register Definitions */
-#define SCB_ICSR_NMIPENDSET_Pos            31                                             /*!< SCB ICSR: NMIPENDSET Position */
-#define SCB_ICSR_NMIPENDSET_Msk            (1ul << SCB_ICSR_NMIPENDSET_Pos)               /*!< SCB ICSR: NMIPENDSET Mask */
+/* SCB 中断控制状态寄存器定义 */
+#define SCB_ICSR_NMIPENDSET_Pos            31                                             /*!< SCB ICSR: NMIPENDSET 位置 */
+#define SCB_ICSR_NMIPENDSET_Msk            (1ul << SCB_ICSR_NMIPENDSET_Pos)               /*!< SCB ICSR: NMIPENDSET 掩码 */
 
-#define SCB_ICSR_PENDSVSET_Pos             28                                             /*!< SCB ICSR: PENDSVSET Position */
-#define SCB_ICSR_PENDSVSET_Msk             (1ul << SCB_ICSR_PENDSVSET_Pos)                /*!< SCB ICSR: PENDSVSET Mask */
+#define SCB_ICSR_PENDSVSET_Pos             28                                             /*!< SCB ICSR: PENDSVSET 位置 */
+#define SCB_ICSR_PENDSVSET_Msk             (1ul << SCB_ICSR_PENDSVSET_Pos)                /*!< SCB ICSR: PENDSVSET 掩码 */
 
-#define SCB_ICSR_PENDSVCLR_Pos             27                                             /*!< SCB ICSR: PENDSVCLR Position */
-#define SCB_ICSR_PENDSVCLR_Msk             (1ul << SCB_ICSR_PENDSVCLR_Pos)                /*!< SCB ICSR: PENDSVCLR Mask */
+#define SCB_ICSR_PENDSVCLR_Pos             27                                             /*!< SCB ICSR: PENDSVCLR 位置 */
+#define SCB_ICSR_PENDSVCLR_Msk             (1ul << SCB_ICSR_PENDSVCLR_Pos)                /*!< SCB ICSR: PENDSVCLR 掩码 */
 
-#define SCB_ICSR_PENDSTSET_Pos             26                                             /*!< SCB ICSR: PENDSTSET Position */
-#define SCB_ICSR_PENDSTSET_Msk             (1ul << SCB_ICSR_PENDSTSET_Pos)                /*!< SCB ICSR: PENDSTSET Mask */
+#define SCB_ICSR_PENDSTSET_Pos             26                                             /*!< SCB ICSR: PENDSTSET 位置 */
+#define SCB_ICSR_PENDSTSET_Msk             (1ul << SCB_ICSR_PENDSTSET_Pos)                /*!< SCB ICSR: PENDSTSET 掩码 */
 
-#define SCB_ICSR_PENDSTCLR_Pos             25                                             /*!< SCB ICSR: PENDSTCLR Position */
-#define SCB_ICSR_PENDSTCLR_Msk             (1ul << SCB_ICSR_PENDSTCLR_Pos)                /*!< SCB ICSR: PENDSTCLR Mask */
+#define SCB_ICSR_PENDSTCLR_Pos             25                                             /*!< SCB ICSR: PENDSTCLR 位置 */
+#define SCB_ICSR_PENDSTCLR_Msk             (1ul << SCB_ICSR_PENDSTCLR_Pos)                /*!< SCB ICSR: PENDSTCLR 掩码 */
 
-#define SCB_ICSR_ISRPREEMPT_Pos            23                                             /*!< SCB ICSR: ISRPREEMPT Position */
-#define SCB_ICSR_ISRPREEMPT_Msk            (1ul << SCB_ICSR_ISRPREEMPT_Pos)               /*!< SCB ICSR: ISRPREEMPT Mask */
+#define SCB_ICSR_ISRPREEMPT_Pos            23                                             /*!< SCB ICSR: ISRPREEMPT 位置 */
+#define SCB_ICSR_ISRPREEMPT_Msk            (1ul << SCB_ICSR_ISRPREEMPT_Pos)               /*!< SCB ICSR: ISRPREEMPT 掩码 */
 
-#define SCB_ICSR_ISRPENDING_Pos            22                                             /*!< SCB ICSR: ISRPENDING Position */
-#define SCB_ICSR_ISRPENDING_Msk            (1ul << SCB_ICSR_ISRPENDING_Pos)               /*!< SCB ICSR: ISRPENDING Mask */
+#define SCB_ICSR_ISRPENDING_Pos            22                                             /*!< SCB ICSR: ISRPENDING 位置 */
+#define SCB_ICSR_ISRPENDING_Msk            (1ul << SCB_ICSR_ISRPENDING_Pos)               /*!< SCB ICSR: ISRPENDING 掩码 */
 
-#define SCB_ICSR_VECTPENDING_Pos           12                                             /*!< SCB ICSR: VECTPENDING Position */
-#define SCB_ICSR_VECTPENDING_Msk           (0x1FFul << SCB_ICSR_VECTPENDING_Pos)          /*!< SCB ICSR: VECTPENDING Mask */
+#define SCB_ICSR_VECTPENDING_Pos           12                                             /*!< SCB ICSR: VECTPENDING 位置 */
+#define SCB_ICSR_VECTPENDING_Msk           (0x1FFul << SCB_ICSR_VECTPENDING_Pos)          /*!< SCB ICSR: VECTPENDING 掩码 */
 
-#define SCB_ICSR_RETTOBASE_Pos             11                                             /*!< SCB ICSR: RETTOBASE Position */
-#define SCB_ICSR_RETTOBASE_Msk             (1ul << SCB_ICSR_RETTOBASE_Pos)                /*!< SCB ICSR: RETTOBASE Mask */
+#define SCB_ICSR_RETTOBASE_Pos             11                                             /*!< SCB ICSR: RETTOBASE 位置 */
+#define SCB_ICSR_RETTOBASE_Msk             (1ul << SCB_ICSR_RETTOBASE_Pos)                /*!< SCB ICSR: RETTOBASE 掩码 */
 
-#define SCB_ICSR_VECTACTIVE_Pos             0                                             /*!< SCB ICSR: VECTACTIVE Position */
-#define SCB_ICSR_VECTACTIVE_Msk            (0x1FFul << SCB_ICSR_VECTACTIVE_Pos)           /*!< SCB ICSR: VECTACTIVE Mask */
+#define SCB_ICSR_VECTACTIVE_Pos             0                                             /*!< SCB ICSR: VECTACTIVE 位置 */
+#define SCB_ICSR_VECTACTIVE_Msk            (0x1FFul << SCB_ICSR_VECTACTIVE_Pos)           /*!< SCB ICSR: VECTACTIVE 掩码 */
 
-/* SCB Interrupt Control State Register Definitions */
-#define SCB_VTOR_TBLBASE_Pos               29                                             /*!< SCB VTOR: TBLBASE Position */
-#define SCB_VTOR_TBLBASE_Msk               (0x1FFul << SCB_VTOR_TBLBASE_Pos)              /*!< SCB VTOR: TBLBASE Mask */
+/* SCB 中断控制状态寄存器定义 */
+#define SCB_VTOR_TBLBASE_Pos               29                                             /*!< SCB VTOR: TBLBASE 位置 */
+#define SCB_VTOR_TBLBASE_Msk               (0x1FFul << SCB_VTOR_TBLBASE_Pos)              /*!< SCB VTOR: TBLBASE 掩码 */
 
-#define SCB_VTOR_TBLOFF_Pos                 7                                             /*!< SCB VTOR: TBLOFF Position */
-#define SCB_VTOR_TBLOFF_Msk                (0x3FFFFFul << SCB_VTOR_TBLOFF_Pos)            /*!< SCB VTOR: TBLOFF Mask */
+#define SCB_VTOR_TBLOFF_Pos                 7                                             /*!< SCB VTOR: TBLOFF 位置 */
+#define SCB_VTOR_TBLOFF_Msk                (0x3FFFFFul << SCB_VTOR_TBLOFF_Pos)            /*!< SCB VTOR: TBLOFF 掩码 */
 
-/* SCB Application Interrupt and Reset Control Register Definitions */
-#define SCB_AIRCR_VECTKEY_Pos              16                                             /*!< SCB AIRCR: VECTKEY Position */
-#define SCB_AIRCR_VECTKEY_Msk              (0xFFFFul << SCB_AIRCR_VECTKEY_Pos)            /*!< SCB AIRCR: VECTKEY Mask */
+/* SCB 应用中断与复位控制寄存器定义 */
+#define SCB_AIRCR_VECTKEY_Pos              16                                             /*!< SCB AIRCR: VECTKEY 位置 */
+#define SCB_AIRCR_VECTKEY_Msk              (0xFFFFul << SCB_AIRCR_VECTKEY_Pos)            /*!< SCB AIRCR: VECTKEY 掩码 */
 
-#define SCB_AIRCR_VECTKEYSTAT_Pos          16                                             /*!< SCB AIRCR: VECTKEYSTAT Position */
-#define SCB_AIRCR_VECTKEYSTAT_Msk          (0xFFFFul << SCB_AIRCR_VECTKEYSTAT_Pos)        /*!< SCB AIRCR: VECTKEYSTAT Mask */
+#define SCB_AIRCR_VECTKEYSTAT_Pos          16                                             /*!< SCB AIRCR: VECTKEYSTAT 位置 */
+#define SCB_AIRCR_VECTKEYSTAT_Msk          (0xFFFFul << SCB_AIRCR_VECTKEYSTAT_Pos)        /*!< SCB AIRCR: VECTKEYSTAT 掩码 */
 
-#define SCB_AIRCR_ENDIANESS_Pos            15                                             /*!< SCB AIRCR: ENDIANESS Position */
-#define SCB_AIRCR_ENDIANESS_Msk            (1ul << SCB_AIRCR_ENDIANESS_Pos)               /*!< SCB AIRCR: ENDIANESS Mask */
+#define SCB_AIRCR_ENDIANESS_Pos            15                                             /*!< SCB AIRCR: ENDIANESS 位置 */
+#define SCB_AIRCR_ENDIANESS_Msk            (1ul << SCB_AIRCR_ENDIANESS_Pos)               /*!< SCB AIRCR: ENDIANESS 掩码 */
 
-#define SCB_AIRCR_PRIGROUP_Pos              8                                             /*!< SCB AIRCR: PRIGROUP Position */
-#define SCB_AIRCR_PRIGROUP_Msk             (7ul << SCB_AIRCR_PRIGROUP_Pos)                /*!< SCB AIRCR: PRIGROUP Mask */
+#define SCB_AIRCR_PRIGROUP_Pos              8                                             /*!< SCB AIRCR: PRIGROUP 位置 */
+#define SCB_AIRCR_PRIGROUP_Msk             (7ul << SCB_AIRCR_PRIGROUP_Pos)                /*!< SCB AIRCR: PRIGROUP 掩码 */
 
-#define SCB_AIRCR_SYSRESETREQ_Pos           2                                             /*!< SCB AIRCR: SYSRESETREQ Position */
-#define SCB_AIRCR_SYSRESETREQ_Msk          (1ul << SCB_AIRCR_SYSRESETREQ_Pos)             /*!< SCB AIRCR: SYSRESETREQ Mask */
+#define SCB_AIRCR_SYSRESETREQ_Pos           2                                             /*!< SCB AIRCR: SYSRESETREQ 位置 */
+#define SCB_AIRCR_SYSRESETREQ_Msk          (1ul << SCB_AIRCR_SYSRESETREQ_Pos)             /*!< SCB AIRCR: SYSRESETREQ 掩码 */
 
-#define SCB_AIRCR_VECTCLRACTIVE_Pos         1                                             /*!< SCB AIRCR: VECTCLRACTIVE Position */
-#define SCB_AIRCR_VECTCLRACTIVE_Msk        (1ul << SCB_AIRCR_VECTCLRACTIVE_Pos)           /*!< SCB AIRCR: VECTCLRACTIVE Mask */
+#define SCB_AIRCR_VECTCLRACTIVE_Pos         1                                             /*!< SCB AIRCR: VECTCLRACTIVE 位置 */
+#define SCB_AIRCR_VECTCLRACTIVE_Msk        (1ul << SCB_AIRCR_VECTCLRACTIVE_Pos)           /*!< SCB AIRCR: VECTCLRACTIVE 掩码 */
 
-#define SCB_AIRCR_VECTRESET_Pos             0                                             /*!< SCB AIRCR: VECTRESET Position */
-#define SCB_AIRCR_VECTRESET_Msk            (1ul << SCB_AIRCR_VECTRESET_Pos)               /*!< SCB AIRCR: VECTRESET Mask */
+#define SCB_AIRCR_VECTRESET_Pos             0                                             /*!< SCB AIRCR: VECTRESET 位置 */
+#define SCB_AIRCR_VECTRESET_Msk            (1ul << SCB_AIRCR_VECTRESET_Pos)               /*!< SCB AIRCR: VECTRESET 掩码 */
 
-/* SCB System Control Register Definitions */
-#define SCB_SCR_SEVONPEND_Pos               4                                             /*!< SCB SCR: SEVONPEND Position */
-#define SCB_SCR_SEVONPEND_Msk              (1ul << SCB_SCR_SEVONPEND_Pos)                 /*!< SCB SCR: SEVONPEND Mask */
+/* SCB 系统控制寄存器定义 */
+#define SCB_SCR_SEVONPEND_Pos               4                                             /*!< SCB SCR: SEVONPEND 位置 */
+#define SCB_SCR_SEVONPEND_Msk              (1ul << SCB_SCR_SEVONPEND_Pos)                 /*!< SCB SCR: SEVONPEND 掩码 */
 
-#define SCB_SCR_SLEEPDEEP_Pos               2                                             /*!< SCB SCR: SLEEPDEEP Position */
-#define SCB_SCR_SLEEPDEEP_Msk              (1ul << SCB_SCR_SLEEPDEEP_Pos)                 /*!< SCB SCR: SLEEPDEEP Mask */
+#define SCB_SCR_SLEEPDEEP_Pos               2                                             /*!< SCB SCR: SLEEPDEEP 位置 */
+#define SCB_SCR_SLEEPDEEP_Msk              (1ul << SCB_SCR_SLEEPDEEP_Pos)                 /*!< SCB SCR: SLEEPDEEP 掩码 */
 
-#define SCB_SCR_SLEEPONEXIT_Pos             1                                             /*!< SCB SCR: SLEEPONEXIT Position */
-#define SCB_SCR_SLEEPONEXIT_Msk            (1ul << SCB_SCR_SLEEPONEXIT_Pos)               /*!< SCB SCR: SLEEPONEXIT Mask */
+#define SCB_SCR_SLEEPONEXIT_Pos             1                                             /*!< SCB SCR: SLEEPONEXIT 位置 */
+#define SCB_SCR_SLEEPONEXIT_Msk            (1ul << SCB_SCR_SLEEPONEXIT_Pos)               /*!< SCB SCR: SLEEPONEXIT 掩码 */
 
-/* SCB Configuration Control Register Definitions */
-#define SCB_CCR_STKALIGN_Pos                9                                             /*!< SCB CCR: STKALIGN Position */
-#define SCB_CCR_STKALIGN_Msk               (1ul << SCB_CCR_STKALIGN_Pos)                  /*!< SCB CCR: STKALIGN Mask */
+/* SCB 配置控制寄存器定义 */
+#define SCB_CCR_STKALIGN_Pos                9                                             /*!< SCB CCR: STKALIGN 位置 */
+#define SCB_CCR_STKALIGN_Msk               (1ul << SCB_CCR_STKALIGN_Pos)                  /*!< SCB CCR: STKALIGN 掩码 */
 
-#define SCB_CCR_BFHFNMIGN_Pos               8                                             /*!< SCB CCR: BFHFNMIGN Position */
-#define SCB_CCR_BFHFNMIGN_Msk              (1ul << SCB_CCR_BFHFNMIGN_Pos)                 /*!< SCB CCR: BFHFNMIGN Mask */
+#define SCB_CCR_BFHFNMIGN_Pos               8                                             /*!< SCB CCR: BFHFNMIGN 位置 */
+#define SCB_CCR_BFHFNMIGN_Msk              (1ul << SCB_CCR_BFHFNMIGN_Pos)                 /*!< SCB CCR: BFHFNMIGN 掩码 */
 
-#define SCB_CCR_DIV_0_TRP_Pos               4                                             /*!< SCB CCR: DIV_0_TRP Position */
-#define SCB_CCR_DIV_0_TRP_Msk              (1ul << SCB_CCR_DIV_0_TRP_Pos)                 /*!< SCB CCR: DIV_0_TRP Mask */
+#define SCB_CCR_DIV_0_TRP_Pos               4                                             /*!< SCB CCR: DIV_0_TRP 位置 */
+#define SCB_CCR_DIV_0_TRP_Msk              (1ul << SCB_CCR_DIV_0_TRP_Pos)                 /*!< SCB CCR: DIV_0_TRP 掩码 */
 
-#define SCB_CCR_UNALIGN_TRP_Pos             3                                             /*!< SCB CCR: UNALIGN_TRP Position */
-#define SCB_CCR_UNALIGN_TRP_Msk            (1ul << SCB_CCR_UNALIGN_TRP_Pos)               /*!< SCB CCR: UNALIGN_TRP Mask */
+#define SCB_CCR_UNALIGN_TRP_Pos             3                                             /*!< SCB CCR: UNALIGN_TRP 位置 */
+#define SCB_CCR_UNALIGN_TRP_Msk            (1ul << SCB_CCR_UNALIGN_TRP_Pos)               /*!< SCB CCR: UNALIGN_TRP 掩码 */
 
-#define SCB_CCR_USERSETMPEND_Pos            1                                             /*!< SCB CCR: USERSETMPEND Position */
-#define SCB_CCR_USERSETMPEND_Msk           (1ul << SCB_CCR_USERSETMPEND_Pos)              /*!< SCB CCR: USERSETMPEND Mask */
+#define SCB_CCR_USERSETMPEND_Pos            1                                             /*!< SCB CCR: USERSETMPEND 位置 */
+#define SCB_CCR_USERSETMPEND_Msk           (1ul << SCB_CCR_USERSETMPEND_Pos)              /*!< SCB CCR: USERSETMPEND 掩码 */
 
-#define SCB_CCR_NONBASETHRDENA_Pos          0                                             /*!< SCB CCR: NONBASETHRDENA Position */
-#define SCB_CCR_NONBASETHRDENA_Msk         (1ul << SCB_CCR_NONBASETHRDENA_Pos)            /*!< SCB CCR: NONBASETHRDENA Mask */
+#define SCB_CCR_NONBASETHRDENA_Pos          0                                             /*!< SCB CCR: NONBASETHRDENA 位置 */
+#define SCB_CCR_NONBASETHRDENA_Msk         (1ul << SCB_CCR_NONBASETHRDENA_Pos)            /*!< SCB CCR: NONBASETHRDENA 掩码 */
 
-/* SCB System Handler Control and State Register Definitions */
-#define SCB_SHCSR_USGFAULTENA_Pos          18                                             /*!< SCB SHCSR: USGFAULTENA Position */
-#define SCB_SHCSR_USGFAULTENA_Msk          (1ul << SCB_SHCSR_USGFAULTENA_Pos)             /*!< SCB SHCSR: USGFAULTENA Mask */
+/* SCB 系统处理函数控制与状态寄存器定义 */
+#define SCB_SHCSR_USGFAULTENA_Pos          18                                             /*!< SCB SHCSR: USGFAULTENA 位置 */
+#define SCB_SHCSR_USGFAULTENA_Msk          (1ul << SCB_SHCSR_USGFAULTENA_Pos)             /*!< SCB SHCSR: USGFAULTENA 掩码 */
 
-#define SCB_SHCSR_BUSFAULTENA_Pos          17                                             /*!< SCB SHCSR: BUSFAULTENA Position */
-#define SCB_SHCSR_BUSFAULTENA_Msk          (1ul << SCB_SHCSR_BUSFAULTENA_Pos)             /*!< SCB SHCSR: BUSFAULTENA Mask */
+#define SCB_SHCSR_BUSFAULTENA_Pos          17                                             /*!< SCB SHCSR: BUSFAULTENA 位置 */
+#define SCB_SHCSR_BUSFAULTENA_Msk          (1ul << SCB_SHCSR_BUSFAULTENA_Pos)             /*!< SCB SHCSR: BUSFAULTENA 掩码 */
 
-#define SCB_SHCSR_MEMFAULTENA_Pos          16                                             /*!< SCB SHCSR: MEMFAULTENA Position */
-#define SCB_SHCSR_MEMFAULTENA_Msk          (1ul << SCB_SHCSR_MEMFAULTENA_Pos)             /*!< SCB SHCSR: MEMFAULTENA Mask */
+#define SCB_SHCSR_MEMFAULTENA_Pos          16                                             /*!< SCB SHCSR: MEMFAULTENA 位置 */
+#define SCB_SHCSR_MEMFAULTENA_Msk          (1ul << SCB_SHCSR_MEMFAULTENA_Pos)             /*!< SCB SHCSR: MEMFAULTENA 掩码 */
 
-#define SCB_SHCSR_SVCALLPENDED_Pos         15                                             /*!< SCB SHCSR: SVCALLPENDED Position */
-#define SCB_SHCSR_SVCALLPENDED_Msk         (1ul << SCB_SHCSR_SVCALLPENDED_Pos)            /*!< SCB SHCSR: SVCALLPENDED Mask */
+#define SCB_SHCSR_SVCALLPENDED_Pos         15                                             /*!< SCB SHCSR: SVCALLPENDED 位置 */
+#define SCB_SHCSR_SVCALLPENDED_Msk         (1ul << SCB_SHCSR_SVCALLPENDED_Pos)            /*!< SCB SHCSR: SVCALLPENDED 掩码 */
 
-#define SCB_SHCSR_BUSFAULTPENDED_Pos       14                                             /*!< SCB SHCSR: BUSFAULTPENDED Position */
-#define SCB_SHCSR_BUSFAULTPENDED_Msk       (1ul << SCB_SHCSR_BUSFAULTPENDED_Pos)          /*!< SCB SHCSR: BUSFAULTPENDED Mask */
+#define SCB_SHCSR_BUSFAULTPENDED_Pos       14                                             /*!< SCB SHCSR: BUSFAULTPENDED 位置 */
+#define SCB_SHCSR_BUSFAULTPENDED_Msk       (1ul << SCB_SHCSR_BUSFAULTPENDED_Pos)          /*!< SCB SHCSR: BUSFAULTPENDED 掩码 */
 
-#define SCB_SHCSR_MEMFAULTPENDED_Pos       13                                             /*!< SCB SHCSR: MEMFAULTPENDED Position */
-#define SCB_SHCSR_MEMFAULTPENDED_Msk       (1ul << SCB_SHCSR_MEMFAULTPENDED_Pos)          /*!< SCB SHCSR: MEMFAULTPENDED Mask */
+#define SCB_SHCSR_MEMFAULTPENDED_Pos       13                                             /*!< SCB SHCSR: MEMFAULTPENDED 位置 */
+#define SCB_SHCSR_MEMFAULTPENDED_Msk       (1ul << SCB_SHCSR_MEMFAULTPENDED_Pos)          /*!< SCB SHCSR: MEMFAULTPENDED 掩码 */
 
-#define SCB_SHCSR_USGFAULTPENDED_Pos       12                                             /*!< SCB SHCSR: USGFAULTPENDED Position */
-#define SCB_SHCSR_USGFAULTPENDED_Msk       (1ul << SCB_SHCSR_USGFAULTPENDED_Pos)          /*!< SCB SHCSR: USGFAULTPENDED Mask */
+#define SCB_SHCSR_USGFAULTPENDED_Pos       12                                             /*!< SCB SHCSR: USGFAULTPENDED 位置 */
+#define SCB_SHCSR_USGFAULTPENDED_Msk       (1ul << SCB_SHCSR_USGFAULTPENDED_Pos)          /*!< SCB SHCSR: USGFAULTPENDED 掩码 */
 
-#define SCB_SHCSR_SYSTICKACT_Pos           11                                             /*!< SCB SHCSR: SYSTICKACT Position */
-#define SCB_SHCSR_SYSTICKACT_Msk           (1ul << SCB_SHCSR_SYSTICKACT_Pos)              /*!< SCB SHCSR: SYSTICKACT Mask */
+#define SCB_SHCSR_SYSTICKACT_Pos           11                                             /*!< SCB SHCSR: SYSTICKACT 位置 */
+#define SCB_SHCSR_SYSTICKACT_Msk           (1ul << SCB_SHCSR_SYSTICKACT_Pos)              /*!< SCB SHCSR: SYSTICKACT 掩码 */
 
-#define SCB_SHCSR_PENDSVACT_Pos            10                                             /*!< SCB SHCSR: PENDSVACT Position */
-#define SCB_SHCSR_PENDSVACT_Msk            (1ul << SCB_SHCSR_PENDSVACT_Pos)               /*!< SCB SHCSR: PENDSVACT Mask */
+#define SCB_SHCSR_PENDSVACT_Pos            10                                             /*!< SCB SHCSR: PENDSVACT 位置 */
+#define SCB_SHCSR_PENDSVACT_Msk            (1ul << SCB_SHCSR_PENDSVACT_Pos)               /*!< SCB SHCSR: PENDSVACT 掩码 */
 
-#define SCB_SHCSR_MONITORACT_Pos            8                                             /*!< SCB SHCSR: MONITORACT Position */
-#define SCB_SHCSR_MONITORACT_Msk           (1ul << SCB_SHCSR_MONITORACT_Pos)              /*!< SCB SHCSR: MONITORACT Mask */
+#define SCB_SHCSR_MONITORACT_Pos            8                                             /*!< SCB SHCSR: MONITORACT 位置 */
+#define SCB_SHCSR_MONITORACT_Msk           (1ul << SCB_SHCSR_MONITORACT_Pos)              /*!< SCB SHCSR: MONITORACT 掩码 */
 
-#define SCB_SHCSR_SVCALLACT_Pos             7                                             /*!< SCB SHCSR: SVCALLACT Position */
-#define SCB_SHCSR_SVCALLACT_Msk            (1ul << SCB_SHCSR_SVCALLACT_Pos)               /*!< SCB SHCSR: SVCALLACT Mask */
+#define SCB_SHCSR_SVCALLACT_Pos             7                                             /*!< SCB SHCSR: SVCALLACT 位置 */
+#define SCB_SHCSR_SVCALLACT_Msk            (1ul << SCB_SHCSR_SVCALLACT_Pos)               /*!< SCB SHCSR: SVCALLACT 掩码 */
                                      
-#define SCB_SHCSR_USGFAULTACT_Pos           3                                             /*!< SCB SHCSR: USGFAULTACT Position */
-#define SCB_SHCSR_USGFAULTACT_Msk          (1ul << SCB_SHCSR_USGFAULTACT_Pos)             /*!< SCB SHCSR: USGFAULTACT Mask */
+#define SCB_SHCSR_USGFAULTACT_Pos           3                                             /*!< SCB SHCSR: USGFAULTACT 位置 */
+#define SCB_SHCSR_USGFAULTACT_Msk          (1ul << SCB_SHCSR_USGFAULTACT_Pos)             /*!< SCB SHCSR: USGFAULTACT 掩码 */
 
-#define SCB_SHCSR_BUSFAULTACT_Pos           1                                             /*!< SCB SHCSR: BUSFAULTACT Position */
-#define SCB_SHCSR_BUSFAULTACT_Msk          (1ul << SCB_SHCSR_BUSFAULTACT_Pos)             /*!< SCB SHCSR: BUSFAULTACT Mask */
+#define SCB_SHCSR_BUSFAULTACT_Pos           1                                             /*!< SCB SHCSR: BUSFAULTACT 位置 */
+#define SCB_SHCSR_BUSFAULTACT_Msk          (1ul << SCB_SHCSR_BUSFAULTACT_Pos)             /*!< SCB SHCSR: BUSFAULTACT 掩码 */
 
-#define SCB_SHCSR_MEMFAULTACT_Pos           0                                             /*!< SCB SHCSR: MEMFAULTACT Position */
-#define SCB_SHCSR_MEMFAULTACT_Msk          (1ul << SCB_SHCSR_MEMFAULTACT_Pos)             /*!< SCB SHCSR: MEMFAULTACT Mask */
+#define SCB_SHCSR_MEMFAULTACT_Pos           0                                             /*!< SCB SHCSR: MEMFAULTACT 位置 */
+#define SCB_SHCSR_MEMFAULTACT_Msk          (1ul << SCB_SHCSR_MEMFAULTACT_Pos)             /*!< SCB SHCSR: MEMFAULTACT 掩码 */
 
-/* SCB Configurable Fault Status Registers Definitions */
-#define SCB_CFSR_USGFAULTSR_Pos            16                                             /*!< SCB CFSR: Usage Fault Status Register Position */
-#define SCB_CFSR_USGFAULTSR_Msk            (0xFFFFul << SCB_CFSR_USGFAULTSR_Pos)          /*!< SCB CFSR: Usage Fault Status Register Mask */
+/* SCB 可配置错误状态寄存器定义 */
+#define SCB_CFSR_USGFAULTSR_Pos            16                                             /*!< SCB CFSR: 用法错误状态寄存器 位置 */
+#define SCB_CFSR_USGFAULTSR_Msk            (0xFFFFul << SCB_CFSR_USGFAULTSR_Pos)          /*!< SCB CFSR: 用法错误状态寄存器 掩码 */
 
-#define SCB_CFSR_BUSFAULTSR_Pos             8                                             /*!< SCB CFSR: Bus Fault Status Register Position */
-#define SCB_CFSR_BUSFAULTSR_Msk            (0xFFul << SCB_CFSR_BUSFAULTSR_Pos)            /*!< SCB CFSR: Bus Fault Status Register Mask */
+#define SCB_CFSR_BUSFAULTSR_Pos             8                                             /*!< SCB CFSR: 总线错误状态寄存器 位置 */
+#define SCB_CFSR_BUSFAULTSR_Msk            (0xFFul << SCB_CFSR_BUSFAULTSR_Pos)            /*!< SCB CFSR: 总线错误状态寄存器 掩码 */
 
-#define SCB_CFSR_MEMFAULTSR_Pos             0                                             /*!< SCB CFSR: Memory Manage Fault Status Register Position */
-#define SCB_CFSR_MEMFAULTSR_Msk            (0xFFul << SCB_CFSR_MEMFAULTSR_Pos)            /*!< SCB CFSR: Memory Manage Fault Status Register Mask */
+#define SCB_CFSR_MEMFAULTSR_Pos             0                                             /*!< SCB CFSR: 存储器管理错误状态寄存器 位置 */
+#define SCB_CFSR_MEMFAULTSR_Msk            (0xFFul << SCB_CFSR_MEMFAULTSR_Pos)            /*!< SCB CFSR: 存储器管理错误状态寄存器 掩码 */
 
-/* SCB Hard Fault Status Registers Definitions */
-#define SCB_HFSR_DEBUGEVT_Pos              31                                             /*!< SCB HFSR: DEBUGEVT Position */
-#define SCB_HFSR_DEBUGEVT_Msk              (1ul << SCB_HFSR_DEBUGEVT_Pos)                 /*!< SCB HFSR: DEBUGEVT Mask */
+/* SCB 硬错误状态寄存器定义 */
+#define SCB_HFSR_DEBUGEVT_Pos              31                                             /*!< SCB HFSR: DEBUGEVT 位置 */
+#define SCB_HFSR_DEBUGEVT_Msk              (1ul << SCB_HFSR_DEBUGEVT_Pos)                 /*!< SCB HFSR: DEBUGEVT 掩码 */
 
-#define SCB_HFSR_FORCED_Pos                30                                             /*!< SCB HFSR: FORCED Position */
-#define SCB_HFSR_FORCED_Msk                (1ul << SCB_HFSR_FORCED_Pos)                   /*!< SCB HFSR: FORCED Mask */
+#define SCB_HFSR_FORCED_Pos                30                                             /*!< SCB HFSR: FORCED 位置 */
+#define SCB_HFSR_FORCED_Msk                (1ul << SCB_HFSR_FORCED_Pos)                   /*!< SCB HFSR: FORCED 掩码 */
 
-#define SCB_HFSR_VECTTBL_Pos                1                                             /*!< SCB HFSR: VECTTBL Position */
-#define SCB_HFSR_VECTTBL_Msk               (1ul << SCB_HFSR_VECTTBL_Pos)                  /*!< SCB HFSR: VECTTBL Mask */
+#define SCB_HFSR_VECTTBL_Pos                1                                             /*!< SCB HFSR: VECTTBL 位置 */
+#define SCB_HFSR_VECTTBL_Msk               (1ul << SCB_HFSR_VECTTBL_Pos)                  /*!< SCB HFSR: VECTTBL 掩码 */
 
-/* SCB Debug Fault Status Register Definitions */
-#define SCB_DFSR_EXTERNAL_Pos               4                                             /*!< SCB DFSR: EXTERNAL Position */
-#define SCB_DFSR_EXTERNAL_Msk              (1ul << SCB_DFSR_EXTERNAL_Pos)                 /*!< SCB DFSR: EXTERNAL Mask */
+/* SCB 调试错误状态寄存器定义 */
+#define SCB_DFSR_EXTERNAL_Pos               4                                             /*!< SCB DFSR: EXTERNAL 位置 */
+#define SCB_DFSR_EXTERNAL_Msk              (1ul << SCB_DFSR_EXTERNAL_Pos)                 /*!< SCB DFSR: EXTERNAL 掩码 */
 
-#define SCB_DFSR_VCATCH_Pos                 3                                             /*!< SCB DFSR: VCATCH Position */
-#define SCB_DFSR_VCATCH_Msk                (1ul << SCB_DFSR_VCATCH_Pos)                   /*!< SCB DFSR: VCATCH Mask */
+#define SCB_DFSR_VCATCH_Pos                 3                                             /*!< SCB DFSR: VCATCH 位置 */
+#define SCB_DFSR_VCATCH_Msk                (1ul << SCB_DFSR_VCATCH_Pos)                   /*!< SCB DFSR: VCATCH 掩码 */
 
-#define SCB_DFSR_DWTTRAP_Pos                2                                             /*!< SCB DFSR: DWTTRAP Position */
-#define SCB_DFSR_DWTTRAP_Msk               (1ul << SCB_DFSR_DWTTRAP_Pos)                  /*!< SCB DFSR: DWTTRAP Mask */
+#define SCB_DFSR_DWTTRAP_Pos                2                                             /*!< SCB DFSR: DWTTRAP 位置 */
+#define SCB_DFSR_DWTTRAP_Msk               (1ul << SCB_DFSR_DWTTRAP_Pos)                  /*!< SCB DFSR: DWTTRAP 掩码 */
 
-#define SCB_DFSR_BKPT_Pos                   1                                             /*!< SCB DFSR: BKPT Position */
-#define SCB_DFSR_BKPT_Msk                  (1ul << SCB_DFSR_BKPT_Pos)                     /*!< SCB DFSR: BKPT Mask */
+#define SCB_DFSR_BKPT_Pos                   1                                             /*!< SCB DFSR: BKPT 位置 */
+#define SCB_DFSR_BKPT_Msk                  (1ul << SCB_DFSR_BKPT_Pos)                     /*!< SCB DFSR: BKPT 掩码 */
 
-#define SCB_DFSR_HALTED_Pos                 0                                             /*!< SCB DFSR: HALTED Position */
-#define SCB_DFSR_HALTED_Msk                (1ul << SCB_DFSR_HALTED_Pos)                   /*!< SCB DFSR: HALTED Mask */
-/*@}*/ /* end of group CMSIS_CM3_SCB */
+#define SCB_DFSR_HALTED_Pos                 0                                             /*!< SCB DFSR: HALTED 位置 */
+#define SCB_DFSR_HALTED_Msk                (1ul << SCB_DFSR_HALTED_Pos)                   /*!< SCB DFSR: HALTED 掩码 */
+/*@}*/ /* CMSIS_CM3_SCB 分组结束 */
 
 
 /** @addtogroup CMSIS_CM3_SysTick CMSIS CM3 SysTick
-  memory mapped structure for SysTick
+  SysTick 的存储器映射结构
   @{
  */
 typedef struct
 {
-  __IO uint32_t CTRL;                         /*!< Offset: 0x00  SysTick Control and Status Register */
-  __IO uint32_t LOAD;                         /*!< Offset: 0x04  SysTick Reload Value Register       */
-  __IO uint32_t VAL;                          /*!< Offset: 0x08  SysTick Current Value Register      */
-  __I  uint32_t CALIB;                        /*!< Offset: 0x0C  SysTick Calibration Register        */
+  __IO uint32_t CTRL;                         /*!< 偏移: 0x00  SysTick 控制与状态寄存器 */
+  __IO uint32_t LOAD;                         /*!< 偏移: 0x04  SysTick 重装载值寄存器       */
+  __IO uint32_t VAL;                          /*!< 偏移: 0x08  SysTick 当前值寄存器      */
+  __I  uint32_t CALIB;                        /*!< 偏移: 0x0C  SysTick 校准寄存器        */
 } SysTick_Type;
 
-/* SysTick Control / Status Register Definitions */
-#define SysTick_CTRL_COUNTFLAG_Pos         16                                             /*!< SysTick CTRL: COUNTFLAG Position */
-#define SysTick_CTRL_COUNTFLAG_Msk         (1ul << SysTick_CTRL_COUNTFLAG_Pos)            /*!< SysTick CTRL: COUNTFLAG Mask */
+/* SysTick 控制 / 状态寄存器定义 */
+#define SysTick_CTRL_COUNTFLAG_Pos         16                                             /*!< SysTick CTRL: COUNTFLAG 位置 */
+#define SysTick_CTRL_COUNTFLAG_Msk         (1ul << SysTick_CTRL_COUNTFLAG_Pos)            /*!< SysTick CTRL: COUNTFLAG 掩码 */
 
-#define SysTick_CTRL_CLKSOURCE_Pos          2                                             /*!< SysTick CTRL: CLKSOURCE Position */
-#define SysTick_CTRL_CLKSOURCE_Msk         (1ul << SysTick_CTRL_CLKSOURCE_Pos)            /*!< SysTick CTRL: CLKSOURCE Mask */
+#define SysTick_CTRL_CLKSOURCE_Pos          2                                             /*!< SysTick CTRL: CLKSOURCE 位置 */
+#define SysTick_CTRL_CLKSOURCE_Msk         (1ul << SysTick_CTRL_CLKSOURCE_Pos)            /*!< SysTick CTRL: CLKSOURCE 掩码 */
 
-#define SysTick_CTRL_TICKINT_Pos            1                                             /*!< SysTick CTRL: TICKINT Position */
-#define SysTick_CTRL_TICKINT_Msk           (1ul << SysTick_CTRL_TICKINT_Pos)              /*!< SysTick CTRL: TICKINT Mask */
+#define SysTick_CTRL_TICKINT_Pos            1                                             /*!< SysTick CTRL: TICKINT 位置 */
+#define SysTick_CTRL_TICKINT_Msk           (1ul << SysTick_CTRL_TICKINT_Pos)              /*!< SysTick CTRL: TICKINT 掩码 */
 
-#define SysTick_CTRL_ENABLE_Pos             0                                             /*!< SysTick CTRL: ENABLE Position */
-#define SysTick_CTRL_ENABLE_Msk            (1ul << SysTick_CTRL_ENABLE_Pos)               /*!< SysTick CTRL: ENABLE Mask */
+#define SysTick_CTRL_ENABLE_Pos             0                                             /*!< SysTick CTRL: ENABLE 位置 */
+#define SysTick_CTRL_ENABLE_Msk            (1ul << SysTick_CTRL_ENABLE_Pos)               /*!< SysTick CTRL: ENABLE 掩码 */
 
-/* SysTick Reload Register Definitions */
-#define SysTick_LOAD_RELOAD_Pos             0                                             /*!< SysTick LOAD: RELOAD Position */
-#define SysTick_LOAD_RELOAD_Msk            (0xFFFFFFul << SysTick_LOAD_RELOAD_Pos)        /*!< SysTick LOAD: RELOAD Mask */
+/* SysTick 重装载寄存器定义 */
+#define SysTick_LOAD_RELOAD_Pos             0                                             /*!< SysTick LOAD: RELOAD 位置 */
+#define SysTick_LOAD_RELOAD_Msk            (0xFFFFFFul << SysTick_LOAD_RELOAD_Pos)        /*!< SysTick LOAD: RELOAD 掩码 */
 
-/* SysTick Current Register Definitions */
-#define SysTick_VAL_CURRENT_Pos             0                                             /*!< SysTick VAL: CURRENT Position */
-#define SysTick_VAL_CURRENT_Msk            (0xFFFFFFul << SysTick_VAL_CURRENT_Pos)        /*!< SysTick VAL: CURRENT Mask */
+/* SysTick 当前值寄存器定义 */
+#define SysTick_VAL_CURRENT_Pos             0                                             /*!< SysTick VAL: CURRENT 位置 */
+#define SysTick_VAL_CURRENT_Msk            (0xFFFFFFul << SysTick_VAL_CURRENT_Pos)        /*!< SysTick VAL: CURRENT 掩码 */
 
-/* SysTick Calibration Register Definitions */
-#define SysTick_CALIB_NOREF_Pos            31                                             /*!< SysTick CALIB: NOREF Position */
-#define SysTick_CALIB_NOREF_Msk            (1ul << SysTick_CALIB_NOREF_Pos)               /*!< SysTick CALIB: NOREF Mask */
+/* SysTick 校准寄存器定义 */
+#define SysTick_CALIB_NOREF_Pos            31                                             /*!< SysTick CALIB: NOREF 位置 */
+#define SysTick_CALIB_NOREF_Msk            (1ul << SysTick_CALIB_NOREF_Pos)               /*!< SysTick CALIB: NOREF 掩码 */
 
-#define SysTick_CALIB_SKEW_Pos             30                                             /*!< SysTick CALIB: SKEW Position */
-#define SysTick_CALIB_SKEW_Msk             (1ul << SysTick_CALIB_SKEW_Pos)                /*!< SysTick CALIB: SKEW Mask */
+#define SysTick_CALIB_SKEW_Pos             30                                             /*!< SysTick CALIB: SKEW 位置 */
+#define SysTick_CALIB_SKEW_Msk             (1ul << SysTick_CALIB_SKEW_Pos)                /*!< SysTick CALIB: SKEW 掩码 */
 
-#define SysTick_CALIB_TENMS_Pos             0                                             /*!< SysTick CALIB: TENMS Position */
-#define SysTick_CALIB_TENMS_Msk            (0xFFFFFFul << SysTick_VAL_CURRENT_Pos)        /*!< SysTick CALIB: TENMS Mask */
-/*@}*/ /* end of group CMSIS_CM3_SysTick */
+#define SysTick_CALIB_TENMS_Pos             0                                             /*!< SysTick CALIB: TENMS 位置 */
+#define SysTick_CALIB_TENMS_Msk            (0xFFFFFFul << SysTick_VAL_CURRENT_Pos)        /*!< SysTick CALIB: TENMS 掩码 */
+/*@}*/ /* CMSIS_CM3_SysTick 分组结束 */
 
 
 /** @addtogroup CMSIS_CM3_ITM CMSIS CM3 ITM
-  memory mapped structure for Instrumentation Trace Macrocell (ITM)
+  仪表跟踪宏单元（ITM）的存储器映射结构
   @{
  */
 typedef struct
 {
   __O  union  
   {
-    __O  uint8_t    u8;                       /*!< Offset:       ITM Stimulus Port 8-bit                   */
-    __O  uint16_t   u16;                      /*!< Offset:       ITM Stimulus Port 16-bit                  */
-    __O  uint32_t   u32;                      /*!< Offset:       ITM Stimulus Port 32-bit                  */
-  }  PORT [32];                               /*!< Offset: 0x00  ITM Stimulus Port Registers               */
+    __O  uint8_t    u8;                       /*!< 偏移:       ITM 激励端口 8 位                   */
+    __O  uint16_t   u16;                      /*!< 偏移:       ITM 激励端口 16 位                  */
+    __O  uint32_t   u32;                      /*!< 偏移:       ITM 激励端口 32 位                  */
+  }  PORT [32];                               /*!< 偏移: 0x00  ITM 激励端口寄存器               */
        uint32_t RESERVED0[864];                                 
-  __IO uint32_t TER;                          /*!< Offset:       ITM Trace Enable Register                 */
+  __IO uint32_t TER;                          /*!< 偏移:       ITM 跟踪使能寄存器                 */
        uint32_t RESERVED1[15];                                  
-  __IO uint32_t TPR;                          /*!< Offset:       ITM Trace Privilege Register              */
+  __IO uint32_t TPR;                          /*!< 偏移:       ITM 跟踪特权寄存器              */
        uint32_t RESERVED2[15];                                  
-  __IO uint32_t TCR;                          /*!< Offset:       ITM Trace Control Register                */
+  __IO uint32_t TCR;                          /*!< 偏移:       ITM 跟踪控制寄存器                */
        uint32_t RESERVED3[29];                                  
-  __IO uint32_t IWR;                          /*!< Offset:       ITM Integration Write Register            */
-  __IO uint32_t IRR;                          /*!< Offset:       ITM Integration Read Register             */
-  __IO uint32_t IMCR;                         /*!< Offset:       ITM Integration Mode Control Register     */
+  __IO uint32_t IWR;                          /*!< 偏移:       ITM 集成写寄存器            */
+  __IO uint32_t IRR;                          /*!< 偏移:       ITM 集成读寄存器            */
+  __IO uint32_t IMCR;                         /*!< 偏移:       ITM 集成模式控制寄存器     */
        uint32_t RESERVED4[43];                                  
-  __IO uint32_t LAR;                          /*!< Offset:       ITM Lock Access Register                  */
-  __IO uint32_t LSR;                          /*!< Offset:       ITM Lock Status Register                  */
+  __IO uint32_t LAR;                          /*!< 偏移:       ITM 锁定访问寄存器                  */
+  __IO uint32_t LSR;                          /*!< 偏移:       ITM 锁定状态寄存器                  */
        uint32_t RESERVED5[6];                                   
-  __I  uint32_t PID4;                         /*!< Offset:       ITM Peripheral Identification Register #4 */
-  __I  uint32_t PID5;                         /*!< Offset:       ITM Peripheral Identification Register #5 */
-  __I  uint32_t PID6;                         /*!< Offset:       ITM Peripheral Identification Register #6 */
-  __I  uint32_t PID7;                         /*!< Offset:       ITM Peripheral Identification Register #7 */
-  __I  uint32_t PID0;                         /*!< Offset:       ITM Peripheral Identification Register #0 */
-  __I  uint32_t PID1;                         /*!< Offset:       ITM Peripheral Identification Register #1 */
-  __I  uint32_t PID2;                         /*!< Offset:       ITM Peripheral Identification Register #2 */
-  __I  uint32_t PID3;                         /*!< Offset:       ITM Peripheral Identification Register #3 */
-  __I  uint32_t CID0;                         /*!< Offset:       ITM Component  Identification Register #0 */
-  __I  uint32_t CID1;                         /*!< Offset:       ITM Component  Identification Register #1 */
-  __I  uint32_t CID2;                         /*!< Offset:       ITM Component  Identification Register #2 */
-  __I  uint32_t CID3;                         /*!< Offset:       ITM Component  Identification Register #3 */
+  __I  uint32_t PID4;                         /*!< 偏移:       ITM 外设标识寄存器 #4 */
+  __I  uint32_t PID5;                         /*!< 偏移:       ITM 外设标识寄存器 #5 */
+  __I  uint32_t PID6;                         /*!< 偏移:       ITM 外设标识寄存器 #6 */
+  __I  uint32_t PID7;                         /*!< 偏移:       ITM 外设标识寄存器 #7 */
+  __I  uint32_t PID0;                         /*!< 偏移:       ITM 外设标识寄存器 #0 */
+  __I  uint32_t PID1;                         /*!< 偏移:       ITM 外设标识寄存器 #1 */
+  __I  uint32_t PID2;                         /*!< 偏移:       ITM 外设标识寄存器 #2 */
+  __I  uint32_t PID3;                         /*!< 偏移:       ITM 外设标识寄存器 #3 */
+  __I  uint32_t CID0;                         /*!< 偏移:       ITM 组件标识寄存器 #0 */
+  __I  uint32_t CID1;                         /*!< 偏移:       ITM 组件标识寄存器 #1 */
+  __I  uint32_t CID2;                         /*!< 偏移:       ITM 组件标识寄存器 #2 */
+  __I  uint32_t CID3;                         /*!< 偏移:       ITM 组件标识寄存器 #3 */
 } ITM_Type;                                                
 
-/* ITM Trace Privilege Register Definitions */
-#define ITM_TPR_PRIVMASK_Pos                0                                             /*!< ITM TPR: PRIVMASK Position */
-#define ITM_TPR_PRIVMASK_Msk               (0xFul << ITM_TPR_PRIVMASK_Pos)                /*!< ITM TPR: PRIVMASK Mask */
+/* ITM 跟踪特权寄存器定义 */
+#define ITM_TPR_PRIVMASK_Pos                0                                             /*!< ITM TPR: PRIVMASK 位置 */
+#define ITM_TPR_PRIVMASK_Msk               (0xFul << ITM_TPR_PRIVMASK_Pos)                /*!< ITM TPR: PRIVMASK 掩码 */
 
-/* ITM Trace Control Register Definitions */
-#define ITM_TCR_BUSY_Pos                   23                                             /*!< ITM TCR: BUSY Position */
-#define ITM_TCR_BUSY_Msk                   (1ul << ITM_TCR_BUSY_Pos)                      /*!< ITM TCR: BUSY Mask */
+/* ITM 跟踪控制寄存器定义 */
+#define ITM_TCR_BUSY_Pos                   23                                             /*!< ITM TCR: BUSY 位置 */
+#define ITM_TCR_BUSY_Msk                   (1ul << ITM_TCR_BUSY_Pos)                      /*!< ITM TCR: BUSY 掩码 */
 
-#define ITM_TCR_ATBID_Pos                  16                                             /*!< ITM TCR: ATBID Position */
-#define ITM_TCR_ATBID_Msk                  (0x7Ful << ITM_TCR_ATBID_Pos)                  /*!< ITM TCR: ATBID Mask */
+#define ITM_TCR_ATBID_Pos                  16                                             /*!< ITM TCR: ATBID 位置 */
+#define ITM_TCR_ATBID_Msk                  (0x7Ful << ITM_TCR_ATBID_Pos)                  /*!< ITM TCR: ATBID 掩码 */
 
-#define ITM_TCR_TSPrescale_Pos              8                                             /*!< ITM TCR: TSPrescale Position */
-#define ITM_TCR_TSPrescale_Msk             (3ul << ITM_TCR_TSPrescale_Pos)                /*!< ITM TCR: TSPrescale Mask */
+#define ITM_TCR_TSPrescale_Pos              8                                             /*!< ITM TCR: TSPrescale 位置 */
+#define ITM_TCR_TSPrescale_Msk             (3ul << ITM_TCR_TSPrescale_Pos)                /*!< ITM TCR: TSPrescale 掩码 */
 
-#define ITM_TCR_SWOENA_Pos                  4                                             /*!< ITM TCR: SWOENA Position */
-#define ITM_TCR_SWOENA_Msk                 (1ul << ITM_TCR_SWOENA_Pos)                    /*!< ITM TCR: SWOENA Mask */
+#define ITM_TCR_SWOENA_Pos                  4                                             /*!< ITM TCR: SWOENA 位置 */
+#define ITM_TCR_SWOENA_Msk                 (1ul << ITM_TCR_SWOENA_Pos)                    /*!< ITM TCR: SWOENA 掩码 */
 
-#define ITM_TCR_DWTENA_Pos                  3                                             /*!< ITM TCR: DWTENA Position */
-#define ITM_TCR_DWTENA_Msk                 (1ul << ITM_TCR_DWTENA_Pos)                    /*!< ITM TCR: DWTENA Mask */
+#define ITM_TCR_DWTENA_Pos                  3                                             /*!< ITM TCR: DWTENA 位置 */
+#define ITM_TCR_DWTENA_Msk                 (1ul << ITM_TCR_DWTENA_Pos)                    /*!< ITM TCR: DWTENA 掩码 */
 
-#define ITM_TCR_SYNCENA_Pos                 2                                             /*!< ITM TCR: SYNCENA Position */
-#define ITM_TCR_SYNCENA_Msk                (1ul << ITM_TCR_SYNCENA_Pos)                   /*!< ITM TCR: SYNCENA Mask */
+#define ITM_TCR_SYNCENA_Pos                 2                                             /*!< ITM TCR: SYNCENA 位置 */
+#define ITM_TCR_SYNCENA_Msk                (1ul << ITM_TCR_SYNCENA_Pos)                   /*!< ITM TCR: SYNCENA 掩码 */
 
-#define ITM_TCR_TSENA_Pos                   1                                             /*!< ITM TCR: TSENA Position */
-#define ITM_TCR_TSENA_Msk                  (1ul << ITM_TCR_TSENA_Pos)                     /*!< ITM TCR: TSENA Mask */
+#define ITM_TCR_TSENA_Pos                   1                                             /*!< ITM TCR: TSENA 位置 */
+#define ITM_TCR_TSENA_Msk                  (1ul << ITM_TCR_TSENA_Pos)                     /*!< ITM TCR: TSENA 掩码 */
 
-#define ITM_TCR_ITMENA_Pos                  0                                             /*!< ITM TCR: ITM Enable bit Position */
-#define ITM_TCR_ITMENA_Msk                 (1ul << ITM_TCR_ITMENA_Pos)                    /*!< ITM TCR: ITM Enable bit Mask */
+#define ITM_TCR_ITMENA_Pos                  0                                             /*!< ITM TCR: ITM 使能位 位置 */
+#define ITM_TCR_ITMENA_Msk                 (1ul << ITM_TCR_ITMENA_Pos)                    /*!< ITM TCR: ITM 使能位 掩码 */
 
-/* ITM Integration Write Register Definitions */
-#define ITM_IWR_ATVALIDM_Pos                0                                             /*!< ITM IWR: ATVALIDM Position */
-#define ITM_IWR_ATVALIDM_Msk               (1ul << ITM_IWR_ATVALIDM_Pos)                  /*!< ITM IWR: ATVALIDM Mask */
+/* ITM 集成写寄存器定义 */
+#define ITM_IWR_ATVALIDM_Pos                0                                             /*!< ITM IWR: ATVALIDM 位置 */
+#define ITM_IWR_ATVALIDM_Msk               (1ul << ITM_IWR_ATVALIDM_Pos)                  /*!< ITM IWR: ATVALIDM 掩码 */
 
-/* ITM Integration Read Register Definitions */
-#define ITM_IRR_ATREADYM_Pos                0                                             /*!< ITM IRR: ATREADYM Position */
-#define ITM_IRR_ATREADYM_Msk               (1ul << ITM_IRR_ATREADYM_Pos)                  /*!< ITM IRR: ATREADYM Mask */
+/* ITM 集成读寄存器定义 */
+#define ITM_IRR_ATREADYM_Pos                0                                             /*!< ITM IRR: ATREADYM 位置 */
+#define ITM_IRR_ATREADYM_Msk               (1ul << ITM_IRR_ATREADYM_Pos)                  /*!< ITM IRR: ATREADYM 掩码 */
 
-/* ITM Integration Mode Control Register Definitions */
-#define ITM_IMCR_INTEGRATION_Pos            0                                             /*!< ITM IMCR: INTEGRATION Position */
-#define ITM_IMCR_INTEGRATION_Msk           (1ul << ITM_IMCR_INTEGRATION_Pos)              /*!< ITM IMCR: INTEGRATION Mask */
+/* ITM 集成模式控制寄存器定义 */
+#define ITM_IMCR_INTEGRATION_Pos            0                                             /*!< ITM IMCR: INTEGRATION 位置 */
+#define ITM_IMCR_INTEGRATION_Msk           (1ul << ITM_IMCR_INTEGRATION_Pos)              /*!< ITM IMCR: INTEGRATION 掩码 */
 
-/* ITM Lock Status Register Definitions */
-#define ITM_LSR_ByteAcc_Pos                 2                                             /*!< ITM LSR: ByteAcc Position */
-#define ITM_LSR_ByteAcc_Msk                (1ul << ITM_LSR_ByteAcc_Pos)                   /*!< ITM LSR: ByteAcc Mask */
+/* ITM 锁定状态寄存器定义 */
+#define ITM_LSR_ByteAcc_Pos                 2                                             /*!< ITM LSR: ByteAcc 位置 */
+#define ITM_LSR_ByteAcc_Msk                (1ul << ITM_LSR_ByteAcc_Pos)                   /*!< ITM LSR: ByteAcc 掩码 */
 
-#define ITM_LSR_Access_Pos                  1                                             /*!< ITM LSR: Access Position */
-#define ITM_LSR_Access_Msk                 (1ul << ITM_LSR_Access_Pos)                    /*!< ITM LSR: Access Mask */
+#define ITM_LSR_Access_Pos                  1                                             /*!< ITM LSR: Access 位置 */
+#define ITM_LSR_Access_Msk                 (1ul << ITM_LSR_Access_Pos)                    /*!< ITM LSR: Access 掩码 */
 
-#define ITM_LSR_Present_Pos                 0                                             /*!< ITM LSR: Present Position */
-#define ITM_LSR_Present_Msk                (1ul << ITM_LSR_Present_Pos)                   /*!< ITM LSR: Present Mask */
-/*@}*/ /* end of group CMSIS_CM3_ITM */
+#define ITM_LSR_Present_Pos                 0                                             /*!< ITM LSR: Present 位置 */
+#define ITM_LSR_Present_Msk                (1ul << ITM_LSR_Present_Pos)                   /*!< ITM LSR: Present 掩码 */
+/*@}*/ /* CMSIS_CM3_ITM 分组结束 */
 
 
-/** @addtogroup CMSIS_CM3_InterruptType CMSIS CM3 Interrupt Type
-  memory mapped structure for Interrupt Type
+/** @addtogroup CMSIS_CM3_InterruptType CMSIS CM3 中断类型
+  中断类型的存储器映射结构
   @{
  */
 typedef struct
 {
        uint32_t RESERVED0;
-  __I  uint32_t ICTR;                         /*!< Offset: 0x04  Interrupt Control Type Register */
+  __I  uint32_t ICTR;                         /*!< 偏移: 0x04  中断控制类型寄存器 */
 #if ((defined __CM3_REV) && (__CM3_REV >= 0x200))
-  __IO uint32_t ACTLR;                        /*!< Offset: 0x08  Auxiliary Control Register      */
+  __IO uint32_t ACTLR;                        /*!< 偏移: 0x08  辅助控制寄存器      */
 #else
        uint32_t RESERVED1;
 #endif
 } InterruptType_Type;
 
-/* Interrupt Controller Type Register Definitions */
-#define InterruptType_ICTR_INTLINESNUM_Pos  0                                             /*!< InterruptType ICTR: INTLINESNUM Position */
-#define InterruptType_ICTR_INTLINESNUM_Msk (0x1Ful << InterruptType_ICTR_INTLINESNUM_Pos) /*!< InterruptType ICTR: INTLINESNUM Mask */
+/* 中断控制器类型寄存器定义 */
+#define InterruptType_ICTR_INTLINESNUM_Pos  0                                             /*!< InterruptType ICTR: INTLINESNUM 位置 */
+#define InterruptType_ICTR_INTLINESNUM_Msk (0x1Ful << InterruptType_ICTR_INTLINESNUM_Pos) /*!< InterruptType ICTR: INTLINESNUM 掩码 */
 
-/* Auxiliary Control Register Definitions */
-#define InterruptType_ACTLR_DISFOLD_Pos     2                                             /*!< InterruptType ACTLR: DISFOLD Position */
-#define InterruptType_ACTLR_DISFOLD_Msk    (1ul << InterruptType_ACTLR_DISFOLD_Pos)       /*!< InterruptType ACTLR: DISFOLD Mask */
+/* 辅助控制寄存器定义 */
+#define InterruptType_ACTLR_DISFOLD_Pos     2                                             /*!< InterruptType ACTLR: DISFOLD 位置 */
+#define InterruptType_ACTLR_DISFOLD_Msk    (1ul << InterruptType_ACTLR_DISFOLD_Pos)       /*!< InterruptType ACTLR: DISFOLD 掩码 */
 
-#define InterruptType_ACTLR_DISDEFWBUF_Pos  1                                             /*!< InterruptType ACTLR: DISDEFWBUF Position */
-#define InterruptType_ACTLR_DISDEFWBUF_Msk (1ul << InterruptType_ACTLR_DISDEFWBUF_Pos)    /*!< InterruptType ACTLR: DISDEFWBUF Mask */
+#define InterruptType_ACTLR_DISDEFWBUF_Pos  1                                             /*!< InterruptType ACTLR: DISDEFWBUF 位置 */
+#define InterruptType_ACTLR_DISDEFWBUF_Msk (1ul << InterruptType_ACTLR_DISDEFWBUF_Pos)    /*!< InterruptType ACTLR: DISDEFWBUF 掩码 */
 
-#define InterruptType_ACTLR_DISMCYCINT_Pos  0                                             /*!< InterruptType ACTLR: DISMCYCINT Position */
-#define InterruptType_ACTLR_DISMCYCINT_Msk (1ul << InterruptType_ACTLR_DISMCYCINT_Pos)    /*!< InterruptType ACTLR: DISMCYCINT Mask */
-/*@}*/ /* end of group CMSIS_CM3_InterruptType */
+#define InterruptType_ACTLR_DISMCYCINT_Pos  0                                             /*!< InterruptType ACTLR: DISMCYCINT 位置 */
+#define InterruptType_ACTLR_DISMCYCINT_Msk (1ul << InterruptType_ACTLR_DISMCYCINT_Pos)    /*!< InterruptType ACTLR: DISMCYCINT 掩码 */
+/*@}*/ /* CMSIS_CM3_InterruptType 分组结束 */
 
 
 #if defined (__MPU_PRESENT) && (__MPU_PRESENT == 1)
 /** @addtogroup CMSIS_CM3_MPU CMSIS CM3 MPU
-  memory mapped structure for Memory Protection Unit (MPU)
+  存储器保护单元（MPU）的存储器映射结构
   @{
  */
 typedef struct
 {
-  __I  uint32_t TYPE;                         /*!< Offset: 0x00  MPU Type Register                              */
-  __IO uint32_t CTRL;                         /*!< Offset: 0x04  MPU Control Register                           */
-  __IO uint32_t RNR;                          /*!< Offset: 0x08  MPU Region RNRber Register                     */
-  __IO uint32_t RBAR;                         /*!< Offset: 0x0C  MPU Region Base Address Register               */
-  __IO uint32_t RASR;                         /*!< Offset: 0x10  MPU Region Attribute and Size Register         */
-  __IO uint32_t RBAR_A1;                      /*!< Offset: 0x14  MPU Alias 1 Region Base Address Register       */
-  __IO uint32_t RASR_A1;                      /*!< Offset: 0x18  MPU Alias 1 Region Attribute and Size Register */
-  __IO uint32_t RBAR_A2;                      /*!< Offset: 0x1C  MPU Alias 2 Region Base Address Register       */
-  __IO uint32_t RASR_A2;                      /*!< Offset: 0x20  MPU Alias 2 Region Attribute and Size Register */
-  __IO uint32_t RBAR_A3;                      /*!< Offset: 0x24  MPU Alias 3 Region Base Address Register       */
-  __IO uint32_t RASR_A3;                      /*!< Offset: 0x28  MPU Alias 3 Region Attribute and Size Register */
+  __I  uint32_t TYPE;                         /*!< 偏移: 0x00  MPU 类型寄存器                              */
+  __IO uint32_t CTRL;                         /*!< 偏移: 0x04  MPU 控制寄存器                           */
+  __IO uint32_t RNR;                          /*!< 偏移: 0x08  MPU 区域编号寄存器                     */
+  __IO uint32_t RBAR;                         /*!< 偏移: 0x0C  MPU 区域基地址寄存器               */
+  __IO uint32_t RASR;                         /*!< 偏移: 0x10  MPU 区域属性与大小寄存器         */
+  __IO uint32_t RBAR_A1;                      /*!< 偏移: 0x14  MPU 别名 1 区域基地址寄存器       */
+  __IO uint32_t RASR_A1;                      /*!< 偏移: 0x18  MPU 别名 1 区域属性与大小寄存器 */
+  __IO uint32_t RBAR_A2;                      /*!< 偏移: 0x1C  MPU 别名 2 区域基地址寄存器       */
+  __IO uint32_t RASR_A2;                      /*!< 偏移: 0x20  MPU 别名 2 区域属性与大小寄存器 */
+  __IO uint32_t RBAR_A3;                      /*!< 偏移: 0x24  MPU 别名 3 区域基地址寄存器       */
+  __IO uint32_t RASR_A3;                      /*!< 偏移: 0x28  MPU 别名 3 区域属性与大小寄存器 */
 } MPU_Type;                                                
 
-/* MPU Type Register */
-#define MPU_TYPE_IREGION_Pos               16                                             /*!< MPU TYPE: IREGION Position */
-#define MPU_TYPE_IREGION_Msk               (0xFFul << MPU_TYPE_IREGION_Pos)               /*!< MPU TYPE: IREGION Mask */
+/* MPU 类型寄存器 */
+#define MPU_TYPE_IREGION_Pos               16                                             /*!< MPU TYPE: IREGION 位置 */
+#define MPU_TYPE_IREGION_Msk               (0xFFul << MPU_TYPE_IREGION_Pos)               /*!< MPU TYPE: IREGION 掩码 */
 
-#define MPU_TYPE_DREGION_Pos                8                                             /*!< MPU TYPE: DREGION Position */
-#define MPU_TYPE_DREGION_Msk               (0xFFul << MPU_TYPE_DREGION_Pos)               /*!< MPU TYPE: DREGION Mask */
+#define MPU_TYPE_DREGION_Pos                8                                             /*!< MPU TYPE: DREGION 位置 */
+#define MPU_TYPE_DREGION_Msk               (0xFFul << MPU_TYPE_DREGION_Pos)               /*!< MPU TYPE: DREGION 掩码 */
 
-#define MPU_TYPE_SEPARATE_Pos               0                                             /*!< MPU TYPE: SEPARATE Position */
-#define MPU_TYPE_SEPARATE_Msk              (1ul << MPU_TYPE_SEPARATE_Pos)                 /*!< MPU TYPE: SEPARATE Mask */
+#define MPU_TYPE_SEPARATE_Pos               0                                             /*!< MPU TYPE: SEPARATE 位置 */
+#define MPU_TYPE_SEPARATE_Msk              (1ul << MPU_TYPE_SEPARATE_Pos)                 /*!< MPU TYPE: SEPARATE 掩码 */
 
-/* MPU Control Register */
-#define MPU_CTRL_PRIVDEFENA_Pos             2                                             /*!< MPU CTRL: PRIVDEFENA Position */
-#define MPU_CTRL_PRIVDEFENA_Msk            (1ul << MPU_CTRL_PRIVDEFENA_Pos)               /*!< MPU CTRL: PRIVDEFENA Mask */
+/* MPU 控制寄存器 */
+#define MPU_CTRL_PRIVDEFENA_Pos             2                                             /*!< MPU CTRL: PRIVDEFENA 位置 */
+#define MPU_CTRL_PRIVDEFENA_Msk            (1ul << MPU_CTRL_PRIVDEFENA_Pos)               /*!< MPU CTRL: PRIVDEFENA 掩码 */
 
-#define MPU_CTRL_HFNMIENA_Pos               1                                             /*!< MPU CTRL: HFNMIENA Position */
-#define MPU_CTRL_HFNMIENA_Msk              (1ul << MPU_CTRL_HFNMIENA_Pos)                 /*!< MPU CTRL: HFNMIENA Mask */
+#define MPU_CTRL_HFNMIENA_Pos               1                                             /*!< MPU CTRL: HFNMIENA 位置 */
+#define MPU_CTRL_HFNMIENA_Msk              (1ul << MPU_CTRL_HFNMIENA_Pos)                 /*!< MPU CTRL: HFNMIENA 掩码 */
 
-#define MPU_CTRL_ENABLE_Pos                 0                                             /*!< MPU CTRL: ENABLE Position */
-#define MPU_CTRL_ENABLE_Msk                (1ul << MPU_CTRL_ENABLE_Pos)                   /*!< MPU CTRL: ENABLE Mask */
+#define MPU_CTRL_ENABLE_Pos                 0                                             /*!< MPU CTRL: ENABLE 位置 */
+#define MPU_CTRL_ENABLE_Msk                (1ul << MPU_CTRL_ENABLE_Pos)                   /*!< MPU CTRL: ENABLE 掩码 */
 
-/* MPU Region Number Register */
-#define MPU_RNR_REGION_Pos                  0                                             /*!< MPU RNR: REGION Position */
-#define MPU_RNR_REGION_Msk                 (0xFFul << MPU_RNR_REGION_Pos)                 /*!< MPU RNR: REGION Mask */
+/* MPU 区域编号寄存器 */
+#define MPU_RNR_REGION_Pos                  0                                             /*!< MPU RNR: REGION 位置 */
+#define MPU_RNR_REGION_Msk                 (0xFFul << MPU_RNR_REGION_Pos)                 /*!< MPU RNR: REGION 掩码 */
 
-/* MPU Region Base Address Register */
-#define MPU_RBAR_ADDR_Pos                   5                                             /*!< MPU RBAR: ADDR Position */
-#define MPU_RBAR_ADDR_Msk                  (0x7FFFFFFul << MPU_RBAR_ADDR_Pos)             /*!< MPU RBAR: ADDR Mask */
+/* MPU 区域基地址寄存器 */
+#define MPU_RBAR_ADDR_Pos                   5                                             /*!< MPU RBAR: ADDR 位置 */
+#define MPU_RBAR_ADDR_Msk                  (0x7FFFFFFul << MPU_RBAR_ADDR_Pos)             /*!< MPU RBAR: ADDR 掩码 */
 
-#define MPU_RBAR_VALID_Pos                  4                                             /*!< MPU RBAR: VALID Position */
-#define MPU_RBAR_VALID_Msk                 (1ul << MPU_RBAR_VALID_Pos)                    /*!< MPU RBAR: VALID Mask */
+#define MPU_RBAR_VALID_Pos                  4                                             /*!< MPU RBAR: VALID 位置 */
+#define MPU_RBAR_VALID_Msk                 (1ul << MPU_RBAR_VALID_Pos)                    /*!< MPU RBAR: VALID 掩码 */
 
-#define MPU_RBAR_REGION_Pos                 0                                             /*!< MPU RBAR: REGION Position */
-#define MPU_RBAR_REGION_Msk                (0xFul << MPU_RBAR_REGION_Pos)                 /*!< MPU RBAR: REGION Mask */
+#define MPU_RBAR_REGION_Pos                 0                                             /*!< MPU RBAR: REGION 位置 */
+#define MPU_RBAR_REGION_Msk                (0xFul << MPU_RBAR_REGION_Pos)                 /*!< MPU RBAR: REGION 掩码 */
 
-/* MPU Region Attribute and Size Register */
-#define MPU_RASR_XN_Pos                    28                                             /*!< MPU RASR: XN Position */
-#define MPU_RASR_XN_Msk                    (1ul << MPU_RASR_XN_Pos)                       /*!< MPU RASR: XN Mask */
+/* MPU 区域属性与大小寄存器 */
+#define MPU_RASR_XN_Pos                    28                                             /*!< MPU RASR: XN 位置 */
+#define MPU_RASR_XN_Msk                    (1ul << MPU_RASR_XN_Pos)                       /*!< MPU RASR: XN 掩码 */
 
-#define MPU_RASR_AP_Pos                    24                                             /*!< MPU RASR: AP Position */
-#define MPU_RASR_AP_Msk                    (7ul << MPU_RASR_AP_Pos)                       /*!< MPU RASR: AP Mask */
+#define MPU_RASR_AP_Pos                    24                                             /*!< MPU RASR: AP 位置 */
+#define MPU_RASR_AP_Msk                    (7ul << MPU_RASR_AP_Pos)                       /*!< MPU RASR: AP 掩码 */
 
-#define MPU_RASR_TEX_Pos                   19                                             /*!< MPU RASR: TEX Position */
-#define MPU_RASR_TEX_Msk                   (7ul << MPU_RASR_TEX_Pos)                      /*!< MPU RASR: TEX Mask */
+#define MPU_RASR_TEX_Pos                   19                                             /*!< MPU RASR: TEX 位置 */
+#define MPU_RASR_TEX_Msk                   (7ul << MPU_RASR_TEX_Pos)                      /*!< MPU RASR: TEX 掩码 */
 
-#define MPU_RASR_S_Pos                     18                                             /*!< MPU RASR: Shareable bit Position */
-#define MPU_RASR_S_Msk                     (1ul << MPU_RASR_S_Pos)                        /*!< MPU RASR: Shareable bit Mask */
+#define MPU_RASR_S_Pos                     18                                             /*!< MPU RASR: 可共享位 位置 */
+#define MPU_RASR_S_Msk                     (1ul << MPU_RASR_S_Pos)                        /*!< MPU RASR: 可共享位 掩码 */
 
-#define MPU_RASR_C_Pos                     17                                             /*!< MPU RASR: Cacheable bit Position */
-#define MPU_RASR_C_Msk                     (1ul << MPU_RASR_C_Pos)                        /*!< MPU RASR: Cacheable bit Mask */
+#define MPU_RASR_C_Pos                     17                                             /*!< MPU RASR: 可缓存位 位置 */
+#define MPU_RASR_C_Msk                     (1ul << MPU_RASR_C_Pos)                        /*!< MPU RASR: 可缓存位 掩码 */
 
-#define MPU_RASR_B_Pos                     16                                             /*!< MPU RASR: Bufferable bit Position */
-#define MPU_RASR_B_Msk                     (1ul << MPU_RASR_B_Pos)                        /*!< MPU RASR: Bufferable bit Mask */
+#define MPU_RASR_B_Pos                     16                                             /*!< MPU RASR: 可缓冲位 位置 */
+#define MPU_RASR_B_Msk                     (1ul << MPU_RASR_B_Pos)                        /*!< MPU RASR: 可缓冲位 掩码 */
 
-#define MPU_RASR_SRD_Pos                    8                                             /*!< MPU RASR: Sub-Region Disable Position */
-#define MPU_RASR_SRD_Msk                   (0xFFul << MPU_RASR_SRD_Pos)                   /*!< MPU RASR: Sub-Region Disable Mask */
+#define MPU_RASR_SRD_Pos                    8                                             /*!< MPU RASR: 子区域禁用 位置 */
+#define MPU_RASR_SRD_Msk                   (0xFFul << MPU_RASR_SRD_Pos)                   /*!< MPU RASR: 子区域禁用 掩码 */
 
-#define MPU_RASR_SIZE_Pos                   1                                             /*!< MPU RASR: Region Size Field Position */
-#define MPU_RASR_SIZE_Msk                  (0x1Ful << MPU_RASR_SIZE_Pos)                  /*!< MPU RASR: Region Size Field Mask */
+#define MPU_RASR_SIZE_Pos                   1                                             /*!< MPU RASR: 区域大小字段 位置 */
+#define MPU_RASR_SIZE_Msk                  (0x1Ful << MPU_RASR_SIZE_Pos)                  /*!< MPU RASR: 区域大小字段 掩码 */
 
-#define MPU_RASR_ENA_Pos                     0                                            /*!< MPU RASR: Region enable bit Position */
-#define MPU_RASR_ENA_Msk                    (0x1Ful << MPU_RASR_ENA_Pos)                  /*!< MPU RASR: Region enable bit Disable Mask */
+#define MPU_RASR_ENA_Pos                     0                                            /*!< MPU RASR: 区域使能位 位置 */
+#define MPU_RASR_ENA_Msk                    (0x1Ful << MPU_RASR_ENA_Pos)                  /*!< MPU RASR: 区域使能位禁用 掩码 */
 
-/*@}*/ /* end of group CMSIS_CM3_MPU */
+/*@}*/ /* CMSIS_CM3_MPU 分组结束 */
 #endif
 
 
-/** @addtogroup CMSIS_CM3_CoreDebug CMSIS CM3 Core Debug
-  memory mapped structure for Core Debug Register
+/** @addtogroup CMSIS_CM3_CoreDebug CMSIS CM3 内核调试
+  内核调试寄存器的存储器映射结构
   @{
  */
 typedef struct
 {
-  __IO uint32_t DHCSR;                        /*!< Offset: 0x00  Debug Halting Control and Status Register    */
-  __O  uint32_t DCRSR;                        /*!< Offset: 0x04  Debug Core Register Selector Register        */
-  __IO uint32_t DCRDR;                        /*!< Offset: 0x08  Debug Core Register Data Register            */
-  __IO uint32_t DEMCR;                        /*!< Offset: 0x0C  Debug Exception and Monitor Control Register */
+  __IO uint32_t DHCSR;                        /*!< 偏移: 0x00  调试暂停控制与状态寄存器    */
+  __O  uint32_t DCRSR;                        /*!< 偏移: 0x04  调试内核寄存器选择寄存器        */
+  __IO uint32_t DCRDR;                        /*!< 偏移: 0x08  调试内核寄存器数据寄存器            */
+  __IO uint32_t DEMCR;                        /*!< 偏移: 0x0C  调试异常与监控控制寄存器 */
 } CoreDebug_Type;
 
-/* Debug Halting Control and Status Register */
-#define CoreDebug_DHCSR_DBGKEY_Pos         16                                             /*!< CoreDebug DHCSR: DBGKEY Position */
-#define CoreDebug_DHCSR_DBGKEY_Msk         (0xFFFFul << CoreDebug_DHCSR_DBGKEY_Pos)       /*!< CoreDebug DHCSR: DBGKEY Mask */
+/* 调试暂停控制与状态寄存器 */
+#define CoreDebug_DHCSR_DBGKEY_Pos         16                                             /*!< CoreDebug DHCSR: DBGKEY 位置 */
+#define CoreDebug_DHCSR_DBGKEY_Msk         (0xFFFFul << CoreDebug_DHCSR_DBGKEY_Pos)       /*!< CoreDebug DHCSR: DBGKEY 掩码 */
 
-#define CoreDebug_DHCSR_S_RESET_ST_Pos     25                                             /*!< CoreDebug DHCSR: S_RESET_ST Position */
-#define CoreDebug_DHCSR_S_RESET_ST_Msk     (1ul << CoreDebug_DHCSR_S_RESET_ST_Pos)        /*!< CoreDebug DHCSR: S_RESET_ST Mask */
+#define CoreDebug_DHCSR_S_RESET_ST_Pos     25                                             /*!< CoreDebug DHCSR: S_RESET_ST 位置 */
+#define CoreDebug_DHCSR_S_RESET_ST_Msk     (1ul << CoreDebug_DHCSR_S_RESET_ST_Pos)        /*!< CoreDebug DHCSR: S_RESET_ST 掩码 */
 
-#define CoreDebug_DHCSR_S_RETIRE_ST_Pos    24                                             /*!< CoreDebug DHCSR: S_RETIRE_ST Position */
-#define CoreDebug_DHCSR_S_RETIRE_ST_Msk    (1ul << CoreDebug_DHCSR_S_RETIRE_ST_Pos)       /*!< CoreDebug DHCSR: S_RETIRE_ST Mask */
+#define CoreDebug_DHCSR_S_RETIRE_ST_Pos    24                                             /*!< CoreDebug DHCSR: S_RETIRE_ST 位置 */
+#define CoreDebug_DHCSR_S_RETIRE_ST_Msk    (1ul << CoreDebug_DHCSR_S_RETIRE_ST_Pos)       /*!< CoreDebug DHCSR: S_RETIRE_ST 掩码 */
 
-#define CoreDebug_DHCSR_S_LOCKUP_Pos       19                                             /*!< CoreDebug DHCSR: S_LOCKUP Position */
-#define CoreDebug_DHCSR_S_LOCKUP_Msk       (1ul << CoreDebug_DHCSR_S_LOCKUP_Pos)          /*!< CoreDebug DHCSR: S_LOCKUP Mask */
+#define CoreDebug_DHCSR_S_LOCKUP_Pos       19                                             /*!< CoreDebug DHCSR: S_LOCKUP 位置 */
+#define CoreDebug_DHCSR_S_LOCKUP_Msk       (1ul << CoreDebug_DHCSR_S_LOCKUP_Pos)          /*!< CoreDebug DHCSR: S_LOCKUP 掩码 */
 
-#define CoreDebug_DHCSR_S_SLEEP_Pos        18                                             /*!< CoreDebug DHCSR: S_SLEEP Position */
-#define CoreDebug_DHCSR_S_SLEEP_Msk        (1ul << CoreDebug_DHCSR_S_SLEEP_Pos)           /*!< CoreDebug DHCSR: S_SLEEP Mask */
+#define CoreDebug_DHCSR_S_SLEEP_Pos        18                                             /*!< CoreDebug DHCSR: S_SLEEP 位置 */
+#define CoreDebug_DHCSR_S_SLEEP_Msk        (1ul << CoreDebug_DHCSR_S_SLEEP_Pos)           /*!< CoreDebug DHCSR: S_SLEEP 掩码 */
 
-#define CoreDebug_DHCSR_S_HALT_Pos         17                                             /*!< CoreDebug DHCSR: S_HALT Position */
-#define CoreDebug_DHCSR_S_HALT_Msk         (1ul << CoreDebug_DHCSR_S_HALT_Pos)            /*!< CoreDebug DHCSR: S_HALT Mask */
+#define CoreDebug_DHCSR_S_HALT_Pos         17                                             /*!< CoreDebug DHCSR: S_HALT 位置 */
+#define CoreDebug_DHCSR_S_HALT_Msk         (1ul << CoreDebug_DHCSR_S_HALT_Pos)            /*!< CoreDebug DHCSR: S_HALT 掩码 */
 
-#define CoreDebug_DHCSR_S_REGRDY_Pos       16                                             /*!< CoreDebug DHCSR: S_REGRDY Position */
-#define CoreDebug_DHCSR_S_REGRDY_Msk       (1ul << CoreDebug_DHCSR_S_REGRDY_Pos)          /*!< CoreDebug DHCSR: S_REGRDY Mask */
+#define CoreDebug_DHCSR_S_REGRDY_Pos       16                                             /*!< CoreDebug DHCSR: S_REGRDY 位置 */
+#define CoreDebug_DHCSR_S_REGRDY_Msk       (1ul << CoreDebug_DHCSR_S_REGRDY_Pos)          /*!< CoreDebug DHCSR: S_REGRDY 掩码 */
 
-#define CoreDebug_DHCSR_C_SNAPSTALL_Pos     5                                             /*!< CoreDebug DHCSR: C_SNAPSTALL Position */
-#define CoreDebug_DHCSR_C_SNAPSTALL_Msk    (1ul << CoreDebug_DHCSR_C_SNAPSTALL_Pos)       /*!< CoreDebug DHCSR: C_SNAPSTALL Mask */
+#define CoreDebug_DHCSR_C_SNAPSTALL_Pos     5                                             /*!< CoreDebug DHCSR: C_SNAPSTALL 位置 */
+#define CoreDebug_DHCSR_C_SNAPSTALL_Msk    (1ul << CoreDebug_DHCSR_C_SNAPSTALL_Pos)       /*!< CoreDebug DHCSR: C_SNAPSTALL 掩码 */
 
-#define CoreDebug_DHCSR_C_MASKINTS_Pos      3                                             /*!< CoreDebug DHCSR: C_MASKINTS Position */
-#define CoreDebug_DHCSR_C_MASKINTS_Msk     (1ul << CoreDebug_DHCSR_C_MASKINTS_Pos)        /*!< CoreDebug DHCSR: C_MASKINTS Mask */
+#define CoreDebug_DHCSR_C_MASKINTS_Pos      3                                             /*!< CoreDebug DHCSR: C_MASKINTS 位置 */
+#define CoreDebug_DHCSR_C_MASKINTS_Msk     (1ul << CoreDebug_DHCSR_C_MASKINTS_Pos)        /*!< CoreDebug DHCSR: C_MASKINTS 掩码 */
 
-#define CoreDebug_DHCSR_C_STEP_Pos          2                                             /*!< CoreDebug DHCSR: C_STEP Position */
-#define CoreDebug_DHCSR_C_STEP_Msk         (1ul << CoreDebug_DHCSR_C_STEP_Pos)            /*!< CoreDebug DHCSR: C_STEP Mask */
+#define CoreDebug_DHCSR_C_STEP_Pos          2                                             /*!< CoreDebug DHCSR: C_STEP 位置 */
+#define CoreDebug_DHCSR_C_STEP_Msk         (1ul << CoreDebug_DHCSR_C_STEP_Pos)            /*!< CoreDebug DHCSR: C_STEP 掩码 */
 
-#define CoreDebug_DHCSR_C_HALT_Pos          1                                             /*!< CoreDebug DHCSR: C_HALT Position */
-#define CoreDebug_DHCSR_C_HALT_Msk         (1ul << CoreDebug_DHCSR_C_HALT_Pos)            /*!< CoreDebug DHCSR: C_HALT Mask */
+#define CoreDebug_DHCSR_C_HALT_Pos          1                                             /*!< CoreDebug DHCSR: C_HALT 位置 */
+#define CoreDebug_DHCSR_C_HALT_Msk         (1ul << CoreDebug_DHCSR_C_HALT_Pos)            /*!< CoreDebug DHCSR: C_HALT 掩码 */
 
-#define CoreDebug_DHCSR_C_DEBUGEN_Pos       0                                             /*!< CoreDebug DHCSR: C_DEBUGEN Position */
-#define CoreDebug_DHCSR_C_DEBUGEN_Msk      (1ul << CoreDebug_DHCSR_C_DEBUGEN_Pos)         /*!< CoreDebug DHCSR: C_DEBUGEN Mask */
+#define CoreDebug_DHCSR_C_DEBUGEN_Pos       0                                             /*!< CoreDebug DHCSR: C_DEBUGEN 位置 */
+#define CoreDebug_DHCSR_C_DEBUGEN_Msk      (1ul << CoreDebug_DHCSR_C_DEBUGEN_Pos)         /*!< CoreDebug DHCSR: C_DEBUGEN 掩码 */
 
-/* Debug Core Register Selector Register */
-#define CoreDebug_DCRSR_REGWnR_Pos         16                                             /*!< CoreDebug DCRSR: REGWnR Position */
-#define CoreDebug_DCRSR_REGWnR_Msk         (1ul << CoreDebug_DCRSR_REGWnR_Pos)            /*!< CoreDebug DCRSR: REGWnR Mask */
+/* 调试内核寄存器选择寄存器 */
+#define CoreDebug_DCRSR_REGWnR_Pos         16                                             /*!< CoreDebug DCRSR: REGWnR 位置 */
+#define CoreDebug_DCRSR_REGWnR_Msk         (1ul << CoreDebug_DCRSR_REGWnR_Pos)            /*!< CoreDebug DCRSR: REGWnR 掩码 */
 
-#define CoreDebug_DCRSR_REGSEL_Pos          0                                             /*!< CoreDebug DCRSR: REGSEL Position */
-#define CoreDebug_DCRSR_REGSEL_Msk         (0x1Ful << CoreDebug_DCRSR_REGSEL_Pos)         /*!< CoreDebug DCRSR: REGSEL Mask */
+#define CoreDebug_DCRSR_REGSEL_Pos          0                                             /*!< CoreDebug DCRSR: REGSEL 位置 */
+#define CoreDebug_DCRSR_REGSEL_Msk         (0x1Ful << CoreDebug_DCRSR_REGSEL_Pos)         /*!< CoreDebug DCRSR: REGSEL 掩码 */
 
-/* Debug Exception and Monitor Control Register */
-#define CoreDebug_DEMCR_TRCENA_Pos         24                                             /*!< CoreDebug DEMCR: TRCENA Position */
-#define CoreDebug_DEMCR_TRCENA_Msk         (1ul << CoreDebug_DEMCR_TRCENA_Pos)            /*!< CoreDebug DEMCR: TRCENA Mask */
+/* 调试异常与监控控制寄存器 */
+#define CoreDebug_DEMCR_TRCENA_Pos         24                                             /*!< CoreDebug DEMCR: TRCENA 位置 */
+#define CoreDebug_DEMCR_TRCENA_Msk         (1ul << CoreDebug_DEMCR_TRCENA_Pos)            /*!< CoreDebug DEMCR: TRCENA 掩码 */
 
-#define CoreDebug_DEMCR_MON_REQ_Pos        19                                             /*!< CoreDebug DEMCR: MON_REQ Position */
-#define CoreDebug_DEMCR_MON_REQ_Msk        (1ul << CoreDebug_DEMCR_MON_REQ_Pos)           /*!< CoreDebug DEMCR: MON_REQ Mask */
+#define CoreDebug_DEMCR_MON_REQ_Pos        19                                             /*!< CoreDebug DEMCR: MON_REQ 位置 */
+#define CoreDebug_DEMCR_MON_REQ_Msk        (1ul << CoreDebug_DEMCR_MON_REQ_Pos)           /*!< CoreDebug DEMCR: MON_REQ 掩码 */
 
-#define CoreDebug_DEMCR_MON_STEP_Pos       18                                             /*!< CoreDebug DEMCR: MON_STEP Position */
-#define CoreDebug_DEMCR_MON_STEP_Msk       (1ul << CoreDebug_DEMCR_MON_STEP_Pos)          /*!< CoreDebug DEMCR: MON_STEP Mask */
+#define CoreDebug_DEMCR_MON_STEP_Pos       18                                             /*!< CoreDebug DEMCR: MON_STEP 位置 */
+#define CoreDebug_DEMCR_MON_STEP_Msk       (1ul << CoreDebug_DEMCR_MON_STEP_Pos)          /*!< CoreDebug DEMCR: MON_STEP 掩码 */
 
-#define CoreDebug_DEMCR_MON_PEND_Pos       17                                             /*!< CoreDebug DEMCR: MON_PEND Position */
-#define CoreDebug_DEMCR_MON_PEND_Msk       (1ul << CoreDebug_DEMCR_MON_PEND_Pos)          /*!< CoreDebug DEMCR: MON_PEND Mask */
+#define CoreDebug_DEMCR_MON_PEND_Pos       17                                             /*!< CoreDebug DEMCR: MON_PEND 位置 */
+#define CoreDebug_DEMCR_MON_PEND_Msk       (1ul << CoreDebug_DEMCR_MON_PEND_Pos)          /*!< CoreDebug DEMCR: MON_PEND 掩码 */
 
-#define CoreDebug_DEMCR_MON_EN_Pos         16                                             /*!< CoreDebug DEMCR: MON_EN Position */
-#define CoreDebug_DEMCR_MON_EN_Msk         (1ul << CoreDebug_DEMCR_MON_EN_Pos)            /*!< CoreDebug DEMCR: MON_EN Mask */
+#define CoreDebug_DEMCR_MON_EN_Pos         16                                             /*!< CoreDebug DEMCR: MON_EN 位置 */
+#define CoreDebug_DEMCR_MON_EN_Msk         (1ul << CoreDebug_DEMCR_MON_EN_Pos)            /*!< CoreDebug DEMCR: MON_EN 掩码 */
 
-#define CoreDebug_DEMCR_VC_HARDERR_Pos     10                                             /*!< CoreDebug DEMCR: VC_HARDERR Position */
-#define CoreDebug_DEMCR_VC_HARDERR_Msk     (1ul << CoreDebug_DEMCR_VC_HARDERR_Pos)        /*!< CoreDebug DEMCR: VC_HARDERR Mask */
+#define CoreDebug_DEMCR_VC_HARDERR_Pos     10                                             /*!< CoreDebug DEMCR: VC_HARDERR 位置 */
+#define CoreDebug_DEMCR_VC_HARDERR_Msk     (1ul << CoreDebug_DEMCR_VC_HARDERR_Pos)        /*!< CoreDebug DEMCR: VC_HARDERR 掩码 */
 
-#define CoreDebug_DEMCR_VC_INTERR_Pos       9                                             /*!< CoreDebug DEMCR: VC_INTERR Position */
-#define CoreDebug_DEMCR_VC_INTERR_Msk      (1ul << CoreDebug_DEMCR_VC_INTERR_Pos)         /*!< CoreDebug DEMCR: VC_INTERR Mask */
+#define CoreDebug_DEMCR_VC_INTERR_Pos       9                                             /*!< CoreDebug DEMCR: VC_INTERR 位置 */
+#define CoreDebug_DEMCR_VC_INTERR_Msk      (1ul << CoreDebug_DEMCR_VC_INTERR_Pos)         /*!< CoreDebug DEMCR: VC_INTERR 掩码 */
 
-#define CoreDebug_DEMCR_VC_BUSERR_Pos       8                                             /*!< CoreDebug DEMCR: VC_BUSERR Position */
-#define CoreDebug_DEMCR_VC_BUSERR_Msk      (1ul << CoreDebug_DEMCR_VC_BUSERR_Pos)         /*!< CoreDebug DEMCR: VC_BUSERR Mask */
+#define CoreDebug_DEMCR_VC_BUSERR_Pos       8                                             /*!< CoreDebug DEMCR: VC_BUSERR 位置 */
+#define CoreDebug_DEMCR_VC_BUSERR_Msk      (1ul << CoreDebug_DEMCR_VC_BUSERR_Pos)         /*!< CoreDebug DEMCR: VC_BUSERR 掩码 */
 
-#define CoreDebug_DEMCR_VC_STATERR_Pos      7                                             /*!< CoreDebug DEMCR: VC_STATERR Position */
-#define CoreDebug_DEMCR_VC_STATERR_Msk     (1ul << CoreDebug_DEMCR_VC_STATERR_Pos)        /*!< CoreDebug DEMCR: VC_STATERR Mask */
+#define CoreDebug_DEMCR_VC_STATERR_Pos      7                                             /*!< CoreDebug DEMCR: VC_STATERR 位置 */
+#define CoreDebug_DEMCR_VC_STATERR_Msk     (1ul << CoreDebug_DEMCR_VC_STATERR_Pos)        /*!< CoreDebug DEMCR: VC_STATERR 掩码 */
 
-#define CoreDebug_DEMCR_VC_CHKERR_Pos       6                                             /*!< CoreDebug DEMCR: VC_CHKERR Position */
-#define CoreDebug_DEMCR_VC_CHKERR_Msk      (1ul << CoreDebug_DEMCR_VC_CHKERR_Pos)         /*!< CoreDebug DEMCR: VC_CHKERR Mask */
+#define CoreDebug_DEMCR_VC_CHKERR_Pos       6                                             /*!< CoreDebug DEMCR: VC_CHKERR 位置 */
+#define CoreDebug_DEMCR_VC_CHKERR_Msk      (1ul << CoreDebug_DEMCR_VC_CHKERR_Pos)         /*!< CoreDebug DEMCR: VC_CHKERR 掩码 */
 
-#define CoreDebug_DEMCR_VC_NOCPERR_Pos      5                                             /*!< CoreDebug DEMCR: VC_NOCPERR Position */
-#define CoreDebug_DEMCR_VC_NOCPERR_Msk     (1ul << CoreDebug_DEMCR_VC_NOCPERR_Pos)        /*!< CoreDebug DEMCR: VC_NOCPERR Mask */
+#define CoreDebug_DEMCR_VC_NOCPERR_Pos      5                                             /*!< CoreDebug DEMCR: VC_NOCPERR 位置 */
+#define CoreDebug_DEMCR_VC_NOCPERR_Msk     (1ul << CoreDebug_DEMCR_VC_NOCPERR_Pos)        /*!< CoreDebug DEMCR: VC_NOCPERR 掩码 */
 
-#define CoreDebug_DEMCR_VC_MMERR_Pos        4                                             /*!< CoreDebug DEMCR: VC_MMERR Position */
-#define CoreDebug_DEMCR_VC_MMERR_Msk       (1ul << CoreDebug_DEMCR_VC_MMERR_Pos)          /*!< CoreDebug DEMCR: VC_MMERR Mask */
+#define CoreDebug_DEMCR_VC_MMERR_Pos        4                                             /*!< CoreDebug DEMCR: VC_MMERR 位置 */
+#define CoreDebug_DEMCR_VC_MMERR_Msk       (1ul << CoreDebug_DEMCR_VC_MMERR_Pos)          /*!< CoreDebug DEMCR: VC_MMERR 掩码 */
 
-#define CoreDebug_DEMCR_VC_CORERESET_Pos    0                                             /*!< CoreDebug DEMCR: VC_CORERESET Position */
-#define CoreDebug_DEMCR_VC_CORERESET_Msk   (1ul << CoreDebug_DEMCR_VC_CORERESET_Pos)      /*!< CoreDebug DEMCR: VC_CORERESET Mask */
-/*@}*/ /* end of group CMSIS_CM3_CoreDebug */
+#define CoreDebug_DEMCR_VC_CORERESET_Pos    0                                             /*!< CoreDebug DEMCR: VC_CORERESET 位置 */
+#define CoreDebug_DEMCR_VC_CORERESET_Msk   (1ul << CoreDebug_DEMCR_VC_CORERESET_Pos)      /*!< CoreDebug DEMCR: VC_CORERESET 掩码 */
+/*@}*/ /* CMSIS_CM3_CoreDebug 分组结束 */
 
 
-/* Memory mapping of Cortex-M3 Hardware */
-#define SCS_BASE            (0xE000E000)                              /*!< System Control Space Base Address */
-#define ITM_BASE            (0xE0000000)                              /*!< ITM Base Address                  */
-#define CoreDebug_BASE      (0xE000EDF0)                              /*!< Core Debug Base Address           */
-#define SysTick_BASE        (SCS_BASE +  0x0010)                      /*!< SysTick Base Address              */
-#define NVIC_BASE           (SCS_BASE +  0x0100)                      /*!< NVIC Base Address                 */
-#define SCB_BASE            (SCS_BASE +  0x0D00)                      /*!< System Control Block Base Address */
+/* Cortex-M3 硬件的存储器映射 */
+#define SCS_BASE            (0xE000E000)                              /*!< 系统控制空间基地址 */
+#define ITM_BASE            (0xE0000000)                              /*!< ITM 基地址                  */
+#define CoreDebug_BASE      (0xE000EDF0)                              /*!< 内核调试基地址           */
+#define SysTick_BASE        (SCS_BASE +  0x0010)                      /*!< SysTick 基地址              */
+#define NVIC_BASE           (SCS_BASE +  0x0100)                      /*!< NVIC 基地址                 */
+#define SCB_BASE            (SCS_BASE +  0x0D00)                      /*!< 系统控制块基地址 */
 
-#define InterruptType       ((InterruptType_Type *) SCS_BASE)         /*!< Interrupt Type Register           */
-#define SCB                 ((SCB_Type *)           SCB_BASE)         /*!< SCB configuration struct          */
-#define SysTick             ((SysTick_Type *)       SysTick_BASE)     /*!< SysTick configuration struct      */
-#define NVIC                ((NVIC_Type *)          NVIC_BASE)        /*!< NVIC configuration struct         */
-#define ITM                 ((ITM_Type *)           ITM_BASE)         /*!< ITM configuration struct          */
-#define CoreDebug           ((CoreDebug_Type *)     CoreDebug_BASE)   /*!< Core Debug configuration struct   */
+#define InterruptType       ((InterruptType_Type *) SCS_BASE)         /*!< 中断类型寄存器           */
+#define SCB                 ((SCB_Type *)           SCB_BASE)         /*!< SCB 配置结构体          */
+#define SysTick             ((SysTick_Type *)       SysTick_BASE)     /*!< SysTick 配置结构体      */
+#define NVIC                ((NVIC_Type *)          NVIC_BASE)        /*!< NVIC 配置结构体         */
+#define ITM                 ((ITM_Type *)           ITM_BASE)         /*!< ITM 配置结构体          */
+#define CoreDebug           ((CoreDebug_Type *)     CoreDebug_BASE)   /*!< 内核调试配置结构体   */
 
 #if defined (__MPU_PRESENT) && (__MPU_PRESENT == 1)
-  #define MPU_BASE          (SCS_BASE +  0x0D90)                      /*!< Memory Protection Unit            */
-  #define MPU               ((MPU_Type*)            MPU_BASE)         /*!< Memory Protection Unit            */
+  #define MPU_BASE          (SCS_BASE +  0x0D90)                      /*!< 存储器保护单元            */
+  #define MPU               ((MPU_Type*)            MPU_BASE)         /*!< 存储器保护单元            */
 #endif
 
-/*@}*/ /* end of group CMSIS_CM3_core_register */
+/*@}*/ /* CMSIS_CM3_core_register 分组结束 */
 
 
 /*******************************************************************************
- *                Hardware Abstraction Layer
+ *                硬件抽象层
  ******************************************************************************/
 
 #if defined ( __CC_ARM   )
-  #define __ASM            __asm                                      /*!< asm keyword for ARM Compiler          */
-  #define __INLINE         __inline                                   /*!< inline keyword for ARM Compiler       */
+  #define __ASM            __asm                                      /*!< ARM 编译器的 asm 关键字          */
+  #define __INLINE         __inline                                   /*!< ARM 编译器的 inline 关键字       */
 
 #elif defined ( __ICCARM__ )
-  #define __ASM           __asm                                       /*!< asm keyword for IAR Compiler          */
-  #define __INLINE        inline                                      /*!< inline keyword for IAR Compiler. Only avaiable in High optimization mode! */
+  #define __ASM           __asm                                       /*!< IAR 编译器的 asm 关键字          */
+  #define __INLINE        inline                                      /*!< IAR 编译器的 inline 关键字。仅在高优化模式下可用！ */
 
 #elif defined   (  __GNUC__  )
-  #define __ASM            __asm                                      /*!< asm keyword for GNU Compiler          */
-  #define __INLINE         inline                                     /*!< inline keyword for GNU Compiler       */
+  #define __ASM            __asm                                      /*!< GNU 编译器的 asm 关键字          */
+  #define __INLINE         inline                                     /*!< GNU 编译器的 inline 关键字       */
 
 #elif defined   (  __TASKING__  )
-  #define __ASM            __asm                                      /*!< asm keyword for TASKING Compiler      */
-  #define __INLINE         inline                                     /*!< inline keyword for TASKING Compiler   */
+  #define __ASM            __asm                                      /*!< TASKING 编译器的 asm 关键字      */
+  #define __INLINE         inline                                     /*!< TASKING 编译器的 inline 关键字   */
 
 #endif
 
 
-/* ###################  Compiler specific Intrinsics  ########################### */
+/* ###################  编译器专用内建函数  ########################### */
 
-#if defined ( __CC_ARM   ) /*------------------RealView Compiler -----------------*/
-/* ARM armcc specific functions */
+#if defined ( __CC_ARM   ) /*------------------RealView 编译器 -----------------*/
+/* ARM armcc 专用函数 */
 
 #define __enable_fault_irq                __enable_fiq
 #define __disable_fault_irq               __disable_fiq
@@ -782,68 +779,67 @@ typedef struct
 #define __STREXW(value, ptr)              __strex(value, ptr)
 
 
-/* intrinsic unsigned long long __ldrexd(volatile void *ptr) */
-/* intrinsic int __strexd(unsigned long long val, volatile void *ptr) */
-/* intrinsic void __enable_irq();     */
-/* intrinsic void __disable_irq();    */
+/* 内建函数 unsigned long long __ldrexd(volatile void *ptr) */
+/* 内建函数 int __strexd(unsigned long long val, volatile void *ptr) */
+/* 内建函数 void __enable_irq();     */
+/* 内建函数 void __disable_irq();    */
 
 
 /**
- * @brief  Return the Process Stack Pointer
+ * @brief  返回进程栈指针
  *
  * @return ProcessStackPointer
  *
- * Return the actual process stack pointer
+ * 返回实际的进程栈指针
  */
 extern uint32_t __get_PSP(void);
 
 /**
- * @brief  Set the Process Stack Pointer
+ * @brief  设置进程栈指针
  *
- * @param  topOfProcStack  Process Stack Pointer
+ * @param  topOfProcStack  进程栈指针
  *
- * Assign the value ProcessStackPointer to the MSP 
- * (process stack pointer) Cortex processor register
+ * 将值 ProcessStackPointer 赋给 MSP
+ * （进程栈指针）Cortex 处理器寄存器
  */
 extern void __set_PSP(uint32_t topOfProcStack);
 
 /**
- * @brief  Return the Main Stack Pointer
+ * @brief  返回主栈指针
  *
- * @return Main Stack Pointer
+ * @return 主栈指针
  *
- * Return the current value of the MSP (main stack pointer)
- * Cortex processor register
+ * 返回 MSP（主栈指针）
+ * Cortex 处理器寄存器的当前值
  */
 extern uint32_t __get_MSP(void);
 
 /**
- * @brief  Set the Main Stack Pointer
+ * @brief  设置主堆栈指针
  *
- * @param  topOfMainStack  Main Stack Pointer
+ * @param  topOfMainStack  主堆栈指针
  *
- * Assign the value mainStackPointer to the MSP 
- * (main stack pointer) Cortex processor register
+ * 将 mainStackPointer 的值赋给 MSP（主堆栈指针）Cortex 处理器寄存器
  */
 extern void __set_MSP(uint32_t topOfMainStack);
 
 /**
- * @brief  Reverse byte order in unsigned short value
+ * @brief  反转无符号短整型值中的字节顺序
  *
- * @param   value  value to reverse
- * @return         reversed value
+ * @param   value  待反转的值
+ * @return         反转后的值
  *
- * Reverse byte order in unsigned short value
+ * 反转无符号短整型值中的字节顺序
  */
 extern uint32_t __REV16(uint16_t value);
 
 /**
- * @brief  Reverse byte order in signed short value with sign extension to integer
+ * @brief  反转有符号短整型值中的字节顺序并符号扩展为整型
  *
- * @param   value  value to reverse
- * @return         reversed value
+ * @param   value  待反转的值
+ * @return         反转后的值
  *
- * Reverse byte order in signed short value with sign extension to integer
+ * 反转有符号短整型值中的字节顺序并符号扩展为整型
  */
 extern int32_t __REVSH(int16_t value);
 
@@ -851,99 +847,99 @@ extern int32_t __REVSH(int16_t value);
 #if (__ARMCC_VERSION < 400000)
 
 /**
- * @brief  Remove the exclusive lock created by ldrex
+ * @brief  移除由 ldrex 创建的独占锁
  *
- * Removes the exclusive lock which is created by ldrex.
+ * 移除由 ldrex 创建的独占锁。
  */
 extern void __CLREX(void);
 
 /**
- * @brief  Return the Base Priority value
+ * @brief  返回基础优先级值
  *
  * @return BasePriority
  *
- * Return the content of the base priority register
+ * 返回基础优先级寄存器的内容
  */
 extern uint32_t __get_BASEPRI(void);
 
 /**
- * @brief  Set the Base Priority value
+ * @brief  设置基础优先级值
  *
  * @param  basePri  BasePriority
  *
- * Set the base priority register
+ * 设置基础优先级寄存器
  */
 extern void __set_BASEPRI(uint32_t basePri);
 
 /**
- * @brief  Return the Priority Mask value
+ * @brief  返回优先级掩码值
  *
  * @return PriMask
  *
- * Return state of the priority mask bit from the priority mask register
+ * 返回优先级掩码寄存器中优先级掩码位的状态
  */
 extern uint32_t __get_PRIMASK(void);
 
 /**
- * @brief  Set the Priority Mask value
+ * @brief  设置优先级掩码值
  *
  * @param   priMask  PriMask
  *
- * Set the priority mask bit in the priority mask register
+ * 设置优先级掩码寄存器中的优先级掩码位
  */
 extern void __set_PRIMASK(uint32_t priMask);
 
 /**
- * @brief  Return the Fault Mask value
+ * @brief  返回错误掩码值
  *
  * @return FaultMask
  *
- * Return the content of the fault mask register
+ * 返回错误掩码寄存器的内容
  */
 extern uint32_t __get_FAULTMASK(void);
 
 /**
- * @brief  Set the Fault Mask value
+ * @brief  设置错误掩码值
  *
- * @param  faultMask faultMask value
+ * @param  faultMask faultMask 值
  *
- * Set the fault mask register
+ * 设置错误掩码寄存器
  */
 extern void __set_FAULTMASK(uint32_t faultMask);
 
 /**
- * @brief  Return the Control Register value
- * 
- * @return Control value
+ * @brief  返回控制寄存器值
  *
- * Return the content of the control register
+ * @return Control 值
+ *
+ * 返回控制寄存器的内容
  */
 extern uint32_t __get_CONTROL(void);
 
 /**
- * @brief  Set the Control Register value
+ * @brief  设置控制寄存器值
  *
- * @param  control  Control value
+ * @param  control  Control 值
  *
- * Set the control register
+ * 设置控制寄存器
  */
 extern void __set_CONTROL(uint32_t control);
 
 #else  /* (__ARMCC_VERSION >= 400000)  */
 
 /**
- * @brief  Remove the exclusive lock created by ldrex
+ * @brief  移除由 ldrex 创建的独占锁
  *
- * Removes the exclusive lock which is created by ldrex.
+ * 移除由 ldrex 创建的独占锁。
  */
 #define __CLREX                           __clrex
 
 /**
- * @brief  Return the Base Priority value
+ * @brief  返回基础优先级值
  *
  * @return BasePriority
  *
- * Return the content of the base priority register
+ * 返回基础优先级寄存器的内容
  */
 static __INLINE uint32_t  __get_BASEPRI(void)
 {
@@ -952,11 +948,11 @@ static __INLINE uint32_t  __get_BASEPRI(void)
 }
 
 /**
- * @brief  Set the Base Priority value
+ * @brief  设置基础优先级值
  *
  * @param  basePri  BasePriority
  *
- * Set the base priority register
+ * 设置基础优先级寄存器
  */
 static __INLINE void __set_BASEPRI(uint32_t basePri)
 {
@@ -965,11 +961,11 @@ static __INLINE void __set_BASEPRI(uint32_t basePri)
 }
 
 /**
- * @brief  Return the Priority Mask value
+ * @brief  返回优先级掩码值
  *
  * @return PriMask
  *
- * Return state of the priority mask bit from the priority mask register
+ * 返回优先级掩码寄存器中优先级掩码位的状态
  */
 static __INLINE uint32_t __get_PRIMASK(void)
 {
@@ -978,11 +974,11 @@ static __INLINE uint32_t __get_PRIMASK(void)
 }
 
 /**
- * @brief  Set the Priority Mask value
+ * @brief  设置优先级掩码值
  *
  * @param  priMask  PriMask
  *
- * Set the priority mask bit in the priority mask register
+ * 设置优先级掩码寄存器中的优先级掩码位
  */
 static __INLINE void __set_PRIMASK(uint32_t priMask)
 {
@@ -991,11 +987,11 @@ static __INLINE void __set_PRIMASK(uint32_t priMask)
 }
 
 /**
- * @brief  Return the Fault Mask value
+ * @brief  返回错误掩码值
  *
  * @return FaultMask
  *
- * Return the content of the fault mask register
+ * 返回错误掩码寄存器的内容
  */
 static __INLINE uint32_t __get_FAULTMASK(void)
 {
@@ -1004,11 +1000,11 @@ static __INLINE uint32_t __get_FAULTMASK(void)
 }
 
 /**
- * @brief  Set the Fault Mask value
+ * @brief  设置错误掩码值
  *
- * @param  faultMask  faultMask value
+ * @param  faultMask  faultMask 值
  *
- * Set the fault mask register
+ * 设置错误掩码寄存器
  */
 static __INLINE void __set_FAULTMASK(uint32_t faultMask)
 {
@@ -1017,11 +1013,11 @@ static __INLINE void __set_FAULTMASK(uint32_t faultMask)
 }
 
 /**
- * @brief  Return the Control Register value
- * 
- * @return Control value
+ * @brief  返回控制寄存器值
  *
- * Return the content of the control register
+ * @return Control 值
+ *
+ * 返回控制寄存器的内容
  */
 static __INLINE uint32_t __get_CONTROL(void)
 {
@@ -1030,11 +1026,11 @@ static __INLINE uint32_t __get_CONTROL(void)
 }
 
 /**
- * @brief  Set the Control Register value
+ * @brief  设置控制寄存器值
  *
- * @param  control  Control value
+ * @param  control  Control 值
  *
- * Set the control register
+ * 设置控制寄存器
  */
 static __INLINE void __set_CONTROL(uint32_t control)
 {
@@ -1046,160 +1042,159 @@ static __INLINE void __set_CONTROL(uint32_t control)
 
 
 
-#elif (defined (__ICCARM__)) /*------------------ ICC Compiler -------------------*/
-/* IAR iccarm specific functions */
+#elif (defined (__ICCARM__)) /*------------------ ICC 编译器 -------------------*/
+/* IAR iccarm 专用函数 */
 
-#define __enable_irq                              __enable_interrupt        /*!< global Interrupt enable */
-#define __disable_irq                             __disable_interrupt       /*!< global Interrupt disable */
+#define __enable_irq                              __enable_interrupt        /*!< 全局中断使能 */
+#define __disable_irq                             __disable_interrupt       /*!< 全局中断关闭 */
 
 static __INLINE void __enable_fault_irq()         { __ASM ("cpsie f"); }
 static __INLINE void __disable_fault_irq()        { __ASM ("cpsid f"); }
 
-#define __NOP                                     __no_operation            /*!< no operation intrinsic in IAR Compiler */ 
+#define __NOP                                     __no_operation            /*!< IAR 编译器中的空操作内建函数 */ 
 static __INLINE  void __WFI()                     { __ASM ("wfi"); }
 static __INLINE  void __WFE()                     { __ASM ("wfe"); }
 static __INLINE  void __SEV()                     { __ASM ("sev"); }
 static __INLINE  void __CLREX()                   { __ASM ("clrex"); }
 
-/* intrinsic void __ISB(void)                                     */
-/* intrinsic void __DSB(void)                                     */
-/* intrinsic void __DMB(void)                                     */
-/* intrinsic void __set_PRIMASK();                                */
-/* intrinsic void __get_PRIMASK();                                */
-/* intrinsic void __set_FAULTMASK();                              */
-/* intrinsic void __get_FAULTMASK();                              */
-/* intrinsic uint32_t __REV(uint32_t value);                      */
-/* intrinsic uint32_t __REVSH(uint32_t value);                    */
-/* intrinsic unsigned long __STREX(unsigned long, unsigned long); */
-/* intrinsic unsigned long __LDREX(unsigned long *);              */
+/* 内建函数 void __ISB(void)                                     */
+/* 内建函数 void __DSB(void)                                     */
+/* 内建函数 void __DMB(void)                                     */
+/* 内建函数 void __set_PRIMASK();                                */
+/* 内建函数 void __get_PRIMASK();                                */
+/* 内建函数 void __set_FAULTMASK();                              */
+/* 内建函数 void __get_FAULTMASK();                              */
+/* 内建函数 uint32_t __REV(uint32_t value);                      */
+/* 内建函数 uint32_t __REVSH(uint32_t value);                    */
+/* 内建函数 unsigned long __STREX(unsigned long, unsigned long); */
+/* 内建函数 unsigned long __LDREX(unsigned long *);              */
 
 
 /**
- * @brief  Return the Process Stack Pointer
+ * @brief  返回进程栈指针
  *
  * @return ProcessStackPointer
  *
- * Return the actual process stack pointer
+ * 返回实际的进程栈指针
  */
 extern uint32_t __get_PSP(void);
 
 /**
- * @brief  Set the Process Stack Pointer
+ * @brief  设置进程栈指针
  *
- * @param  topOfProcStack  Process Stack Pointer
+ * @param  topOfProcStack  进程栈指针
  *
- * Assign the value ProcessStackPointer to the MSP 
- * (process stack pointer) Cortex processor register
+ * 将值 ProcessStackPointer 赋给 MSP
+ * （进程栈指针）Cortex 处理器寄存器
  */
 extern void __set_PSP(uint32_t topOfProcStack);
 
 /**
- * @brief  Return the Main Stack Pointer
+ * @brief  返回主栈指针
  *
- * @return Main Stack Pointer
+ * @return 主栈指针
  *
- * Return the current value of the MSP (main stack pointer)
- * Cortex processor register
+ * 返回 MSP（主栈指针）
+ * Cortex 处理器寄存器的当前值
  */
 extern uint32_t __get_MSP(void);
 
 /**
- * @brief  Set the Main Stack Pointer
+ * @brief  设置主堆栈指针
  *
- * @param  topOfMainStack  Main Stack Pointer
+ * @param  topOfMainStack  主堆栈指针
  *
- * Assign the value mainStackPointer to the MSP 
- * (main stack pointer) Cortex processor register
+ * 将 mainStackPointer 的值赋给 MSP（主堆栈指针）Cortex 处理器寄存器
  */
 extern void __set_MSP(uint32_t topOfMainStack);
 
 /**
- * @brief  Reverse byte order in unsigned short value
+ * @brief  反转无符号短整型值中的字节顺序
  *
- * @param  value  value to reverse
- * @return        reversed value
+ * @param  value  待反转的值
+ * @return        反转后的值
  *
- * Reverse byte order in unsigned short value
+ * 反转无符号短整型值中的字节顺序
  */
 extern uint32_t __REV16(uint16_t value);
 
 /**
- * @brief  Reverse bit order of value
+ * @brief  反转值的位顺序
  *
- * @param  value  value to reverse
- * @return        reversed value
+ * @param  value  待反转的值
+ * @return        反转后的值
  *
- * Reverse bit order of value
+ * 反转值的位顺序
  */
 extern uint32_t __RBIT(uint32_t value);
 
 /**
- * @brief  LDR Exclusive (8 bit)
+ * @brief  独占 LDR（8 位）
  *
- * @param  *addr  address pointer
- * @return        value of (*address)
+ * @param  *addr  地址指针
+ * @return        (*address) 的值
  *
- * Exclusive LDR command for 8 bit values)
+ * 用于 8 位值的独占 LDR 指令）
  */
 extern uint8_t __LDREXB(uint8_t *addr);
 
 /**
- * @brief  LDR Exclusive (16 bit)
+ * @brief  独占 LDR（16 位）
  *
- * @param  *addr  address pointer
- * @return        value of (*address)
+ * @param  *addr  地址指针
+ * @return        (*address) 的值
  *
- * Exclusive LDR command for 16 bit values
+ * 用于 16 位值的独占 LDR 指令
  */
 extern uint16_t __LDREXH(uint16_t *addr);
 
 /**
- * @brief  LDR Exclusive (32 bit)
+ * @brief  独占 LDR（32 位）
  *
- * @param  *addr  address pointer
- * @return        value of (*address)
+ * @param  *addr  地址指针
+ * @return        (*address) 的值
  *
- * Exclusive LDR command for 32 bit values
+ * 用于 32 位值的独占 LDR 指令
  */
 extern uint32_t __LDREXW(uint32_t *addr);
 
 /**
- * @brief  STR Exclusive (8 bit)
+ * @brief  独占 STR（8 位）
  *
- * @param  value  value to store
- * @param  *addr  address pointer
- * @return        successful / failed
+ * @param  value  待存储的值
+ * @param  *addr  地址指针
+ * @return        成功 / 失败
  *
- * Exclusive STR command for 8 bit values
+ * 用于 8 位值的独占 STR 指令
  */
 extern uint32_t __STREXB(uint8_t value, uint8_t *addr);
 
 /**
- * @brief  STR Exclusive (16 bit)
+ * @brief  独占 STR（16 位）
  *
- * @param  value  value to store
- * @param  *addr  address pointer
- * @return        successful / failed
+ * @param  value  待存储的值
+ * @param  *addr  地址指针
+ * @return        成功 / 失败
  *
- * Exclusive STR command for 16 bit values
+ * 用于 16 位值的独占 STR 指令
  */
 extern uint32_t __STREXH(uint16_t value, uint16_t *addr);
 
 /**
- * @brief  STR Exclusive (32 bit)
+ * @brief  独占 STR（32 位）
  *
- * @param  value  value to store
- * @param  *addr  address pointer
- * @return        successful / failed
+ * @param  value  待存储的值
+ * @param  *addr  地址指针
+ * @return        成功 / 失败
  *
- * Exclusive STR command for 32 bit values
+ * 用于 32 位值的独占 STR 指令
  */
 extern uint32_t __STREXW(uint32_t value, uint32_t *addr);
 
 
 
-#elif (defined (__GNUC__)) /*------------------ GNU Compiler ---------------------*/
-/* GNU gcc specific functions */
+#elif (defined (__GNUC__)) /*------------------ GNU 编译器 ---------------------*/
+/* GNU gcc 专用函数 */
 
 static __INLINE void __enable_irq()               { __ASM volatile ("cpsie i"); }
 static __INLINE void __disable_irq()              { __ASM volatile ("cpsid i"); }
@@ -1218,422 +1213,417 @@ static __INLINE void __CLREX()                    { __ASM volatile ("clrex"); }
 
 
 /**
- * @brief  Return the Process Stack Pointer
+ * @brief  返回进程栈指针
  *
  * @return ProcessStackPointer
  *
- * Return the actual process stack pointer
+ * 返回实际的进程栈指针
  */
 extern uint32_t __get_PSP(void);
 
 /**
- * @brief  Set the Process Stack Pointer
+ * @brief  设置进程栈指针
  *
- * @param  topOfProcStack  Process Stack Pointer
+ * @param  topOfProcStack  进程栈指针
  *
- * Assign the value ProcessStackPointer to the MSP 
- * (process stack pointer) Cortex processor register
+ * 将值 ProcessStackPointer 赋给 MSP
+ * （进程栈指针）Cortex 处理器寄存器
  */
 extern void __set_PSP(uint32_t topOfProcStack);
 
 /**
- * @brief  Return the Main Stack Pointer
+ * @brief  返回主栈指针
  *
- * @return Main Stack Pointer
+ * @return 主栈指针
  *
- * Return the current value of the MSP (main stack pointer)
- * Cortex processor register
+ * 返回 MSP（主栈指针）
+ * Cortex 处理器寄存器的当前值
  */
 extern uint32_t __get_MSP(void);
 
 /**
- * @brief  Set the Main Stack Pointer
+ * @brief  设置主堆栈指针
  *
- * @param  topOfMainStack  Main Stack Pointer
+ * @param  topOfMainStack  主堆栈指针
  *
- * Assign the value mainStackPointer to the MSP 
- * (main stack pointer) Cortex processor register
+ * 将 mainStackPointer 的值赋给 MSP（主堆栈指针）Cortex 处理器寄存器
  */
 extern void __set_MSP(uint32_t topOfMainStack);
 
 /**
- * @brief  Return the Base Priority value
+ * @brief  返回基础优先级值
  *
  * @return BasePriority
  *
- * Return the content of the base priority register
+ * 返回基础优先级寄存器的内容
  */
 extern uint32_t __get_BASEPRI(void);
 
 /**
- * @brief  Set the Base Priority value
+ * @brief  设置基础优先级值
  *
  * @param  basePri  BasePriority
  *
- * Set the base priority register
+ * 设置基础优先级寄存器
  */
 extern void __set_BASEPRI(uint32_t basePri);
 
 /**
- * @brief  Return the Priority Mask value
+ * @brief  返回优先级掩码值
  *
  * @return PriMask
  *
- * Return state of the priority mask bit from the priority mask register
+ * 返回优先级掩码寄存器中优先级掩码位的状态
  */
 extern uint32_t  __get_PRIMASK(void);
 
 /**
- * @brief  Set the Priority Mask value
+ * @brief  设置优先级掩码值
  *
  * @param  priMask  PriMask
  *
- * Set the priority mask bit in the priority mask register
+ * 设置优先级掩码寄存器中的优先级掩码位
  */
 extern void __set_PRIMASK(uint32_t priMask);
 
 /**
- * @brief  Return the Fault Mask value
+ * @brief  返回错误掩码值
  *
  * @return FaultMask
  *
- * Return the content of the fault mask register
+ * 返回错误掩码寄存器的内容
  */
 extern uint32_t __get_FAULTMASK(void);
 
 /**
- * @brief  Set the Fault Mask value
+ * @brief  设置错误掩码值
  *
- * @param  faultMask  faultMask value
+ * @param  faultMask  faultMask 值
  *
- * Set the fault mask register
+ * 设置错误掩码寄存器
  */
 extern void __set_FAULTMASK(uint32_t faultMask);
 
 /**
- * @brief  Return the Control Register value
-* 
-*  @return Control value
+ * @brief  返回控制寄存器值
+*
+*  @return Control 值
  *
- * Return the content of the control register
+ * 返回控制寄存器的内容
  */
 extern uint32_t __get_CONTROL(void);
 
 /**
- * @brief  Set the Control Register value
+ * @brief  设置控制寄存器值
  *
- * @param  control  Control value
+ * @param  control  Control 值
  *
- * Set the control register
+ * 设置控制寄存器
  */
 extern void __set_CONTROL(uint32_t control);
 
 /**
- * @brief  Reverse byte order in integer value
+ * @brief  反转整型值中的字节顺序
  *
- * @param  value  value to reverse
- * @return        reversed value
+ * @param  value  待反转的值
+ * @return        反转后的值
  *
- * Reverse byte order in integer value
+ * 反转整型值中的字节顺序
  */
 extern uint32_t __REV(uint32_t value);
 
 /**
- * @brief  Reverse byte order in unsigned short value
+ * @brief  反转无符号短整型值中的字节顺序
  *
- * @param  value  value to reverse
- * @return        reversed value
+ * @param  value  待反转的值
+ * @return        反转后的值
  *
- * Reverse byte order in unsigned short value
+ * 反转无符号短整型值中的字节顺序
  */
 extern uint32_t __REV16(uint16_t value);
 
 /**
- * @brief  Reverse byte order in signed short value with sign extension to integer
+ * @brief  反转有符号短整型值中的字节顺序并符号扩展为整型
  *
- * @param  value  value to reverse
- * @return        reversed value
+ * @param  value  待反转的值
+ * @return        反转后的值
  *
- * Reverse byte order in signed short value with sign extension to integer
+ * 反转有符号短整型值中的字节顺序并符号扩展为整型
  */
 extern int32_t __REVSH(int16_t value);
 
 /**
- * @brief  Reverse bit order of value
+ * @brief  反转值的位顺序
  *
- * @param  value  value to reverse
- * @return        reversed value
+ * @param  value  待反转的值
+ * @return        反转后的值
  *
- * Reverse bit order of value
+ * 反转值的位顺序
  */
 extern uint32_t __RBIT(uint32_t value);
 
 /**
- * @brief  LDR Exclusive (8 bit)
+ * @brief  独占 LDR（8 位）
  *
- * @param  *addr  address pointer
- * @return        value of (*address)
+ * @param  *addr  地址指针
+ * @return        (*address) 的值
  *
- * Exclusive LDR command for 8 bit value
+ * 用于 8 位值的独占 LDR 指令
  */
 extern uint8_t __LDREXB(uint8_t *addr);
 
 /**
- * @brief  LDR Exclusive (16 bit)
+ * @brief  独占 LDR（16 位）
  *
- * @param  *addr  address pointer
- * @return        value of (*address)
+ * @param  *addr  地址指针
+ * @return        (*address) 的值
  *
- * Exclusive LDR command for 16 bit values
+ * 用于 16 位值的独占 LDR 指令
  */
 extern uint16_t __LDREXH(uint16_t *addr);
 
 /**
- * @brief  LDR Exclusive (32 bit)
+ * @brief  独占 LDR（32 位）
  *
- * @param  *addr  address pointer
- * @return        value of (*address)
+ * @param  *addr  地址指针
+ * @return        (*address) 的值
  *
- * Exclusive LDR command for 32 bit values
+ * 用于 32 位值的独占 LDR 指令
  */
 extern uint32_t __LDREXW(uint32_t *addr);
 
 /**
- * @brief  STR Exclusive (8 bit)
+ * @brief  独占 STR（8 位）
  *
- * @param  value  value to store
- * @param  *addr  address pointer
- * @return        successful / failed
+ * @param  value  待存储的值
+ * @param  *addr  地址指针
+ * @return        成功 / 失败
  *
- * Exclusive STR command for 8 bit values
+ * 用于 8 位值的独占 STR 指令
  */
 extern uint32_t __STREXB(uint8_t value, uint8_t *addr);
 
 /**
- * @brief  STR Exclusive (16 bit)
+ * @brief  独占 STR（16 位）
  *
- * @param  value  value to store
- * @param  *addr  address pointer
- * @return        successful / failed
+ * @param  value  待存储的值
+ * @param  *addr  地址指针
+ * @return        成功 / 失败
  *
- * Exclusive STR command for 16 bit values
+ * 用于 16 位值的独占 STR 指令
  */
 extern uint32_t __STREXH(uint16_t value, uint16_t *addr);
 
 /**
- * @brief  STR Exclusive (32 bit)
+ * @brief  独占 STR（32 位）
  *
- * @param  value  value to store
- * @param  *addr  address pointer
- * @return        successful / failed
+ * @param  value  待存储的值
+ * @param  *addr  地址指针
+ * @return        成功 / 失败
  *
- * Exclusive STR command for 32 bit values
+ * 用于 32 位值的独占 STR 指令
  */
 extern uint32_t __STREXW(uint32_t value, uint32_t *addr);
 
 
-#elif (defined (__TASKING__)) /*------------------ TASKING Compiler ---------------------*/
-/* TASKING carm specific functions */
+#elif (defined (__TASKING__)) /*------------------ TASKING 编译器 ---------------------*/
+/* TASKING carm 专用函数 */
 
 /*
- * The CMSIS functions have been implemented as intrinsics in the compiler.
- * Please use "carm -?i" to get an up to date list of all instrinsics,
- * Including the CMSIS ones.
+ * CMSIS 函数在该编译器中已实现为内建函数。
+ * 请使用 "carm -?i" 获取所有内建函数的最新列表，
+ * 其中包括 CMSIS 内建函数。
  */
 
 #endif
 
 
-/** @addtogroup CMSIS_CM3_Core_FunctionInterface CMSIS CM3 Core Function Interface
-  Core  Function Interface containing:
-  - Core NVIC Functions
-  - Core SysTick Functions
-  - Core Reset Functions
+/** @addtogroup CMSIS_CM3_Core_FunctionInterface CMSIS CM3 内核函数接口
+  内核函数接口包含：
+  - 内核 NVIC 函数
+  - 内核 SysTick 函数
+  - 内核复位函数
 */
 /*@{*/
 
-/* ##########################   NVIC functions  #################################### */
+/* ##########################   NVIC 函数  #################################### */
 
 /**
- * @brief  Set the Priority Grouping in NVIC Interrupt Controller
+ * @brief  设置 NVIC 中断控制器中的优先级分组
  *
- * @param  PriorityGroup is priority grouping field
+ * @param  PriorityGroup 为优先级分组字段
  *
- * Set the priority grouping field using the required unlock sequence.
- * The parameter priority_grouping is assigned to the field 
- * SCB->AIRCR [10:8] PRIGROUP field. Only values from 0..7 are used.
- * In case of a conflict between priority grouping and available
- * priority bits (__NVIC_PRIO_BITS) the smallest possible priority group is set.
+ * 使用所需的解锁序列设置优先级分组字段。
+ * 参数 priority_grouping 被赋给 SCB->AIRCR [10:8] PRIGROUP 字段。
+ * 仅使用 0..7 的取值。
+ * 若优先级分组与可用的优先级位数（__NVIC_PRIO_BITS）冲突，
+ * 则设置可能的最小优先级分组。
  */
 static __INLINE void NVIC_SetPriorityGrouping(uint32_t PriorityGroup)
 {
   uint32_t reg_value;
-  uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);                         /* only values 0..7 are used          */
+  uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);                         /* 仅使用 0..7 的取值          */
   
-  reg_value  =  SCB->AIRCR;                                                   /* read old register configuration    */
-  reg_value &= ~(SCB_AIRCR_VECTKEY_Msk | SCB_AIRCR_PRIGROUP_Msk);             /* clear bits to change               */
+  reg_value  =  SCB->AIRCR;                                                   /* 读取旧寄存器配置    */
+  reg_value &= ~(SCB_AIRCR_VECTKEY_Msk | SCB_AIRCR_PRIGROUP_Msk);             /* 清除待修改的位               */
   reg_value  =  (reg_value                       |
                 (0x5FA << SCB_AIRCR_VECTKEY_Pos) | 
-                (PriorityGroupTmp << 8));                                     /* Insert write key and priorty group */
+                (PriorityGroupTmp << 8));                                     /* 插入写密钥和优先级分组 */
   SCB->AIRCR =  reg_value;
 }
 
 /**
- * @brief  Get the Priority Grouping from NVIC Interrupt Controller
+ * @brief  从 NVIC 中断控制器获取优先级分组
  *
- * @return priority grouping field 
+ * @return 优先级分组字段
  *
- * Get the priority grouping from NVIC Interrupt Controller.
- * priority grouping is SCB->AIRCR [10:8] PRIGROUP field.
+ * 从 NVIC 中断控制器获取优先级分组。
+ * 优先级分组即 SCB->AIRCR [10:8] PRIGROUP 字段。
  */
 static __INLINE uint32_t NVIC_GetPriorityGrouping(void)
 {
-  return ((SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) >> SCB_AIRCR_PRIGROUP_Pos);   /* read priority grouping field */
+  return ((SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) >> SCB_AIRCR_PRIGROUP_Pos);   /* 读取优先级分组字段 */
 }
 
 /**
- * @brief  Enable Interrupt in NVIC Interrupt Controller
+ * @brief  在 NVIC 中断控制器中使能中断
  *
- * @param  IRQn   The positive number of the external interrupt to enable
+ * @param  IRQn   要使能的外部中断的非负编号
  *
- * Enable a device specific interupt in the NVIC interrupt controller.
- * The interrupt number cannot be a negative value.
+ * 在 NVIC 中断控制器中使能设备特定的中断。
+ * 中断编号不能为负值。
  */
 static __INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
 {
-  NVIC->ISER[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* enable interrupt */
+  NVIC->ISER[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* 使能中断 */
 }
 
 /**
- * @brief  Disable the interrupt line for external interrupt specified
- * 
- * @param  IRQn   The positive number of the external interrupt to disable
- * 
- * Disable a device specific interupt in the NVIC interrupt controller.
- * The interrupt number cannot be a negative value.
+ * @brief  关闭指定外部中断的中断线
+ *
+ * @param  IRQn   要关闭的外部中断的非负编号
+ *
+ * 在 NVIC 中断控制器中关闭设备特定的中断。
+ * 中断编号不能为负值。
  */
 static __INLINE void NVIC_DisableIRQ(IRQn_Type IRQn)
 {
-  NVIC->ICER[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* disable interrupt */
+  NVIC->ICER[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* 关闭中断 */
 }
 
 /**
- * @brief  Read the interrupt pending bit for a device specific interrupt source
- * 
- * @param  IRQn    The number of the device specifc interrupt
- * @return         1 = interrupt pending, 0 = interrupt not pending
+ * @brief  读取设备特定中断源的中断挂起位
  *
- * Read the pending register in NVIC and return 1 if its status is pending, 
- * otherwise it returns 0
+ * @param  IRQn    设备特定中断的编号
+ * @return         1 = 中断挂起，0 = 中断未挂起
+ *
+ * 读取 NVIC 中的挂起寄存器，若其状态为挂起则返回 1，
+ * 否则返回 0
  */
 static __INLINE uint32_t NVIC_GetPendingIRQ(IRQn_Type IRQn)
 {
-  return((uint32_t) ((NVIC->ISPR[(uint32_t)(IRQn) >> 5] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0)); /* Return 1 if pending else 0 */
+  return((uint32_t) ((NVIC->ISPR[(uint32_t)(IRQn) >> 5] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0)); /* 若挂起则返回 1，否则返回 0 */
 }
 
 /**
- * @brief  Set the pending bit for an external interrupt
- * 
- * @param  IRQn    The number of the interrupt for set pending
+ * @brief  置位外部中断的挂起位
  *
- * Set the pending bit for the specified interrupt.
- * The interrupt number cannot be a negative value.
+ * @param  IRQn    要置位挂起的中断编号
+ *
+ * 置位指定中断的挂起位。
+ * 中断编号不能为负值。
  */
 static __INLINE void NVIC_SetPendingIRQ(IRQn_Type IRQn)
 {
-  NVIC->ISPR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* set interrupt pending */
+  NVIC->ISPR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* 置位中断挂起 */
 }
 
 /**
- * @brief  Clear the pending bit for an external interrupt
+ * @brief  清除外部中断的挂起位
  *
- * @param  IRQn    The number of the interrupt for clear pending
+ * @param  IRQn    要清除挂起的中断编号
  *
- * Clear the pending bit for the specified interrupt. 
- * The interrupt number cannot be a negative value.
+ * 清除指定中断的挂起位。
+ * 中断编号不能为负值。
  */
 static __INLINE void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
 {
-  NVIC->ICPR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* Clear pending interrupt */
+  NVIC->ICPR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* 清除挂起中断 */
 }
 
 /**
- * @brief  Read the active bit for an external interrupt
+ * @brief  读取外部中断的活动位
  *
- * @param  IRQn    The number of the interrupt for read active bit
- * @return         1 = interrupt active, 0 = interrupt not active
+ * @param  IRQn    要读取活动位的中断编号
+ * @return         1 = 中断活动，0 = 中断未活动
  *
- * Read the active register in NVIC and returns 1 if its status is active, 
- * otherwise it returns 0.
+ * 读取 NVIC 中的活动寄存器，若其状态为活动则返回 1，
+ * 否则返回 0。
  */
 static __INLINE uint32_t NVIC_GetActive(IRQn_Type IRQn)
 {
-  return((uint32_t)((NVIC->IABR[(uint32_t)(IRQn) >> 5] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0)); /* Return 1 if active else 0 */
+  return((uint32_t)((NVIC->IABR[(uint32_t)(IRQn) >> 5] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0)); /* 若活动则返回 1，否则返回 0 */
 }
 
 /**
- * @brief  Set the priority for an interrupt
+ * @brief  设置中断的优先级
  *
- * @param  IRQn      The number of the interrupt for set priority
- * @param  priority  The priority to set
+ * @param  IRQn      要设置优先级的中断编号
+ * @param  priority  要设置的优先级
  *
- * Set the priority for the specified interrupt. The interrupt 
- * number can be positive to specify an external (device specific) 
- * interrupt, or negative to specify an internal (core) interrupt.
+ * 设置指定中断的优先级。中断编号可以为正，用于指定外部（设备特定）
+ * 中断；也可以为负，用于指定内部（内核）中断。
  *
- * Note: The priority cannot be set for every core interrupt.
+ * 注意：并非每个内核中断都能设置优先级。
  */
 static __INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
 {
   if(IRQn < 0) {
-    SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff); } /* set Priority for Cortex-M3 System Interrupts */
+    SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff); } /* 设置 Cortex-M3 系统中断的优先级 */
   else {
-    NVIC->IP[(uint32_t)(IRQn)] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff);    }        /* set Priority for device specific Interrupts  */
+    NVIC->IP[(uint32_t)(IRQn)] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff);    }        /* 设置设备特定中断的优先级  */
 }
 
 /**
- * @brief  Read the priority for an interrupt
+ * @brief  读取中断的优先级
  *
- * @param  IRQn      The number of the interrupt for get priority
- * @return           The priority for the interrupt
+ * @param  IRQn      要获取优先级的中断编号
+ * @return           该中断的优先级
  *
- * Read the priority for the specified interrupt. The interrupt 
- * number can be positive to specify an external (device specific) 
- * interrupt, or negative to specify an internal (core) interrupt.
+ * 读取指定中断的优先级。中断编号可以为正，用于指定外部（设备特定）
+ * 中断；也可以为负，用于指定内部（内核）中断。
  *
- * The returned priority value is automatically aligned to the implemented
- * priority bits of the microcontroller.
+ * 返回的优先级值会自动对齐到微控制器实际实现的优先级位数。
  *
- * Note: The priority cannot be set for every core interrupt.
+ * 注意：并非每个内核中断都能设置优先级。
  */
 static __INLINE uint32_t NVIC_GetPriority(IRQn_Type IRQn)
 {
 
   if(IRQn < 0) {
-    return((uint32_t)(SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] >> (8 - __NVIC_PRIO_BITS)));  } /* get priority for Cortex-M3 system interrupts */
+    return((uint32_t)(SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] >> (8 - __NVIC_PRIO_BITS)));  } /* 获取 Cortex-M3 系统中断的优先级 */
   else {
-    return((uint32_t)(NVIC->IP[(uint32_t)(IRQn)]           >> (8 - __NVIC_PRIO_BITS)));  } /* get priority for device specific interrupts  */
+    return((uint32_t)(NVIC->IP[(uint32_t)(IRQn)]           >> (8 - __NVIC_PRIO_BITS)));  } /* 获取设备特定中断的优先级  */
 }
 
 
 /**
- * @brief  Encode the priority for an interrupt
+ * @brief  编码中断的优先级
  *
- * @param  PriorityGroup    The used priority group
- * @param  PreemptPriority  The preemptive priority value (starting from 0)
- * @param  SubPriority      The sub priority value (starting from 0)
- * @return                  The encoded priority for the interrupt
+ * @param  PriorityGroup    所使用的优先级分组
+ * @param  PreemptPriority  抢占优先级值（从 0 开始）
+ * @param  SubPriority      子优先级值（从 0 开始）
+ * @return                  该中断编码后的优先级
  *
- * Encode the priority for an interrupt with the given priority group,
- * preemptive priority value and sub priority value.
- * In case of a conflict between priority grouping and available
- * priority bits (__NVIC_PRIO_BITS) the samllest possible priority group is set.
+ * 使用给定的优先级分组、抢占优先级值和子优先级值对中断优先级进行编码。
+ * 若优先级分组与可用的优先级位数（__NVIC_PRIO_BITS）冲突，
+ * 则设置可能的最小优先级分组。
  *
- * The returned priority value can be used for NVIC_SetPriority(...) function
+ * 返回的优先级值可用于 NVIC_SetPriority(...) 函数
  */
 static __INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t PreemptPriority, uint32_t SubPriority)
 {
-  uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);          /* only values 0..7 are used          */
+  uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);          /* 仅使用 0..7 的取值          */
   uint32_t PreemptPriorityBits;
   uint32_t SubPriorityBits;
 
@@ -1648,23 +1638,23 @@ static __INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t P
 
 
 /**
- * @brief  Decode the priority of an interrupt
+ * @brief  解码中断的优先级
  *
- * @param  Priority           The priority for the interrupt
- * @param  PriorityGroup      The used priority group
- * @param  pPreemptPriority   The preemptive priority value (starting from 0)
- * @param  pSubPriority       The sub priority value (starting from 0)
+ * @param  Priority           该中断的优先级
+ * @param  PriorityGroup      所使用的优先级分组
+ * @param  pPreemptPriority   抢占优先级值（从 0 开始）
+ * @param  pSubPriority       子优先级值（从 0 开始）
  *
- * Decode an interrupt priority value with the given priority group to 
- * preemptive priority value and sub priority value.
- * In case of a conflict between priority grouping and available
- * priority bits (__NVIC_PRIO_BITS) the samllest possible priority group is set.
+ * 使用给定的优先级分组将中断优先级值解码为
+ * 抢占优先级值和子优先级值。
+ * 若优先级分组与可用的优先级位数（__NVIC_PRIO_BITS）冲突，
+ * 则设置可能的最小优先级分组。
  *
- * The priority value can be retrieved with NVIC_GetPriority(...) function
+ * 该优先级值可通过 NVIC_GetPriority(...) 函数获取
  */
 static __INLINE void NVIC_DecodePriority (uint32_t Priority, uint32_t PriorityGroup, uint32_t* pPreemptPriority, uint32_t* pSubPriority)
 {
-  uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);          /* only values 0..7 are used          */
+  uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);          /* 仅使用 0..7 的取值          */
   uint32_t PreemptPriorityBits;
   uint32_t SubPriorityBits;
 
@@ -1677,31 +1667,30 @@ static __INLINE void NVIC_DecodePriority (uint32_t Priority, uint32_t PriorityGr
 
 
 
-/* ##################################    SysTick function  ############################################ */
+/* ##################################    SysTick 函数  ############################################ */
 
 #if (!defined (__Vendor_SysTickConfig)) || (__Vendor_SysTickConfig == 0)
 
 /**
- * @brief  Initialize and start the SysTick counter and its interrupt.
+ * @brief  初始化并启动 SysTick 计数器及其中断。
  *
- * @param   ticks   number of ticks between two interrupts
- * @return  1 = failed, 0 = successful
+ * @param   ticks   两次中断之间的节拍数
+ * @return  1 = 失败，0 = 成功
  *
- * Initialise the system tick timer and its interrupt and start the
- * system tick timer / counter in free running mode to generate 
- * periodical interrupts.
+ * 初始化系统节拍定时器及其中断，并以自由运行模式启动
+ * 系统节拍定时器/计数器，以产生周期性中断。
  */
 static __INLINE uint32_t SysTick_Config(uint32_t ticks)
 { 
-  if (ticks > SysTick_LOAD_RELOAD_Msk)  return (1);            /* Reload value impossible */
+  if (ticks > SysTick_LOAD_RELOAD_Msk)  return (1);            /* 重载值无效 */
                                                                
-  SysTick->LOAD  = (ticks & SysTick_LOAD_RELOAD_Msk) - 1;      /* set reload register */
-  NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);  /* set Priority for Cortex-M0 System Interrupts */
-  SysTick->VAL   = 0;                                          /* Load the SysTick Counter Value */
+  SysTick->LOAD  = (ticks & SysTick_LOAD_RELOAD_Msk) - 1;      /* 设置重载寄存器 */
+  NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);  /* 设置 Cortex-M0 系统中断的优先级 */
+  SysTick->VAL   = 0;                                          /* 装载 SysTick 计数值 */
   SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk | 
                    SysTick_CTRL_TICKINT_Msk   | 
-                   SysTick_CTRL_ENABLE_Msk;                    /* Enable SysTick IRQ and SysTick Timer */
-  return (0);                                                  /* Function successful */
+                   SysTick_CTRL_ENABLE_Msk;                    /* 使能 SysTick 中断和 SysTick 定时器 */
+  return (0);                                                  /* 函数执行成功 */
 }
 
 #endif
@@ -1709,55 +1698,55 @@ static __INLINE uint32_t SysTick_Config(uint32_t ticks)
 
 
 
-/* ##################################    Reset function  ############################################ */
+/* ##################################    复位函数  ############################################ */
 
 /**
- * @brief  Initiate a system reset request.
+ * @brief  发起系统复位请求。
  *
- * Initiate a system reset request to reset the MCU
+ * 发起系统复位请求以复位 MCU
  */
 static __INLINE void NVIC_SystemReset(void)
 {
   SCB->AIRCR  = ((0x5FA << SCB_AIRCR_VECTKEY_Pos)      | 
                  (SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) | 
-                 SCB_AIRCR_SYSRESETREQ_Msk);                   /* Keep priority group unchanged */
-  __DSB();                                                     /* Ensure completion of memory access */              
-  while(1);                                                    /* wait until reset */
+                 SCB_AIRCR_SYSRESETREQ_Msk);                   /* 保持优先级分组不变 */
+  __DSB();                                                     /* 确保存储器访问完成 */              
+  while(1);                                                    /* 等待直到复位 */
 }
 
-/*@}*/ /* end of group CMSIS_CM3_Core_FunctionInterface */
+/*@}*/ /* 分组 CMSIS_CM3_Core_FunctionInterface 结束 */
 
 
 
-/* ##################################### Debug In/Output function ########################################### */
+/* ##################################### 调试输入/输出函数 ########################################### */
 
-/** @addtogroup CMSIS_CM3_CoreDebugInterface CMSIS CM3 Core Debug Interface
-  Core Debug Interface containing:
-  - Core Debug Receive / Transmit Functions
-  - Core Debug Defines
-  - Core Debug Variables
+/** @addtogroup CMSIS_CM3_CoreDebugInterface CMSIS CM3 内核调试接口
+  内核调试接口包含：
+  - 内核调试接收/发送函数
+  - 内核调试宏定义
+  - 内核调试变量
 */
 /*@{*/
 
-extern volatile int ITM_RxBuffer;                    /*!< variable to receive characters                             */
-#define             ITM_RXBUFFER_EMPTY    0x5AA55AA5 /*!< value identifying ITM_RxBuffer is ready for next character */
+extern volatile int ITM_RxBuffer;                    /*!< 用于接收字符的变量                             */
+#define             ITM_RXBUFFER_EMPTY    0x5AA55AA5 /*!< 标识 ITM_RxBuffer 已准备好接收下一个字符的值 */
 
 
 /**
- * @brief  Outputs a character via the ITM channel 0
+ * @brief  通过 ITM 通道 0 输出一个字符
  *
- * @param  ch   character to output
- * @return      character to output
+ * @param  ch   要输出的字符
+ * @return      要输出的字符
  *
- * The function outputs a character via the ITM channel 0. 
- * The function returns when no debugger is connected that has booked the output.  
- * It is blocking when a debugger is connected, but the previous character send is not transmitted. 
+ * 本函数通过 ITM 通道 0 输出一个字符。
+ * 当没有调试器连接并占用该输出时，本函数立即返回。
+ * 当有调试器连接但上一个字符尚未发送完成时，本函数会阻塞。
  */
 static __INLINE uint32_t ITM_SendChar (uint32_t ch)
 {
-  if ((CoreDebug->DEMCR & CoreDebug_DEMCR_TRCENA_Msk)  &&      /* Trace enabled */
-      (ITM->TCR & ITM_TCR_ITMENA_Msk)                  &&      /* ITM enabled */
-      (ITM->TER & (1ul << 0)        )                    )     /* ITM Port #0 enabled */
+  if ((CoreDebug->DEMCR & CoreDebug_DEMCR_TRCENA_Msk)  &&      /* 跟踪已使能 */
+      (ITM->TCR & ITM_TCR_ITMENA_Msk)                  &&      /* ITM 已使能 */
+      (ITM->TER & (1ul << 0)        )                    )     /* ITM 端口 0 已使能 */
   {
     while (ITM->PORT[0].u32 == 0);
     ITM->PORT[0].u8 = (uint8_t) ch;
@@ -1767,20 +1756,20 @@ static __INLINE uint32_t ITM_SendChar (uint32_t ch)
 
 
 /**
- * @brief  Inputs a character via variable ITM_RxBuffer
+ * @brief  通过变量 ITM_RxBuffer 输入一个字符
  *
- * @return      received character, -1 = no character received
+ * @return      接收到的字符，-1 = 未收到字符
  *
- * The function inputs a character via variable ITM_RxBuffer. 
- * The function returns when no debugger is connected that has booked the output.  
- * It is blocking when a debugger is connected, but the previous character send is not transmitted. 
+ * 本函数通过变量 ITM_RxBuffer 输入一个字符。
+ * 当没有调试器连接并占用该输出时，本函数立即返回。
+ * 当有调试器连接但上一个字符尚未发送完成时，本函数会阻塞。
  */
 static __INLINE int ITM_ReceiveChar (void) {
-  int ch = -1;                               /* no character available */
+  int ch = -1;                               /* 无可用字符 */
 
   if (ITM_RxBuffer != ITM_RXBUFFER_EMPTY) {
     ch = ITM_RxBuffer;
-    ITM_RxBuffer = ITM_RXBUFFER_EMPTY;       /* ready for next character */
+    ITM_RxBuffer = ITM_RXBUFFER_EMPTY;       /* 已准备好接收下一个字符 */
   }
   
   return (ch); 
@@ -1788,30 +1777,30 @@ static __INLINE int ITM_ReceiveChar (void) {
 
 
 /**
- * @brief  Check if a character via variable ITM_RxBuffer is available
+ * @brief  检查变量 ITM_RxBuffer 中是否有可用字符
  *
- * @return      1 = character available, 0 = no character available
+ * @return      1 = 有可用字符，0 = 无可用字符
  *
- * The function checks  variable ITM_RxBuffer whether a character is available or not. 
- * The function returns '1' if a character is available and '0' if no character is available. 
+ * 本函数检查变量 ITM_RxBuffer 中是否有可用字符。
+ * 若有可用字符则返回 '1'，若无可用字符则返回 '0'。
  */
 static __INLINE int ITM_CheckChar (void) {
 
   if (ITM_RxBuffer == ITM_RXBUFFER_EMPTY) {
-    return (0);                                 /* no character available */
+    return (0);                                 /* 无可用字符 */
   } else {
-    return (1);                                 /*    character available */
+    return (1);                                 /*    有可用字符 */
   }
 }
 
-/*@}*/ /* end of group CMSIS_CM3_core_DebugInterface */
+/*@}*/ /* 分组 CMSIS_CM3_core_DebugInterface 结束 */
 
 
 #ifdef __cplusplus
 }
 #endif
 
-/*@}*/ /* end of group CMSIS_CM3_core_definitions */
+/*@}*/ /* 分组 CMSIS_CM3_core_definitions 结束 */
 
 #endif /* __CM3_CORE_H__ */
 
