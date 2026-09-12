@@ -1,0 +1,21 @@
+# CMake build output
+/build/
+/cmake-build-*/
+
+# STM32Cube scratch files
+mx.scratch
+
+# Firmware and compiler output generated outside build/
+*.elf
+*.hex
+*.bin
+*.map
+*.o
+*.d
+*.su
+*.lst
+
+# Editor and OS-local files
+.cache/
+.DS_Store
+Thumbs.db
