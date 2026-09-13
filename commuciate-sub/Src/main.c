@@ -2,7 +2,7 @@
 
 /* 烧录发送板时设为 1，烧录接收板时设为 0。 */
 #ifndef BOARD_IS_SENDER
-#define BOARD_IS_SENDER 1
+#define BOARD_IS_SENDER 0
 #endif
 
 /*
@@ -17,7 +17,7 @@
 
 static void delay_us(uint32_t us)
 {
-    uint32_t ticks = (SystemCoreClock / 1 000 000u) * us;//syscoreclock是几十M的常数（每秒）
+    uint32_t ticks = (SystemCoreClock / 1000000u) * us;
 
     SysTick->CTRL = 0u;
     SysTick->LOAD = ticks - 1u;
@@ -86,16 +86,52 @@ static void link_send_byte(uint8_t data)
 
 #else
 
+static volatile uint8_t link_start_pending = 0u;
+static volatile uint8_t link_receiving = 0u;
+
 static void link_init(void)
 {
     GPIO_InitTypeDef gpio;
+    EXTI_InitTypeDef exti;
+    NVIC_InitTypeDef nvic;
 
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE);
 
     gpio.GPIO_Pin = LINK_GPIO_PIN;
     gpio.GPIO_Speed = GPIO_Speed_2MHz;
     gpio.GPIO_Mode = GPIO_Mode_IPU;
     GPIO_Init(LINK_GPIO, &gpio);
+
+    /* PA0 映射到 EXTI0，检测起始位的下降沿。 */
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource0);
+
+    EXTI_StructInit(&exti);
+    exti.EXTI_Line = EXTI_Line0;
+    exti.EXTI_Mode = EXTI_Mode_Interrupt;
+    exti.EXTI_Trigger = EXTI_Trigger_Falling;
+    exti.EXTI_LineCmd = ENABLE;
+    EXTI_Init(&exti);
+    EXTI_ClearITPendingBit(EXTI_Line0);
+
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+    nvic.NVIC_IRQChannel = EXTI0_IRQn;
+    nvic.NVIC_IRQChannelPreemptionPriority = 1u;
+    nvic.NVIC_IRQChannelSubPriority = 1u;
+    nvic.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Init(&nvic);
+}
+
+void EXTI0_IRQHandler(void)
+{
+    if (EXTI_GetITStatus(EXTI_Line0) != RESET)
+    {
+        if (link_receiving == 0u)
+        {
+            link_start_pending = 1u;
+        }
+
+        EXTI_ClearITPendingBit(EXTI_Line0);
+    }
 }
 
 static uint8_t link_receive_byte(uint8_t *data)
@@ -104,17 +140,25 @@ static uint8_t link_receive_byte(uint8_t *data)
     uint8_t value = 0u;
 
     /* 先等总线空闲，再等待起始位。 */
-    while (GPIO_ReadInputDataBit(LINK_GPIO, LINK_GPIO_PIN) == Bit_RESET)
+    if (link_start_pending == 0u)
     {
+        return 0u;
     }
-    while (GPIO_ReadInputDataBit(LINK_GPIO, LINK_GPIO_PIN) != Bit_RESET)
-    {
-    }
+
+    link_receiving = 1u;
+    link_start_pending = 0u;
+
+    /* 接收一帧期间关闭 EXTI，避免数据位的下降沿被误认为新起始位。 */
+    EXTI->IMR &= ~EXTI_Line0;
+    EXTI_ClearITPendingBit(EXTI_Line0);
 
     /* 在起始位中央再次确认，过滤很短的低电平毛刺。 */
     delay_us(LINK_BIT_US / 2u);
     if (GPIO_ReadInputDataBit(LINK_GPIO, LINK_GPIO_PIN) != Bit_RESET)
     {
+        link_receiving = 0u;
+        EXTI_ClearITPendingBit(EXTI_Line0);
+        EXTI->IMR |= EXTI_Line0;
         return 0u;
     }
 
@@ -133,10 +177,16 @@ static uint8_t link_receive_byte(uint8_t *data)
     /* 此时位于停止位中央；停止位必须为高。 */
     if (GPIO_ReadInputDataBit(LINK_GPIO, LINK_GPIO_PIN) == Bit_RESET)
     {
+        link_receiving = 0u;
+        EXTI_ClearITPendingBit(EXTI_Line0);
+        EXTI->IMR |= EXTI_Line0;
         return 0u;
     }
 
     *data = value;
+    link_receiving = 0u;
+    EXTI_ClearITPendingBit(EXTI_Line0);
+    EXTI->IMR |= EXTI_Line0;
     return 1u;
 }
 
