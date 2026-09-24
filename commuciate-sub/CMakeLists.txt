@@ -37,6 +37,10 @@ file(GLOB STM32_SPL_SOURCES CONFIGURE_DEPENDS
 # Add sources to executable/library
 target_sources(${PROJECT_NAME} PRIVATE
   ${STM32_SPL_SOURCES}
+  "${CMAKE_CURRENT_SOURCE_DIR}/Lib/InvenSense/inv_mpu.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Src/board_protocol.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Src/mpu6500.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Src/mpu6500_port.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Start/system_stm32f10x.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/stm32f10x_it.c"
 )
@@ -45,6 +49,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 target_include_directories(${PROJECT_NAME} PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/Inc"
   "${CMAKE_CURRENT_SOURCE_DIR}/Lib"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Lib/InvenSense"
   "${CMAKE_CURRENT_SOURCE_DIR}/Start"
 )
 
@@ -57,6 +62,8 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 target_compile_definitions(${PROJECT_NAME} PRIVATE
   STM32F10X_MD
   USE_STDPERIPH_DRIVER
+  MPU6500
+  REMOVE_LOGGING
 )
 
 # Linker options

@@ -21,6 +21,7 @@
 
 /* 头文件包含 ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
+#include "mpu6500_port.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Template  STM32F10x 标准外设库模板
   * @{
@@ -132,6 +133,7 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
+  Mpu6500_PortTick1ms();
 }
 
 /******************************************************************************/
