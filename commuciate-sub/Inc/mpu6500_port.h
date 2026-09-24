@@ -17,6 +17,7 @@
 #define MPU6500_PORT_H
 
 #include <stdint.h>
+#include "stm32f10x.h"
 
 /**
   * @brief  初始化移植层：SysTick 毫秒时基、I2C1 时钟与引脚、I2C 外设。
@@ -28,7 +29,9 @@
   * @note   本函数会调用 SysTick_Config，从此 SysTick 中断开始产生，
   *         全局毫秒计数由 system_millis 维护。
   */
-int Mpu6500_PortInit(void);
+int Mpu6500_PortInit(GPIO_TypeDef *scl_port, uint16_t scl_pin,
+                     GPIO_TypeDef *sda_port, uint16_t sda_pin,
+                     FunctionalState remap_i2c1);
 
 /**
   * @brief  毫秒时基递增 1，须在 SysTick 中断服务函数中调用。

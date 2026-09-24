@@ -2,6 +2,7 @@
 #define MPU6500_H
 
 #include <stdint.h>
+#include "stm32f10x.h"
 
 typedef struct
 {
@@ -12,7 +13,9 @@ typedef struct
 } Mpu6500_Data;
 
 /* 初始化 I2C1 和 MPU6500，并将加速度计/陀螺仪配置为 1 kHz FIFO 采样。 */
-int Mpu6500_Init(void);
+int Mpu6500_Init(GPIO_TypeDef *scl_port, uint16_t scl_pin,
+                 GPIO_TypeDef *sda_port, uint16_t sda_pin,
+                 FunctionalState remap_i2c1);
 
 /* 读取官方 FIFO 中最早的一帧同步样本；返回 1 表示 FIFO 暂无新样本。 */
 int Mpu6500_Read(Mpu6500_Data *data);

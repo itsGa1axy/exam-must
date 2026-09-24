@@ -425,10 +425,25 @@ void inv_get_ms(uint32_t *count)
   * @note   本函数会调用 I2C_DeInit 先复位外设。若在运行中途重复调用，
   *         已建立的传输会被打断，因此只应在初始化阶段调用一次。
   */
-int Mpu6500_PortInit(void)
+static uint32_t gpio_clock_for_port(GPIO_TypeDef *port)
+{
+    if (port == GPIOA) return RCC_APB2Periph_GPIOA;
+    if (port == GPIOB) return RCC_APB2Periph_GPIOB;
+    if (port == GPIOC) return RCC_APB2Periph_GPIOC;
+    if (port == GPIOD) return RCC_APB2Periph_GPIOD;
+    return 0u;
+}
+
+int Mpu6500_PortInit(GPIO_TypeDef *scl_port, uint16_t scl_pin,
+                     GPIO_TypeDef *sda_port, uint16_t sda_pin,
+                     FunctionalState remap_i2c1)
 {
     GPIO_InitTypeDef gpio;
     I2C_InitTypeDef i2c;
+    uint32_t gpio_clocks;
+
+    if (scl_port == 0 || sda_port == 0 || scl_pin == 0u || sda_pin == 0u)
+        return -1;
 
     /* 时基部分：1 ms 中断一次，为官方库的延时与时间戳提供基准。 */
     SystemCoreClockUpdate();
@@ -437,17 +452,24 @@ int Mpu6500_PortInit(void)
         return -1;
 
     /* 开时钟：GPIOB 挂在 APB2，I2C1 挂在 APB1。 */
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+    gpio_clocks = gpio_clock_for_port(scl_port) | gpio_clock_for_port(sda_port);
+    if (gpio_clocks == 0u)
+        return -1;
+    RCC_APB2PeriphClockCmd(gpio_clocks, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+    GPIO_PinRemapConfig(GPIO_Remap_I2C1, remap_i2c1);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1, ENABLE);
 
     /*
      * PB6/PB7 配为复用开漏。开漏是 I2C 的电气要求：
      * 总线上只能主动拉低、靠外部上拉电阻拉高，这样才能实现线与、避免推挽冲突。
      */
-    gpio.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
     gpio.GPIO_Speed = GPIO_Speed_50MHz;
     gpio.GPIO_Mode = GPIO_Mode_AF_OD;
-    GPIO_Init(GPIOB, &gpio);
+    gpio.GPIO_Pin = scl_pin;
+    GPIO_Init(scl_port, &gpio);
+    gpio.GPIO_Pin = sda_pin;
+    GPIO_Init(sda_port, &gpio);
 
     /* I2C 部分：复位后按默认值填充，再逐项覆盖需要修改的成员。 */
     I2C_DeInit(MPU6500_I2C);

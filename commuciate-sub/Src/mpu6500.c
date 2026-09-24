@@ -7,9 +7,12 @@ static unsigned short accel_sensitivity;
 static uint8_t initialized;
 
 /* 初始化 MPU6500，并开启 1 kHz 加速度计/陀螺仪 FIFO。 */
-int Mpu6500_Init(void)
+int Mpu6500_Init(GPIO_TypeDef *scl_port, uint16_t scl_pin,
+                 GPIO_TypeDef *sda_port, uint16_t sda_pin,
+                 FunctionalState remap_i2c1)
 {
-    if (Mpu6500_PortInit() != 0)
+    if (Mpu6500_PortInit(scl_port, scl_pin, sda_port, sda_pin,
+                         remap_i2c1) != 0)
         return -1;
     if (mpu_init(0) != 0)
         return -2;

@@ -20,6 +20,15 @@ static volatile uint8_t rx_queue[RX_QUEUE_SIZE];
 static volatile uint8_t rx_read;
 static volatile uint8_t rx_write;
 
+static uint32_t gpio_clock_for_port(GPIO_TypeDef *port)
+{
+    if (port == GPIOA) return RCC_APB2Periph_GPIOA;
+    if (port == GPIOB) return RCC_APB2Periph_GPIOB;
+    if (port == GPIOC) return RCC_APB2Periph_GPIOC;
+    if (port == GPIOD) return RCC_APB2Periph_GPIOD;
+    return 0u;
+}
+
 /* GCC/ARM GCC 下保存并恢复中断屏蔽状态，避免临界区误开原本关闭的中断。 */
 static uint32_t enter_critical(void)
 {
@@ -60,7 +69,9 @@ static void start_dma(void)
     DMA_Cmd(DMA1_Channel4, ENABLE);
 }
 
-void BoardTransport_Init(void)
+void BoardTransport_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
+                         GPIO_TypeDef *rx_port, uint16_t rx_pin,
+                         FunctionalState remap_usart1)
 {
     GPIO_InitTypeDef gpio;
     USART_InitTypeDef usart;
@@ -68,16 +79,19 @@ void BoardTransport_Init(void)
 
     tx_read = tx_write = tx_active = 0u;
     rx_read = rx_write = 0u;
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_USART1, ENABLE);
+    RCC_APB2PeriphClockCmd(gpio_clock_for_port(tx_port) |
+                           gpio_clock_for_port(rx_port) |
+                           RCC_APB2Periph_USART1 | RCC_APB2Periph_AFIO, ENABLE);
     RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
+    GPIO_PinRemapConfig(GPIO_Remap_USART1, remap_usart1);
 
-    gpio.GPIO_Pin = GPIO_Pin_9;
     gpio.GPIO_Speed = GPIO_Speed_50MHz;
     gpio.GPIO_Mode = GPIO_Mode_AF_PP;
-    GPIO_Init(GPIOA, &gpio);
-    gpio.GPIO_Pin = GPIO_Pin_10;
+    gpio.GPIO_Pin = tx_pin;
+    GPIO_Init(tx_port, &gpio);
+    gpio.GPIO_Pin = rx_pin;
     gpio.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_Init(GPIOA, &gpio);
+    GPIO_Init(rx_port, &gpio);
 
     USART_StructInit(&usart);
     usart.USART_BaudRate = 460800u;

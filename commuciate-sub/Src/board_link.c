@@ -49,12 +49,14 @@ static void handle_request(void)
     }
 }
 
-void BoardLink_Init(void)
+void BoardLink_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
+                    GPIO_TypeDef *rx_port, uint16_t rx_pin,
+                    FunctionalState remap_usart1)
 {
     memset(cache, 0, sizeof(cache));
     next_sequence = 0u;
     parser_state = parser_index = parser_length = 0u;
-    BoardTransport_Init();
+    BoardTransport_Init(tx_port, tx_pin, rx_port, rx_pin, remap_usart1);
 }
 
 int BoardLink_SendAttitude(const Attitude_Result *attitude)
