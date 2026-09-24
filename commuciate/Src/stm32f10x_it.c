@@ -22,6 +22,7 @@
 /* 头文件包含 ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 #include "board_link.h"
+#include "pc_console.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Template  STM32F10x 标准外设库模板
   * @{
@@ -139,6 +140,11 @@ void SysTick_Handler(void)
 void USART1_IRQHandler(void)
 {
   BoardLink_RxIrqHandler();
+}
+
+void USART2_IRQHandler(void)
+{
+  PcConsole_RxIrqHandler();
 }
 
 /******************************************************************************/

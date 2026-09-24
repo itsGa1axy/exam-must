@@ -9,11 +9,13 @@
 #define BOARD_PROTOCOL_SOF1                 0x55u
 #define BOARD_PROTOCOL_VERSION               0x02u
 #define BOARD_PROTOCOL_TYPE_QUATERNION      0x01u
+#define BOARD_PROTOCOL_TYPE_SET_FILTER_WEIGHT 0x02u
 #define BOARD_PROTOCOL_TYPE_RETRANSMIT      0x81u
 
 /* 唯一载荷格式：毫秒时间戳和四个有符号 Q30 四元数分量。 */
 #define BOARD_PROTOCOL_QUATERNION_SIZE       20u
 #define BOARD_PROTOCOL_RETRANSMIT_SIZE       2u
+#define BOARD_PROTOCOL_FILTER_WEIGHT_SIZE    2u
 #define BOARD_PROTOCOL_MAX_PAYLOAD_SIZE      BOARD_PROTOCOL_QUATERNION_SIZE
 #define BOARD_PROTOCOL_MAX_FRAME_SIZE        (9u + BOARD_PROTOCOL_MAX_PAYLOAD_SIZE)
 
@@ -41,5 +43,9 @@ size_t BoardProtocol_EncodeQuaternion(uint16_t sequence,
 size_t BoardProtocol_EncodeRetransmit(uint16_t requested_sequence,
                                       uint8_t *frame,
                                       size_t capacity);
+size_t BoardProtocol_EncodeFilterWeight(uint16_t sequence,
+                                        uint16_t gyro_weight_q15,
+                                        uint8_t *frame,
+                                        size_t capacity);
 
 #endif

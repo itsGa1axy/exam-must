@@ -122,3 +122,18 @@ size_t BoardProtocol_EncodeRetransmit(uint16_t requested_sequence,
                         requested_sequence, payload,
                         BOARD_PROTOCOL_RETRANSMIT_SIZE, frame, capacity);
 }
+
+/* 设置互补滤波的陀螺仪权重，Q15 范围为 0 到 32767。 */
+size_t BoardProtocol_EncodeFilterWeight(uint16_t sequence,
+                                        uint16_t gyro_weight_q15,
+                                        uint8_t *frame,
+                                        size_t capacity)
+{
+    uint8_t payload[BOARD_PROTOCOL_FILTER_WEIGHT_SIZE];
+    if (gyro_weight_q15 > 32767u)
+        return 0u;
+    BoardProtocol_WriteU16Le(payload, gyro_weight_q15);
+    return encode_frame(BOARD_PROTOCOL_VERSION,
+                        BOARD_PROTOCOL_TYPE_SET_FILTER_WEIGHT,
+                        sequence, payload, sizeof(payload), frame, capacity);
+}

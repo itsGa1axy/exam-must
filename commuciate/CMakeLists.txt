@@ -71,5 +71,5 @@ target_link_directories(${PROJECT_NAME} PRIVATE
 
 # Add additional linker libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE
-  # Add additional linker libraries here
+  m
 )

@@ -19,6 +19,7 @@ static FrameParser parser;
 static BoardLink_Attitude latest_attitude;
 static BoardLink_Stats link_stats;
 static bool latest_ready;
+static uint16_t control_sequence;
 
 static uint32_t gpio_clock_for_port(GPIO_TypeDef *port)
 {
@@ -193,9 +194,29 @@ void BoardLink_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
     rx_read = 0u;
     rx_overflows = 0u;
     latest_ready = false;
+    control_sequence = 0u;
     memset(&link_stats, 0, sizeof(link_stats));
     reset_parser();
     usart1_init(tx_port, tx_pin, rx_port, rx_pin, remap_usart1);
+}
+
+int BoardLink_SendFilterWeight(uint16_t gyro_weight_q15)
+{
+    uint8_t frame[BOARD_PROTOCOL_MAX_FRAME_SIZE];
+    size_t length;
+    size_t i;
+
+    length = BoardProtocol_EncodeFilterWeight(control_sequence++,
+                                               gyro_weight_q15,
+                                               frame, sizeof(frame));
+    if (length == 0u)
+        return -1;
+    for (i = 0u; i < length; ++i)
+    {
+        while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET) { }
+        USART_SendData(USART1, frame[i]);
+    }
+    return 0;
 }
 
 void BoardLink_Process(void)

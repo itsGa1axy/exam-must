@@ -29,6 +29,8 @@ void BoardLink_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
 void BoardLink_Process(void);
 bool BoardLink_GetLatest(BoardLink_Attitude *attitude);
 void BoardLink_GetStats(BoardLink_Stats *stats);
+/* 经 USART1 向从机发送新的陀螺仪权重，Q15 范围为 0 到 32767。 */
+int BoardLink_SendFilterWeight(uint16_t gyro_weight_q15);
 /* USART1 中断只负责读取数据寄存器并将字节放入环形缓冲区。 */
 void BoardLink_RxIrqHandler(void);
 

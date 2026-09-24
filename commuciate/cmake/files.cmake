@@ -5,6 +5,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/main.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/board_protocol.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/board_link.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Src/pc_console.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/startup_stm32f103xx.S"
 )
 
