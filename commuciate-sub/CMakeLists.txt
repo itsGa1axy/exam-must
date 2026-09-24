@@ -39,6 +39,8 @@ target_sources(${PROJECT_NAME} PRIVATE
   ${STM32_SPL_SOURCES}
   "${CMAKE_CURRENT_SOURCE_DIR}/Lib/InvenSense/inv_mpu.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/board_protocol.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Src/attitude.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Src/imu_calibration.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/mpu6500.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/mpu6500_port.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Start/system_stm32f10x.c"
@@ -78,5 +80,5 @@ target_link_directories(${PROJECT_NAME} PRIVATE
 
 # Add additional linker libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE
-  # Add additional linker libraries here
+  m
 )
