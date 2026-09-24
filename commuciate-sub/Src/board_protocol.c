@@ -178,3 +178,20 @@ size_t BoardProtocol_EncodeRetransmit(uint8_t version,
                         frame,
                         capacity);
 }
+
+/* 编码从机滤波陀螺仪权重设置指令，权重按 Q15 表示。 */
+size_t BoardProtocol_EncodeFilterWeight(uint16_t sequence,
+                                        uint16_t gyro_weight_q15,
+                                        uint8_t *frame,
+                                        size_t capacity)
+{
+    uint8_t payload[BOARD_PROTOCOL_FILTER_WEIGHT_PAYLOAD_SIZE];
+    if (gyro_weight_q15 > 32767u)
+        return 0u;
+    write_u16_le(payload, gyro_weight_q15);
+    return encode_frame(BOARD_PROTOCOL_VERSION_2,
+                        BOARD_PROTOCOL_TYPE_SET_FILTER_WEIGHT,
+                        sequence, payload,
+                        BOARD_PROTOCOL_FILTER_WEIGHT_PAYLOAD_SIZE,
+                        frame, capacity);
+}

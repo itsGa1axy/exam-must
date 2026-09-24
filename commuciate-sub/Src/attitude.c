@@ -6,14 +6,15 @@
 #define ATTITUDE_PI                 3.14159265358979323846f
 #define ATTITUDE_RAD_TO_DEG         (180.0f / ATTITUDE_PI)
 #define ATTITUDE_DEG_TO_RAD         (ATTITUDE_PI / 180.0f)
-#define ATTITUDE_FILTER_TAU_S       0.5f
 #define ATTITUDE_MAX_DT_S           0.05f
+#define ATTITUDE_DEFAULT_GYRO_WEIGHT 0.98f
 
 typedef struct
 {
     float roll_rad;
     float pitch_rad;
     float yaw_rad;
+    float gyro_weight;
     uint32_t last_timestamp_ms;
     uint8_t initialized;
 } Attitude_FilterState;
@@ -65,6 +66,15 @@ static void fill_result(const Mpu6500_Data *imu, Attitude_Result *result)
 void Attitude_Init(void)
 {
     memset(&filter_state, 0, sizeof(filter_state));
+    filter_state.gyro_weight = ATTITUDE_DEFAULT_GYRO_WEIGHT;
+}
+
+int Attitude_SetGyroWeight(float weight)
+{
+    if (!(weight >= 0.0f && weight <= 1.0f))
+        return -1;
+    filter_state.gyro_weight = weight;
+    return 0;
 }
 
 int Attitude_Update(const Mpu6500_Data *imu, Attitude_Result *result)
@@ -140,8 +150,8 @@ int Attitude_Update(const Mpu6500_Data *imu, Attitude_Result *result)
         filter_state.pitch_rad += pitch_rate * dt;
         filter_state.yaw_rad = wrap_pi(filter_state.yaw_rad + yaw_rate * dt);
 
-        /* 按实际 dt 调整互补系数，保持时间常数约 0.5 秒。 */
-        alpha = ATTITUDE_FILTER_TAU_S / (ATTITUDE_FILTER_TAU_S + dt);
+        /* 使用可配置的陀螺仪权重，剩余权重用于加速度计修正。 */
+        alpha = filter_state.gyro_weight;
         accel_error = fabsf(accel_norm - 1.0f);
         accel_correction = 1.0f - (accel_error / 0.25f);
         if (accel_correction < 0.0f)

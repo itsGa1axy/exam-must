@@ -40,8 +40,11 @@ int main(void)
 
     while (1)
     {
+        uint16_t gyro_weight_q15;
         int read_status;
         BoardLink_Process();
+        if (BoardLink_TakeFilterWeight(&gyro_weight_q15) != 0)
+            (void)Attitude_SetGyroWeight((float)gyro_weight_q15 / 32767.0f);
         read_status = Mpu6500_Read(&raw_data);
         if (read_status != 0)
             continue;

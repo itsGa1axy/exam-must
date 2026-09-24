@@ -5,7 +5,6 @@
 
 #define RETRY_CACHE_COUNT 8u
 #define FRAME_SIZE 32u
-#define FIXED_SIZE 5u
 
 typedef struct
 {
@@ -20,6 +19,8 @@ static uint8_t parser[FRAME_SIZE];
 static uint8_t parser_index;
 static uint8_t parser_state;
 static uint8_t parser_length;
+static uint16_t pending_filter_weight_q15;
+static uint8_t filter_weight_pending;
 
 static uint16_t read_u16(const uint8_t *p)
 {
@@ -27,18 +28,41 @@ static uint16_t read_u16(const uint8_t *p)
 }
 
 /* 收到主机 NACK 后，只重发缓存中的原始帧，序号和 CRC 均保持一致。 */
-static void handle_request(void)
+static void handle_control_frame(void)
 {
     uint16_t sequence = read_u16(&parser[4]);
-    uint16_t payload_sequence = read_u16(&parser[7]);
-    uint16_t crc = BoardProtocol_Crc16CcittFalse(&parser[2], 7u);
+    uint16_t crc;
     uint8_t crc_offset = (uint8_t)(7u + parser_length);
     uint8_t i;
 
+    crc = BoardProtocol_Crc16CcittFalse(&parser[2],
+                                        (uint16_t)(5u + parser_length));
     if (parser[2] != BOARD_PROTOCOL_VERSION_2 ||
-        parser[3] != BOARD_PROTOCOL_TYPE_RETRANSMIT || parser_length != 2u ||
-        sequence != payload_sequence || read_u16(&parser[crc_offset]) != crc)
+        read_u16(&parser[crc_offset]) != crc)
         return;
+
+    if (parser[3] == BOARD_PROTOCOL_TYPE_RETRANSMIT && parser_length == 2u)
+    {
+        if (sequence != read_u16(&parser[7]))
+            return;
+        for (i = 0u; i < RETRY_CACHE_COUNT; ++i)
+        {
+            if (cache[i].length != 0u && cache[i].sequence == sequence)
+            {
+                (void)BoardTransport_Send(cache[i].frame, cache[i].length);
+                return;
+            }
+        }
+    }
+    else if (parser[3] == BOARD_PROTOCOL_TYPE_SET_FILTER_WEIGHT && parser_length == 2u)
+    {
+        uint16_t weight = read_u16(&parser[7]);
+        if (weight <= 32767u)
+        {
+            pending_filter_weight_q15 = weight;
+            filter_weight_pending = 1u;
+        }
+    }
     for (i = 0u; i < RETRY_CACHE_COUNT; ++i)
     {
         if (cache[i].length != 0u && cache[i].sequence == sequence)
@@ -56,6 +80,7 @@ void BoardLink_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
     memset(cache, 0, sizeof(cache));
     next_sequence = 0u;
     parser_state = parser_index = parser_length = 0u;
+    filter_weight_pending = 0u;
     BoardTransport_Init(tx_port, tx_pin, rx_port, rx_pin, remap_usart1);
 }
 
@@ -86,6 +111,15 @@ int BoardLink_SendAttitude(const Attitude_Result *attitude)
     memcpy(slot->frame, frame, length);
     ++next_sequence;
     return 0;
+}
+
+int BoardLink_TakeFilterWeight(uint16_t *gyro_weight_q15)
+{
+    if (gyro_weight_q15 == 0 || filter_weight_pending == 0u)
+        return 0;
+    *gyro_weight_q15 = pending_filter_weight_q15;
+    filter_weight_pending = 0u;
+    return 1;
 }
 
 static void parse_byte(uint8_t byte)
@@ -122,7 +156,7 @@ static void parse_byte(uint8_t byte)
     }
     if (parser_index == (uint8_t)(9u + parser_length))
     {
-        handle_request();
+        handle_control_frame();
         parser_state = 0u;
         parser_index = 0u;
     }

@@ -15,6 +15,7 @@
 #define BOARD_PROTOCOL_VERSION_1             0x01u
 #define BOARD_PROTOCOL_VERSION_2             0x02u
 #define BOARD_PROTOCOL_TYPE_QUATERNION       0x01u
+#define BOARD_PROTOCOL_TYPE_SET_FILTER_WEIGHT 0x02u
 #define BOARD_PROTOCOL_TYPE_RETRANSMIT       0x81u
 
 /*
@@ -31,6 +32,7 @@
  * Q30 解码方式为“有符号整数 / 2^30”。时间戳和序号均按无符号数自然回绕。 */
 #define BOARD_PROTOCOL_V2_PAYLOAD_SIZE       20u
 #define BOARD_PROTOCOL_RETRANSMIT_PAYLOAD_SIZE 2u
+#define BOARD_PROTOCOL_FILTER_WEIGHT_PAYLOAD_SIZE 2u
 #define BOARD_PROTOCOL_MAX_PAYLOAD_SIZE      BOARD_PROTOCOL_V2_PAYLOAD_SIZE
 #define BOARD_PROTOCOL_MAX_FRAME_SIZE        (9u + BOARD_PROTOCOL_MAX_PAYLOAD_SIZE)
 
@@ -64,5 +66,9 @@ size_t BoardProtocol_EncodeRetransmit(uint8_t version,
                                       uint16_t requested_sequence,
                                       uint8_t *frame,
                                       size_t capacity);
+size_t BoardProtocol_EncodeFilterWeight(uint16_t sequence,
+                                        uint16_t gyro_weight_q15,
+                                        uint8_t *frame,
+                                        size_t capacity);
 
 #endif
