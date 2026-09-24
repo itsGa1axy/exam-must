@@ -11,8 +11,8 @@ USART2 向电脑转发带 CRC 的 29 字节姿态帧。电脑端检查 CRC，解
 在工程根目录运行：
 
 ```powershell
-python -m pip install -r tools/requirements-attitude-monitor.txt
-python tools/attitude_monitor.py
+python -m pip install -r pc_monitor/requirements-attitude-monitor.txt
+python pc_monitor/attitude_monitor.py
 ```
 
 在界面选择 USB-TTL 对应的 COM 口并连接。调节权重范围为 0.900–0.999；数值越大越依赖陀螺仪，越小越依赖加速度计。
