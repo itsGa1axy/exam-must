@@ -39,6 +39,8 @@ target_sources(${PROJECT_NAME} PRIVATE
   ${STM32_SPL_SOURCES}
   "${CMAKE_CURRENT_SOURCE_DIR}/Lib/InvenSense/inv_mpu.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/board_protocol.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Src/board_link.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Src/board_transport.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/attitude.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/imu_calibration.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/mpu6500.c"

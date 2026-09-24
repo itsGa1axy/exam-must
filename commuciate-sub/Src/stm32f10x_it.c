@@ -22,6 +22,7 @@
 /* 头文件包含 ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 #include "mpu6500_port.h"
+#include "board_link.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Template  STM32F10x 标准外设库模板
   * @{
@@ -135,6 +136,9 @@ void SysTick_Handler(void)
 {
   Mpu6500_PortTick1ms();
 }
+
+void USART1_IRQHandler(void) { BoardLink_RxIrqHandler(); }
+void DMA1_Channel4_IRQHandler(void) { BoardLink_TxDmaIrqHandler(); }
 
 /******************************************************************************/
 /*                 STM32F10x 外设中断处理函数                   */
