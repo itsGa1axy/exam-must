@@ -21,6 +21,7 @@
 
 /* 头文件包含 ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
+#include "board_link.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Template  STM32F10x 标准外设库模板
   * @{
@@ -132,6 +133,12 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
+}
+
+/* USART 接收中断只搬运字节，帧解析和 CRC 在主循环完成。 */
+void USART1_IRQHandler(void)
+{
+  BoardLink_RxIrqHandler();
 }
 
 /******************************************************************************/
