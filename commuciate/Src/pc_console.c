@@ -208,21 +208,6 @@ bool PcConsole_SendFrame(const uint8_t *frame, size_t length)
     return true;
 }
 
-void PcConsole_WriteLine(const char *line)
-{
-    if (line == 0)
-        return;
-    while (*line != '\0')
-    {
-        while (USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET) { }
-        USART_SendData(USART2, (uint8_t)*line++);
-    }
-    while (USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET) { }
-    USART_SendData(USART2, '\r');
-    while (USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET) { }
-    USART_SendData(USART2, '\n');
-}
-
 void PcConsole_Process(void)
 {
     while (rx_read != rx_write)

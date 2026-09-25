@@ -14,16 +14,6 @@ typedef struct
     uint8_t raw_frame[BOARD_PROTOCOL_MAX_FRAME_SIZE];
 } BoardLink_Attitude;
 
-typedef struct
-{
-    uint32_t rx_bytes;
-    uint32_t valid_frames;
-    uint32_t crc_errors;
-    uint32_t invalid_frames;
-    uint32_t rx_overflows;
-    uint32_t retransmit_requests;
-} BoardLink_Stats;
-
 /* 初始化 USART1；端口和引脚由 main.c 中的宏传入。 */
 void BoardLink_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
                     GPIO_TypeDef *rx_port, uint16_t rx_pin,
@@ -31,7 +21,6 @@ void BoardLink_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
 /* 主循环调用：取出中断接收的字节、组帧并检查 CRC。 */
 void BoardLink_Process(void);
 bool BoardLink_GetLatest(BoardLink_Attitude *attitude);
-void BoardLink_GetStats(BoardLink_Stats *stats);
 /* 经 USART1 向从机发送新的陀螺仪权重，Q15 范围为 0 到 32767。 */
 int BoardLink_SendFilterWeight(uint16_t gyro_weight_q15);
 /* USART1 中断只负责读取数据寄存器并将字节放入环形缓冲区。 */

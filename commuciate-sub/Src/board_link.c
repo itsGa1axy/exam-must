@@ -37,7 +37,7 @@ static void handle_control_frame(void)
 
     crc = BoardProtocol_Crc16CcittFalse(&parser[2],
                                         (uint16_t)(5u + parser_length));
-    if (parser[2] != BOARD_PROTOCOL_VERSION_2 ||
+    if (parser[2] != BOARD_PROTOCOL_VERSION ||
         read_u16(&parser[crc_offset]) != crc)
         return;
 
@@ -62,6 +62,8 @@ static void handle_control_frame(void)
             pending_filter_weight_q15 = weight;
             filter_weight_pending = 1u;
         }
+        /* 滤波系数命令处理完毕，不应把命令序号当作重传序号。 */
+        return;
     }
     for (i = 0u; i < RETRY_CACHE_COUNT; ++i)
     {
@@ -99,8 +101,8 @@ int BoardLink_SendAttitude(const Attitude_Result *attitude)
     q.y = attitude->quaternion_wxyz[2];
     q.z = attitude->quaternion_wxyz[3];
     sequence = next_sequence;
-    length = BoardProtocol_EncodeV2(sequence, attitude->timestamp_ms, &q,
-                                    frame, sizeof(frame));
+    length = BoardProtocol_EncodeQuaternion(sequence, attitude->timestamp_ms, &q,
+                                            frame, sizeof(frame));
     if (length == 0u)
         return -1;
     if (BoardTransport_Send(frame, length) != 0)

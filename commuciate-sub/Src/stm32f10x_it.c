@@ -23,6 +23,7 @@
 #include "stm32f10x_it.h"
 #include "mpu6500_port.h"
 #include "board_link.h"
+#include "sample_timer.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Template  STM32F10x 标准外设库模板
   * @{
@@ -55,10 +56,7 @@ void NMI_Handler(void)
   */
 void HardFault_Handler(void)
 {
-  /* 发生 Hard Fault 异常时进入无限循环 */
-  while (1)
-  {
-  }
+  while (1) { }
 }
 
 /**
@@ -68,10 +66,7 @@ void HardFault_Handler(void)
   */
 void MemManage_Handler(void)
 {
-  /* 发生 Memory Manage 异常时进入无限循环 */
-  while (1)
-  {
-  }
+  while (1) { }
 }
 
 /**
@@ -81,10 +76,7 @@ void MemManage_Handler(void)
   */
 void BusFault_Handler(void)
 {
-  /* 发生 Bus Fault 异常时进入无限循环 */
-  while (1)
-  {
-  }
+  while (1) { }
 }
 
 /**
@@ -94,10 +86,7 @@ void BusFault_Handler(void)
   */
 void UsageFault_Handler(void)
 {
-  /* 发生 Usage Fault 异常时进入无限循环 */
-  while (1)
-  {
-  }
+  while (1) { }
 }
 
 /**
@@ -135,6 +124,16 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   Mpu6500_PortTick1ms();
+}
+
+/* 定时器中断只登记采样任务；I2C 读取在主循环中执行，避免阻塞中断。 */
+void TIM2_IRQHandler(void)
+{
+  if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
+  {
+    TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+    SampleTimer_OnInterrupt();
+  }
 }
 
 void USART1_IRQHandler(void) { BoardLink_RxIrqHandler(); }

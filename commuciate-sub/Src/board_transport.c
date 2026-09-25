@@ -45,27 +45,15 @@ static void exit_critical(uint32_t primask)
 
 static void start_dma(void)
 {
-    DMA_InitTypeDef dma;
     if (tx_active != 0u || tx_read == tx_write)
         return;
     tx_active = 1u;
+
+    /* 通道固定参数已在初始化时设置；每帧只更新发送缓冲区和字节数。 */
     DMA_Cmd(DMA1_Channel4, DISABLE);
-    DMA_DeInit(DMA1_Channel4);
-    DMA_StructInit(&dma);
-    dma.DMA_PeripheralBaseAddr = (uint32_t)&USART1->DR;
-    dma.DMA_MemoryBaseAddr = (uint32_t)tx_queue[tx_read].bytes;
-    dma.DMA_DIR = DMA_DIR_PeripheralDST;
-    dma.DMA_BufferSize = tx_queue[tx_read].length;
-    dma.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-    dma.DMA_MemoryInc = DMA_MemoryInc_Enable;
-    dma.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
-    dma.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
-    dma.DMA_Mode = DMA_Mode_Normal;
-    dma.DMA_Priority = DMA_Priority_High;
-    dma.DMA_M2M = DMA_M2M_Disable;
-    DMA_Init(DMA1_Channel4, &dma);
+    DMA1_Channel4->CMAR = (uint32_t)tx_queue[tx_read].bytes;
+    DMA_SetCurrDataCounter(DMA1_Channel4, tx_queue[tx_read].length);
     DMA_ClearITPendingBit(DMA1_IT_TC4 | DMA1_IT_TE4);
-    DMA_ITConfig(DMA1_Channel4, DMA_IT_TC, ENABLE);
     DMA_Cmd(DMA1_Channel4, ENABLE);
 }
 
@@ -76,6 +64,7 @@ void BoardTransport_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
     GPIO_InitTypeDef gpio;
     USART_InitTypeDef usart;
     NVIC_InitTypeDef nvic;
+    DMA_InitTypeDef dma;
 
     tx_read = tx_write = tx_active = 0u;
     rx_read = rx_write = 0u;
@@ -97,6 +86,24 @@ void BoardTransport_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
     usart.USART_BaudRate = 460800u;
     usart.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
     USART_Init(USART1, &usart);
+
+    /* DMA 通道的外设地址、方向和数据宽度不随帧变化，只配置一次。 */
+    DMA_DeInit(DMA1_Channel4);
+    DMA_StructInit(&dma);
+    dma.DMA_PeripheralBaseAddr = (uint32_t)&USART1->DR;
+    dma.DMA_MemoryBaseAddr = (uint32_t)tx_queue[0].bytes;
+    dma.DMA_DIR = DMA_DIR_PeripheralDST;
+    dma.DMA_BufferSize = 1u;
+    dma.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+    dma.DMA_MemoryInc = DMA_MemoryInc_Enable;
+    dma.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    dma.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+    dma.DMA_Mode = DMA_Mode_Normal;
+    dma.DMA_Priority = DMA_Priority_High;
+    dma.DMA_M2M = DMA_M2M_Disable;
+    DMA_Init(DMA1_Channel4, &dma);
+    DMA_ClearITPendingBit(DMA1_IT_TC4 | DMA1_IT_TE4);
+    DMA_ITConfig(DMA1_Channel4, DMA_IT_TC, ENABLE);
 
     nvic.NVIC_IRQChannel = USART1_IRQn;
     nvic.NVIC_IRQChannelPreemptionPriority = 2u;

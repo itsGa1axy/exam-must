@@ -135,8 +135,6 @@ target_link_options(${PROJECT_NAME} PUBLIC
     $<$<CONFIG:Debug>: 
         -T${CMAKE_CURRENT_BINARY_DIR}/stm32f103x8_flash.ld
         -Wl,-Map=${CMAKE_CURRENT_BINARY_DIR}/commuicate.map
-        -u
-        _printf_float
         --specs=nosys.specs
         -Wl,--start-group
         -lc
@@ -152,8 +150,6 @@ target_link_options(${PROJECT_NAME} PUBLIC
     $<$<CONFIG:Release>: 
         -T${CMAKE_CURRENT_BINARY_DIR}/stm32f103x8_flash.ld
         -Wl,-Map=${CMAKE_CURRENT_BINARY_DIR}/commuicate.map
-        -u
-        _printf_float
         --specs=nosys.specs
         -Wl,--start-group
         -lc

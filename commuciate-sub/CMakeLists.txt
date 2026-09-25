@@ -45,6 +45,7 @@ target_sources(${PROJECT_NAME} PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/imu_calibration.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/mpu6500.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/mpu6500_port.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Src/sample_timer.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Start/system_stm32f10x.c"
   "${CMAKE_CURRENT_SOURCE_DIR}/Src/stm32f10x_it.c"
 )
@@ -67,7 +68,6 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
   STM32F10X_MD
   USE_STDPERIPH_DRIVER
   MPU6500
-  REMOVE_LOGGING
 )
 
 # Linker options

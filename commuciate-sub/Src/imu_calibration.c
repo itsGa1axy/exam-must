@@ -11,6 +11,8 @@
 #define CALIBRATION_ACCEL_STD_MAX_G    0.05f
 #define STATIONARY_GYRO_LIMIT_DPS      0.5f
 #define STATIONARY_ACCEL_ERROR_G       0.03f
+#define STATIONARY_ACCEL_MIN_G         (1.0f - STATIONARY_ACCEL_ERROR_G)
+#define STATIONARY_ACCEL_MAX_G         (1.0f + STATIONARY_ACCEL_ERROR_G)
 #define STATIONARY_HOLD_SAMPLES        500u
 #define GYRO_BIAS_TRACK_ALPHA          0.001f
 
@@ -158,15 +160,17 @@ static void track_gyro_bias(const Mpu6500_Data *raw)
     float ax;
     float ay;
     float az;
-    float accel_norm;
+    float accel_norm_square;
     uint8_t axis;
     int stationary = 1;
 
     ax = raw->accel_g[0] - calibration.accel_radial_bias[0];
     ay = raw->accel_g[1] - calibration.accel_radial_bias[1];
     az = raw->accel_g[2] - calibration.accel_radial_bias[2];
-    accel_norm = sqrtf(ax * ax + ay * ay + az * az);
-    if (fabsf(accel_norm - 1.0f) > STATIONARY_ACCEL_ERROR_G)
+    /* 模长平方与阈值平方比较，避免每个采样都进行开方运算。 */
+    accel_norm_square = ax * ax + ay * ay + az * az;
+    if ((accel_norm_square < STATIONARY_ACCEL_MIN_G * STATIONARY_ACCEL_MIN_G) ||
+        (accel_norm_square > STATIONARY_ACCEL_MAX_G * STATIONARY_ACCEL_MAX_G))
         stationary = 0;
 
     for (axis = 0u; axis < 3u; ++axis)

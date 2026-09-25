@@ -15,6 +15,10 @@ typedef struct
     float pitch_rad;
     float yaw_rad;
     float gyro_weight;
+    float sin_roll;
+    float cos_roll;
+    float sin_pitch;
+    float cos_pitch;
     uint32_t last_timestamp_ms;
     uint8_t initialized;
 } Attitude_FilterState;
@@ -43,6 +47,12 @@ static void make_quaternion(float roll, float pitch, float yaw, float q[4])
     float sp = sinf(half_pitch);
     float cy = cosf(half_yaw);
     float sy = sinf(half_yaw);
+
+    /* 四元数已计算半角三角值，缓存倍角值供下一次欧拉角速度换算使用。 */
+    filter_state.sin_roll = 2.0f * sr * cr;
+    filter_state.cos_roll = cr * cr - sr * sr;
+    filter_state.sin_pitch = 2.0f * sp * cp;
+    filter_state.cos_pitch = cp * cp - sp * sp;
 
     q[0] = cr * cp * cy + sr * sp * sy;
     q[1] = sr * cp * cy - cr * sp * sy;
@@ -120,10 +130,9 @@ int Attitude_Update(const Mpu6500_Data *imu, Attitude_Result *result)
     {
         float dt = (float)elapsed_ms * 0.001f;
         float roll = filter_state.roll_rad;
-        float pitch = filter_state.pitch_rad;
-        float cos_pitch = cosf(pitch);
-        float sin_roll = sinf(roll);
-        float cos_roll = cosf(roll);
+        float cos_pitch = filter_state.cos_pitch;
+        float sin_roll = filter_state.sin_roll;
+        float cos_roll = filter_state.cos_roll;
         float gx = imu->gyro_dps[0] * ATTITUDE_DEG_TO_RAD;
         float gy = imu->gyro_dps[1] * ATTITUDE_DEG_TO_RAD;
         float gz = imu->gyro_dps[2] * ATTITUDE_DEG_TO_RAD;
@@ -139,7 +148,7 @@ int Attitude_Update(const Mpu6500_Data *imu, Attitude_Result *result)
             dt = ATTITUDE_MAX_DT_S;
         if (cos_pitch > -0.01f && cos_pitch < 0.01f)
             cos_pitch = (cos_pitch >= 0.0f) ? 0.01f : -0.01f;
-        tan_pitch = sinf(pitch) / cos_pitch;
+        tan_pitch = filter_state.sin_pitch / cos_pitch;
 
         /* 將機體角速度換算成 Z-Y-X 欧拉角变化率。 */
         roll_rate = gx + sin_roll * tan_pitch * gy + cos_roll * tan_pitch * gz;

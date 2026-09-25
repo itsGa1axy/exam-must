@@ -14,11 +14,8 @@ typedef struct
 static volatile uint8_t rx_ring[RX_RING_SIZE];
 static volatile uint8_t rx_write;
 static volatile uint8_t rx_read;
-static volatile uint32_t rx_bytes;
-static volatile uint32_t rx_overflows;
 static FrameParser parser;
 static BoardLink_Attitude latest_attitude;
-static BoardLink_Stats link_stats;
 static bool latest_ready;
 static uint16_t control_sequence;
 
@@ -86,7 +83,6 @@ static void request_retransmit(uint16_t sequence)
         while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET) { }
         USART_SendData(USART1, frame[i]);
     }
-    ++link_stats.retransmit_requests;
 }
 
 static void reset_parser(void)
@@ -108,7 +104,6 @@ static void accept_frame(void)
         frame[3] != BOARD_PROTOCOL_TYPE_QUATERNION ||
         payload_length != BOARD_PROTOCOL_QUATERNION_SIZE)
     {
-        ++link_stats.invalid_frames;
         return;
     }
 
@@ -125,7 +120,6 @@ static void accept_frame(void)
     latest_attitude.quaternion.z = quaternion[3];
     memcpy(latest_attitude.raw_frame, frame, BOARD_PROTOCOL_MAX_FRAME_SIZE);
     latest_ready = true;
-    ++link_stats.valid_frames;
 }
 
 static void parse_byte(uint8_t byte)
@@ -159,7 +153,6 @@ static void parse_byte(uint8_t byte)
         payload_length = parser.frame[6];
         if (payload_length > BOARD_PROTOCOL_MAX_PAYLOAD_SIZE)
         {
-            ++link_stats.invalid_frames;
             reset_parser();
             return;
         }
@@ -178,7 +171,6 @@ static void parse_byte(uint8_t byte)
         }
         else
         {
-            ++link_stats.crc_errors;
             if (parser.frame[2] == BOARD_PROTOCOL_VERSION &&
                 parser.frame[3] == BOARD_PROTOCOL_TYPE_QUATERNION &&
                 payload_length == BOARD_PROTOCOL_QUATERNION_SIZE)
@@ -194,11 +186,8 @@ void BoardLink_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
 {
     rx_write = 0u;
     rx_read = 0u;
-    rx_bytes = 0u;
-    rx_overflows = 0u;
     latest_ready = false;
     control_sequence = 0u;
-    memset(&link_stats, 0, sizeof(link_stats));
     reset_parser();
     usart1_init(tx_port, tx_pin, rx_port, rx_pin, remap_usart1);
 }
@@ -232,7 +221,6 @@ void BoardLink_Process(void)
         rx_read = (uint8_t)((rx_read + 1u) % RX_RING_SIZE);
         parse_byte(byte);
     }
-    link_stats.rx_overflows = rx_overflows;
 }
 
 bool BoardLink_GetLatest(BoardLink_Attitude *attitude)
@@ -244,31 +232,16 @@ bool BoardLink_GetLatest(BoardLink_Attitude *attitude)
     return true;
 }
 
-void BoardLink_GetStats(BoardLink_Stats *stats)
-{
-    if (stats != 0)
-    {
-        *stats = link_stats;
-        stats->rx_bytes = rx_bytes;
-        stats->rx_overflows = rx_overflows;
-    }
-}
-
 void BoardLink_RxIrqHandler(void)
 {
     if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
     {
         uint8_t byte = (uint8_t)USART_ReceiveData(USART1);
-        ++rx_bytes;
         uint8_t next = (uint8_t)((rx_write + 1u) % RX_RING_SIZE);
         if (next != rx_read)
         {
             rx_ring[rx_write] = byte;
             rx_write = next;
-        }
-        else
-        {
-            ++rx_overflows;
         }
     }
 }

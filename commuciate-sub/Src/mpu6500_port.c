@@ -38,15 +38,10 @@
 /** 本驱动使用的 I2C 外设。改用 I2C2 时只需修改此宏与下方引脚/时钟配置。 */
 #define MPU6500_I2C             I2C1
 
-/**
-  * @brief  等待事件/标志时的循环次数上限。
-  *
-  *         本值不是时间单位而是循环计数：STM32F1 的 I2C 外设一旦因总线异常
-  *         卡住，寄存器查询会永远等待下去，因此必须设上限以避免死锁。
-  *         取值偏大是有意为之——正常时序下第一次循环就会命中，不会浪费执行时间；
-  *         只有真出错时才会走满，此时宁可多等一会儿也不要误判为故障。
-  */
-#define MPU6500_I2C_TIMEOUT     1000000u
+/* 正常等待以 SysTick 计时；循环上限只在时基未前进时兜底，避免永久卡住。 */
+#define MPU6500_I2C_WAIT_MS       5u
+#define MPU6500_I2C_WAIT_SPINS    16384u
+#define MPU6500_I2C_STOP_WAIT_MS  2u
 
 /**
   * @brief  全局毫秒时基，上电清零，由 SysTick 中断每毫秒递增。
@@ -55,6 +50,39 @@
   *         防止编译器把循环里的读取优化进寄存器而读不到新值。
   */
 static volatile uint32_t system_millis;
+static GPIO_TypeDef *bus_scl_port;
+static GPIO_TypeDef *bus_sda_port;
+static uint16_t bus_scl_pin;
+static uint16_t bus_sda_pin;
+static I2C_InitTypeDef bus_i2c_config;
+
+static int i2c_clear_stuck_sda(void);
+static int i2c_recover_bus(void);
+
+/* bit0=SCL，bit1=SDA；空闲时两位都应为 1。 */
+static uint8_t i2c_line_levels(void)
+{
+    uint8_t levels = 0u;
+    if (bus_scl_port != 0 && GPIO_ReadInputDataBit(bus_scl_port, bus_scl_pin) != Bit_RESET)
+        levels |= 1u;
+    if (bus_sda_port != 0 && GPIO_ReadInputDataBit(bus_sda_port, bus_sda_pin) != Bit_RESET)
+        levels |= 2u;
+    return levels;
+}
+
+/* 收尾阶段需要连续操作 ADDR、ACK 和 STOP，保存原中断状态后短暂屏蔽中断。 */
+static uint32_t i2c_enter_critical(void)
+{
+    uint32_t primask;
+    __asm volatile ("mrs %0, primask" : "=r" (primask) : : "memory");
+    __asm volatile ("cpsid i" : : : "memory");
+    return primask;
+}
+
+static void i2c_exit_critical(uint32_t primask)
+{
+    __asm volatile ("msr primask, %0" : : "r" (primask) : "memory");
+}
 
 /**
   * @brief  检查 I2C 总线是否出现错误标志。
@@ -72,10 +100,9 @@ static volatile uint32_t system_millis;
   */
 static int i2c_error_pending(void)
 {
-    return (I2C_GetFlagStatus(MPU6500_I2C, I2C_FLAG_AF) != RESET) ||
-           (I2C_GetFlagStatus(MPU6500_I2C, I2C_FLAG_BERR) != RESET) ||
-           (I2C_GetFlagStatus(MPU6500_I2C, I2C_FLAG_ARLO) != RESET) ||
-           (I2C_GetFlagStatus(MPU6500_I2C, I2C_FLAG_OVR) != RESET);
+    /* 四个错误位都在 SR1；一次寄存器读取即可，减少 1 kHz 路径的开销。 */
+    return (MPU6500_I2C->SR1 &
+            (I2C_SR1_AF | I2C_SR1_BERR | I2C_SR1_ARLO | I2C_SR1_OVR)) != 0u;
 }
 
 /**
@@ -92,18 +119,23 @@ static int i2c_error_pending(void)
   */
 static int wait_event(uint32_t event)
 {
-    uint32_t timeout = MPU6500_I2C_TIMEOUT;
+    uint32_t start = system_millis;
+    uint32_t spins = 0u;
 
-    while (timeout-- != 0u)
+    for (;;)
     {
         if (i2c_error_pending())
             return -1;
 
         if (I2C_CheckEvent(MPU6500_I2C, event) == SUCCESS)
             return 0;
-    }
 
-    return -1;
+        if ((uint32_t)(system_millis - start) >= MPU6500_I2C_WAIT_MS ||
+            ++spins >= MPU6500_I2C_WAIT_SPINS)
+        {
+            return -1;
+        }
+    }
 }
 
 /**
@@ -120,45 +152,60 @@ static int wait_event(uint32_t event)
   */
 static int wait_flag(uint32_t flag, FlagStatus state)
 {
-    uint32_t timeout = MPU6500_I2C_TIMEOUT;
+    uint32_t start = system_millis;
+    uint32_t spins = 0u;
 
-    while (timeout-- != 0u)
+    for (;;)
     {
         if (i2c_error_pending())
             return -1;
 
         if (I2C_GetFlagStatus(MPU6500_I2C, flag) == state)
             return 0;
-    }
 
-    return -1;
+        if ((uint32_t)(system_millis - start) >= MPU6500_I2C_WAIT_MS ||
+            ++spins >= MPU6500_I2C_WAIT_SPINS)
+        {
+            return -1;
+        }
+    }
 }
 
-/**
-  * @brief  把 I2C 外设从异常状态拉回空闲可用状态。
-  *
-  * @param  无
-  * @retval 无
-  *
-  * @note   出错后必须复位四类状态，否则下一次传输会立即再次失败：
-  *           1. 补发 STOP  —— 结束可能仍挂在线上的传输，释放总线；
-  *           2. 重新使能应答、把 NACK 位置复原 —— 接收流程中途出错时
-  *              可能残留「不应答」「NACK 提前」的设置，会污染后续传输；
-  *           3. 清除 AF/BERR/ARLO/OVR —— 这些标志是硬件锁存的，
-  *              不清除则 i2c_error_pending 永远报错。
-  *
-  * @note   本函数只复位 I2C 外设状态，不重置外设本身；
-  *         若总线被从机拉死（SDA 一直为低），还需要额外的引脚翻转恢复手段。
-  */
+/* 给 STOP 最多 2 ms 释放总线；迭代上限防止 SysTick 意外停摆。 */
+static int i2c_wait_idle_after_stop(void)
+{
+    uint32_t start = system_millis;
+    uint32_t spins = 0u;
+
+    for (;;)
+    {
+        if ((MPU6500_I2C->SR2 & I2C_SR2_BUSY) == 0u && i2c_line_levels() == 3u)
+            return 0;
+        if ((uint32_t)(system_millis - start) >= MPU6500_I2C_STOP_WAIT_MS ||
+            ++spins >= MPU6500_I2C_WAIT_SPINS)
+            return -1;
+    }
+}
+
+/* 先完成正常传输清理，仅在 STOP 后仍 BUSY/线低时尝试总线级恢复。 */
 static void i2c_recover_transfer(void)
 {
-    I2C_GenerateSTOP(MPU6500_I2C, ENABLE);
+    /* 非主机状态不能乱发 STOP，否则可能触发 F1 的 misplaced STOP 勘误。 */
+    if ((MPU6500_I2C->SR2 & I2C_SR2_MSL) != 0u)
+        I2C_GenerateSTOP(MPU6500_I2C, ENABLE);
+    else
+        I2C_GenerateSTART(MPU6500_I2C, DISABLE);
     I2C_AcknowledgeConfig(MPU6500_I2C, ENABLE);
     I2C_NACKPositionConfig(MPU6500_I2C, I2C_NACKPosition_Current);
     I2C_ClearFlag(MPU6500_I2C, I2C_FLAG_AF);
     I2C_ClearFlag(MPU6500_I2C, I2C_FLAG_BERR);
     I2C_ClearFlag(MPU6500_I2C, I2C_FLAG_ARLO);
     I2C_ClearFlag(MPU6500_I2C, I2C_FLAG_OVR);
+
+    if (i2c_wait_idle_after_stop() != 0)
+    {
+        (void)i2c_recover_bus();
+    }
 }
 
 /**
@@ -194,17 +241,20 @@ int inv_i2c_write(uint8_t slave_addr,
 
     /* 总线忙说明上一次传输尚未结束（或总线被拉死），此时发 START 会被忽略。 */
     if (wait_flag(I2C_FLAG_BUSY, RESET) != 0)
-        return -1;
+        goto error;
 
     /* 产生起始条件，随后等待 EV5：主机模式已选中。 */
     I2C_GenerateSTART(MPU6500_I2C, ENABLE);
     if (wait_event(I2C_EVENT_MASTER_MODE_SELECT) != 0)
         goto error;
 
-    /* 发送从机地址 + 写方向，随后等待 EV6：发送模式已选中（ADDR 已被清除）。 */
+    /* 等待地址应答；只轮询 SR1.ADDR，避免事件查询提前读取 SR2 丢失 ADDR。 */
     I2C_Send7bitAddress(MPU6500_I2C, (uint8_t)(slave_addr << 1), I2C_Direction_Transmitter);
-    if (wait_event(I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED) != 0)
+    if (wait_flag(I2C_FLAG_ADDR, SET) != 0)
         goto error;
+    /* F1 要求见到 ADDR 后才顺序读取 SR1、SR2，完成 EV6 的清标志操作。 */
+    (void)MPU6500_I2C->SR1;
+    (void)MPU6500_I2C->SR2;
 
     /* 发送寄存器地址，MPU6500 的寄存器访问都以此开头（即所谓「写寄存器地址」阶段）。 */
     I2C_SendData(MPU6500_I2C, reg_addr);
@@ -242,7 +292,7 @@ error:
   *         必须在「最后一个字节到达之前」就决定是否应答、以及 STOP 的发出时机，
   *         一旦读到数据再补救就晚了。三种情况分别处理：
   *
-  *           1 字节：进入接收模式前就关闭应答、STOP 提前发出，等 RXNE 后读取；
+  *           1 字节：ADDR 置位后、清除前关闭应答；清除 ADDR 后发 STOP，等 RXNE 后读取；
   *           2 字节：先在最后一个字节到达时不应答（NACK 位置设为 Next），
   *                   等 BTF 置位后关应答、发 STOP，再连续读两个字节；
   *           3 字节及以上：前 N-3 个字节正常读出；剩 3 个字节时关应答，
@@ -263,6 +313,7 @@ int inv_i2c_read(uint8_t slave_addr,
                  uint8_t length,
                  uint8_t *data)
 {
+    uint32_t primask;
     uint8_t remaining = length;   /* 剩余待接收字节数，收尾逻辑依赖它判断 */
     uint8_t *cursor = data;       /* 写入游标，随接收推进前移 */
 
@@ -270,7 +321,10 @@ int inv_i2c_read(uint8_t slave_addr,
         return -1;
 
     if (wait_flag(I2C_FLAG_BUSY, RESET) != 0)
-        return -1;
+        goto error;
+
+    I2C_AcknowledgeConfig(MPU6500_I2C, ENABLE);
+    I2C_NACKPositionConfig(MPU6500_I2C, I2C_NACKPosition_Current);
 
     /* 第一阶段：以「写」方向发送寄存器地址，指明接下来要从哪个寄存器读。 */
     I2C_GenerateSTART(MPU6500_I2C, ENABLE);
@@ -278,8 +332,11 @@ int inv_i2c_read(uint8_t slave_addr,
         goto error;
 
     I2C_Send7bitAddress(MPU6500_I2C, (uint8_t)(slave_addr << 1), I2C_Direction_Transmitter);
-    if (wait_event(I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED) != 0)
+    if (wait_flag(I2C_FLAG_ADDR, SET) != 0)
         goto error;
+    /* SPL 的 I2C_CheckEvent 会无条件读 SR2，可能在 ADDR 刚置位时误清；此处显式清除。 */
+    (void)MPU6500_I2C->SR1;
+    (void)MPU6500_I2C->SR2;
 
     I2C_SendData(MPU6500_I2C, reg_addr);
     if (wait_event(I2C_EVENT_MASTER_BYTE_TRANSMITTED) != 0)
@@ -294,42 +351,49 @@ int inv_i2c_read(uint8_t slave_addr,
     if (wait_event(I2C_EVENT_MASTER_MODE_SELECT) != 0)
         goto error;
 
-    /*
-     * 在读地址发出之前就要确定收尾参数：
-     *   收 1 字节：全程不应答，NACK 位置为 Current；
-     *   收 2 字节：最后一个字节不应答（NACK 位置为 Next）；
-     *   收 3 字节及以上：正常应答，NACK 位置为 Current，收尾时再临时关闭应答。
-     */
-    I2C_NACKPositionConfig(MPU6500_I2C,
-                           (remaining == 2u) ? I2C_NACKPosition_Next : I2C_NACKPosition_Current);
-    I2C_AcknowledgeConfig(MPU6500_I2C, (remaining == 1u) ? DISABLE : ENABLE);
+    /* 等待 ADDR 后再按读取长度处理 ACK/POS，并在清除 ADDR 后及时发送 STOP。 */
     I2C_Send7bitAddress(MPU6500_I2C, (uint8_t)(slave_addr << 1), I2C_Direction_Receiver);
-    if (wait_event(I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED) != 0)
+    /* 不提前清除 ADDR；接收长度决定 ACK、POS 和 STOP 的精确顺序。 */
+    if (wait_flag(I2C_FLAG_ADDR, SET) != 0)
         goto error;
 
     if (remaining == 1u)
     {
+        primask = i2c_enter_critical();
+        I2C_AcknowledgeConfig(MPU6500_I2C, DISABLE);
+        (void)MPU6500_I2C->SR1;
+        (void)MPU6500_I2C->SR2;
         /* 单字节：先发 STOP 再等 RXNE，读到数据后总线事务即告完成。 */
         I2C_GenerateSTOP(MPU6500_I2C, ENABLE);
+        i2c_exit_critical(primask);
         if (wait_flag(I2C_FLAG_RXNE, SET) != 0)
             goto error;
         cursor[0] = I2C_ReceiveData(MPU6500_I2C);
     }
     else if (remaining == 2u)
     {
+        primask = i2c_enter_critical();
+        I2C_NACKPositionConfig(MPU6500_I2C, I2C_NACKPosition_Next);
+        (void)MPU6500_I2C->SR1;
+        (void)MPU6500_I2C->SR2;
+        I2C_AcknowledgeConfig(MPU6500_I2C, DISABLE);
+        i2c_exit_critical(primask);
         /*
          * 双字节：等 BTF 置位（说明第一个字节已搬到数据寄存器、第二个字节
-         * 也已收完），此时关应答并发 STOP，然后连续读走两个字节。
+         * 也已收完），此时发 STOP，然后连续读走两个字节。
          */
         if (wait_flag(I2C_FLAG_BTF, SET) != 0)
             goto error;
-        I2C_AcknowledgeConfig(MPU6500_I2C, DISABLE);
+        primask = i2c_enter_critical();
         I2C_GenerateSTOP(MPU6500_I2C, ENABLE);
         cursor[0] = I2C_ReceiveData(MPU6500_I2C);
         cursor[1] = I2C_ReceiveData(MPU6500_I2C);
+        i2c_exit_critical(primask);
     }
     else
     {
+        (void)MPU6500_I2C->SR1;
+        (void)MPU6500_I2C->SR2;
         /* 三字节及以上：先把前面 remaining-3 个字节按 RXNE 依次读走。 */
         while (remaining > 3u)
         {
@@ -348,13 +412,17 @@ int inv_i2c_read(uint8_t slave_addr,
          */
         if (wait_flag(I2C_FLAG_BTF, SET) != 0)
             goto error;
+        primask = i2c_enter_critical();
         I2C_AcknowledgeConfig(MPU6500_I2C, DISABLE);
         *cursor++ = I2C_ReceiveData(MPU6500_I2C);
+        i2c_exit_critical(primask);
         if (wait_flag(I2C_FLAG_BTF, SET) != 0)
             goto error;
+        primask = i2c_enter_critical();
         I2C_GenerateSTOP(MPU6500_I2C, ENABLE);
         *cursor++ = I2C_ReceiveData(MPU6500_I2C);
         *cursor = I2C_ReceiveData(MPU6500_I2C);
+        i2c_exit_critical(primask);
     }
 
     /* 恢复正常配置，避免影响下一次传输。 */
@@ -434,6 +502,131 @@ static uint32_t gpio_clock_for_port(GPIO_TypeDef *port)
     return 0u;
 }
 
+/* 仅供故障恢复的短暂电平保持，不依赖可能停摆的 SysTick。 */
+static void i2c_gpio_pause(void)
+{
+    volatile uint32_t spins = SystemCoreClock / 200000u;
+
+    if (spins < 16u)
+        spins = 16u;
+    while (spins-- != 0u)
+        __NOP();
+}
+
+static void i2c_set_gpio_mode(GPIOMode_TypeDef mode)
+{
+    GPIO_InitTypeDef gpio;
+
+    gpio.GPIO_Speed = GPIO_Speed_50MHz;
+    gpio.GPIO_Mode = mode;
+    gpio.GPIO_Pin = bus_scl_pin;
+    GPIO_Init(bus_scl_port, &gpio);
+    gpio.GPIO_Pin = bus_sda_pin;
+    GPIO_Init(bus_sda_port, &gpio);
+}
+
+/* 仅在 I2C 外设已关闭且 SCL 高、SDA 低时打时钟，最多九次。 */
+static int i2c_clear_stuck_sda(void)
+{
+    uint8_t pulse;
+
+    if (i2c_line_levels() == 3u)
+        return 0;
+    if (i2c_line_levels() != 1u)
+        return -1; /* SCL 被外部拉低时不能强制打时钟。 */
+
+    /* 开漏写 1 只是释放线路，不会向传感器强行输出高电平。 */
+    GPIO_SetBits(bus_scl_port, bus_scl_pin);
+    GPIO_SetBits(bus_sda_port, bus_sda_pin);
+    i2c_set_gpio_mode(GPIO_Mode_Out_OD);
+    i2c_gpio_pause();
+
+    for (pulse = 0u; pulse < 9u && i2c_line_levels() == 1u; ++pulse)
+    {
+        GPIO_ResetBits(bus_scl_port, bus_scl_pin);
+        i2c_gpio_pause();
+        GPIO_SetBits(bus_scl_port, bus_scl_pin);
+        i2c_gpio_pause();
+    }
+
+    if (i2c_line_levels() == 3u)
+    {
+        GPIO_ResetBits(bus_sda_port, bus_sda_pin);
+        i2c_gpio_pause();
+        GPIO_SetBits(bus_sda_port, bus_sda_pin);
+        i2c_gpio_pause();
+    }
+
+    i2c_set_gpio_mode(GPIO_Mode_AF_OD);
+    return i2c_line_levels() == 3u ? 0 : -1;
+}
+
+/* ES096 §2.8.7：线路均高但内部滤波器锁住 BUSY 时，先让两线产生受控跳变。 */
+static int i2c_unlock_analog_filter(void)
+{
+    int result = -1;
+
+    if (i2c_line_levels() != 3u)
+        return -1;
+
+    GPIO_SetBits(bus_scl_port, bus_scl_pin);
+    GPIO_SetBits(bus_sda_port, bus_sda_pin);
+    i2c_set_gpio_mode(GPIO_Mode_Out_OD);
+    i2c_gpio_pause();
+    if (i2c_line_levels() != 3u)
+        goto restore;
+
+    GPIO_ResetBits(bus_sda_port, bus_sda_pin);
+    i2c_gpio_pause();
+    if ((i2c_line_levels() & 2u) != 0u)
+        goto restore;
+
+    GPIO_ResetBits(bus_scl_port, bus_scl_pin);
+    i2c_gpio_pause();
+    if ((i2c_line_levels() & 1u) != 0u)
+        goto restore;
+
+    GPIO_SetBits(bus_scl_port, bus_scl_pin);
+    i2c_gpio_pause();
+    if ((i2c_line_levels() & 1u) == 0u)
+        goto restore;
+
+    GPIO_SetBits(bus_sda_port, bus_sda_pin);
+    i2c_gpio_pause();
+    if (i2c_line_levels() == 3u)
+        result = 0;
+
+restore:
+    GPIO_SetBits(bus_scl_port, bus_scl_pin);
+    GPIO_SetBits(bus_sda_port, bus_sda_pin);
+    i2c_gpio_pause();
+    i2c_set_gpio_mode(GPIO_Mode_AF_OD);
+    return result;
+}
+
+static int i2c_recover_bus(void)
+{
+    /* 必须先关 PE，GPIO 才能临时接管开漏线路。 */
+    I2C_Cmd(MPU6500_I2C, DISABLE);
+
+    if (i2c_line_levels() == 1u)
+        (void)i2c_clear_stuck_sda();
+
+    if (i2c_line_levels() == 3u && i2c_unlock_analog_filter() == 0)
+    {
+        /* 仅在线路确认已释放并完成跳变后才做 SWRST。 */
+        I2C_SoftwareResetCmd(MPU6500_I2C, ENABLE);
+        I2C_SoftwareResetCmd(MPU6500_I2C, DISABLE);
+        I2C_Init(MPU6500_I2C, &bus_i2c_config);
+        I2C_Cmd(MPU6500_I2C, ENABLE);
+        return i2c_wait_idle_after_stop();
+    }
+
+    /* 外部仍拉低线路：不盲目 SWRST，下次调用仍可重试。 */
+    I2C_Cmd(MPU6500_I2C, ENABLE);
+    return -1;
+}
+
 int Mpu6500_PortInit(GPIO_TypeDef *scl_port, uint16_t scl_pin,
                      GPIO_TypeDef *sda_port, uint16_t sda_pin,
                      FunctionalState remap_i2c1)
@@ -444,6 +637,10 @@ int Mpu6500_PortInit(GPIO_TypeDef *scl_port, uint16_t scl_pin,
 
     if (scl_port == 0 || sda_port == 0 || scl_pin == 0u || sda_pin == 0u)
         return -1;
+    bus_scl_port = scl_port;
+    bus_sda_port = sda_port;
+    bus_scl_pin = scl_pin;
+    bus_sda_pin = sda_pin;
 
     /* 时基部分：1 ms 中断一次，为官方库的延时与时间戳提供基准。 */
     SystemCoreClockUpdate();
@@ -473,6 +670,7 @@ int Mpu6500_PortInit(GPIO_TypeDef *scl_port, uint16_t scl_pin,
 
     /* I2C 部分：复位后按默认值填充，再逐项覆盖需要修改的成员。 */
     I2C_DeInit(MPU6500_I2C);
+    i2c_clear_stuck_sda();
     I2C_StructInit(&i2c);
     i2c.I2C_ClockSpeed = 400000u;                    /* 400 kHz 快速模式 */
     i2c.I2C_Mode = I2C_Mode_I2C;                     /* 标准 I2C 模式，非 SMBus */
@@ -480,8 +678,17 @@ int Mpu6500_PortInit(GPIO_TypeDef *scl_port, uint16_t scl_pin,
     i2c.I2C_OwnAddress1 = 0x00u;                     /* 仅作主机，本机地址无意义 */
     i2c.I2C_Ack = I2C_Ack_Enable;                    /* 默认应答，收尾时会临时关闭 */
     i2c.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;  /* 7 位地址模式 */
+    bus_i2c_config = i2c;                            /* 运行时恢复后重建相同配置 */
     I2C_Init(MPU6500_I2C, &i2c);
     I2C_Cmd(MPU6500_I2C, ENABLE);
+
+    /* 若线路均高但 BUSY 锁住，执行 ES096 要求的线路跳变后再复位。 */
+    inv_delay_ms(1u);
+    if (I2C_GetFlagStatus(MPU6500_I2C, I2C_FLAG_BUSY) != RESET &&
+        i2c_line_levels() == 3u)
+    {
+        (void)i2c_recover_bus();
+    }
 
     return 0;
 }
