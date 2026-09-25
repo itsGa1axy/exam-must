@@ -10,10 +10,13 @@ typedef struct
     uint16_t sequence;
     uint32_t sample_time_ms;
     BoardProtocol_Quaternion quaternion;
+    /* CRC 已通过的原始帧，供 USART2 原样转发给上位机。 */
+    uint8_t raw_frame[BOARD_PROTOCOL_MAX_FRAME_SIZE];
 } BoardLink_Attitude;
 
 typedef struct
 {
+    uint32_t rx_bytes;
     uint32_t valid_frames;
     uint32_t crc_errors;
     uint32_t invalid_frames;

@@ -1,8 +1,16 @@
 #include "pc_console.h"
-#include <stddef.h>
+#include "board_protocol.h"
+
+#include <string.h>
 
 #define PC_RX_RING_SIZE 64u
 #define PC_COMMAND_SIZE 24u
+#define PC_TX_QUEUE_COUNT 8u
+
+typedef struct
+{
+    uint8_t bytes[BOARD_PROTOCOL_MAX_FRAME_SIZE];
+} PcTxSlot;
 
 static volatile uint8_t rx_ring[PC_RX_RING_SIZE];
 static volatile uint8_t rx_write;
@@ -11,6 +19,38 @@ static char command[PC_COMMAND_SIZE];
 static uint8_t command_length;
 static uint16_t pending_weight_q15;
 static bool weight_pending;
+static PcTxSlot tx_queue[PC_TX_QUEUE_COUNT];
+static volatile uint8_t tx_read;
+static volatile uint8_t tx_write;
+static volatile uint8_t tx_active;
+
+/* 主循环和 DMA 中断共同操作发送队列，需要保护队列指针。 */
+static uint32_t enter_critical(void)
+{
+    uint32_t primask;
+    __asm volatile ("mrs %0, primask" : "=r" (primask));
+    __asm volatile ("cpsid i" ::: "memory");
+    return primask;
+}
+
+static void exit_critical(uint32_t primask)
+{
+    __asm volatile ("msr primask, %0" : : "r" (primask) : "memory");
+}
+
+static void start_tx_dma(void)
+{
+    if (tx_active != 0u || tx_read == tx_write)
+        return;
+
+    tx_active = 1u;
+    /* 固定参数只配置一次，每帧更新源地址和长度。 */
+    DMA_Cmd(DMA1_Channel7, DISABLE);
+    DMA1_Channel7->CMAR = (uint32_t)tx_queue[tx_read].bytes;
+    DMA_SetCurrDataCounter(DMA1_Channel7, BOARD_PROTOCOL_MAX_FRAME_SIZE);
+    DMA_ClearITPendingBit(DMA1_IT_TC7 | DMA1_IT_TE7);
+    DMA_Cmd(DMA1_Channel7, ENABLE);
+}
 
 static uint32_t gpio_clock_for_port(GPIO_TypeDef *port)
 {
@@ -28,11 +68,13 @@ static void usart2_init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
     GPIO_InitTypeDef gpio;
     USART_InitTypeDef usart;
     NVIC_InitTypeDef nvic;
+    DMA_InitTypeDef dma;
     uint32_t gpio_clocks = gpio_clock_for_port(tx_port) |
                            gpio_clock_for_port(rx_port);
 
     RCC_APB2PeriphClockCmd(gpio_clocks | RCC_APB2Periph_AFIO, ENABLE);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+    RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
     GPIO_PinRemapConfig(GPIO_Remap_USART2, remap_usart2);
 
     gpio.GPIO_Pin = tx_pin;
@@ -52,12 +94,34 @@ static void usart2_init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
     usart.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
     USART_Init(USART2, &usart);
 
+    /* USART2_TX 使用 DMA1 通道 7，发送 29 字节完整协议帧。 */
+    DMA_DeInit(DMA1_Channel7);
+    DMA_StructInit(&dma);
+    dma.DMA_PeripheralBaseAddr = (uint32_t)&USART2->DR;
+    dma.DMA_MemoryBaseAddr = (uint32_t)tx_queue[0].bytes;
+    dma.DMA_DIR = DMA_DIR_PeripheralDST;
+    dma.DMA_BufferSize = BOARD_PROTOCOL_MAX_FRAME_SIZE;
+    dma.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+    dma.DMA_MemoryInc = DMA_MemoryInc_Enable;
+    dma.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    dma.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+    dma.DMA_Mode = DMA_Mode_Normal;
+    dma.DMA_Priority = DMA_Priority_High;
+    dma.DMA_M2M = DMA_M2M_Disable;
+    DMA_Init(DMA1_Channel7, &dma);
+    DMA_ClearITPendingBit(DMA1_IT_TC7 | DMA1_IT_TE7);
+    DMA_ITConfig(DMA1_Channel7, DMA_IT_TC | DMA_IT_TE, ENABLE);
+
     nvic.NVIC_IRQChannel = USART2_IRQn;
     nvic.NVIC_IRQChannelPreemptionPriority = 2u;
     nvic.NVIC_IRQChannelSubPriority = 0u;
     nvic.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&nvic);
+    nvic.NVIC_IRQChannel = DMA1_Channel7_IRQn;
+    nvic.NVIC_IRQChannelSubPriority = 1u;
+    NVIC_Init(&nvic);
     USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
+    USART_DMACmd(USART2, USART_DMAReq_Tx, ENABLE);
     USART_Cmd(USART2, ENABLE);
 }
 
@@ -118,26 +182,45 @@ void PcConsole_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
     rx_read = 0u;
     command_length = 0u;
     weight_pending = false;
+    tx_read = tx_write = tx_active = 0u;
     usart2_init(tx_port, tx_pin, rx_port, rx_pin, remap_usart2);
 }
 
-void PcConsole_SendAttitude(uint16_t sequence,
-                            uint32_t timestamp_ms,
-                            const BoardProtocol_Quaternion *quaternion)
+bool PcConsole_SendFrame(const uint8_t *frame, size_t length)
 {
-    uint8_t frame[BOARD_PROTOCOL_MAX_FRAME_SIZE];
-    size_t length;
-    size_t i;
+    uint8_t next;
+    uint32_t primask;
 
-    length = BoardProtocol_EncodeQuaternion(sequence, timestamp_ms,
-                                             quaternion, frame, sizeof(frame));
-    if (length == 0u)
+    if (frame == 0 || length != BOARD_PROTOCOL_MAX_FRAME_SIZE)
+        return false;
+
+    primask = enter_critical();
+    next = (uint8_t)((tx_write + 1u) % PC_TX_QUEUE_COUNT);
+    if (next == tx_read)
+    {
+        exit_critical(primask);
+        return false;
+    }
+    memcpy(tx_queue[tx_write].bytes, frame, length);
+    tx_write = next;
+    start_tx_dma();
+    exit_critical(primask);
+    return true;
+}
+
+void PcConsole_WriteLine(const char *line)
+{
+    if (line == 0)
         return;
-    for (i = 0u; i < length; ++i)
+    while (*line != '\0')
     {
         while (USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET) { }
-        USART_SendData(USART2, frame[i]);
+        USART_SendData(USART2, (uint8_t)*line++);
     }
+    while (USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET) { }
+    USART_SendData(USART2, '\r');
+    while (USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET) { }
+    USART_SendData(USART2, '\n');
 }
 
 void PcConsole_Process(void)
@@ -180,5 +263,27 @@ void PcConsole_RxIrqHandler(void)
             rx_ring[rx_write] = byte;
             rx_write = next;
         }
+    }
+}
+
+void PcConsole_TxDmaIrqHandler(void)
+{
+    /* 传输错误时丢弃当前帧，避免错误帧残留在发送队列中。 */
+    if (DMA_GetITStatus(DMA1_IT_TE7) != RESET)
+    {
+        DMA_ClearITPendingBit(DMA1_IT_TC7 | DMA1_IT_TE7);
+        DMA_Cmd(DMA1_Channel7, DISABLE);
+        tx_read = (uint8_t)((tx_read + 1u) % PC_TX_QUEUE_COUNT);
+        tx_active = 0u;
+        start_tx_dma();
+        return;
+    }
+    if (DMA_GetITStatus(DMA1_IT_TC7) != RESET)
+    {
+        DMA_ClearITPendingBit(DMA1_IT_TC7);
+        DMA_Cmd(DMA1_Channel7, DISABLE);
+        tx_read = (uint8_t)((tx_read + 1u) % PC_TX_QUEUE_COUNT);
+        tx_active = 0u;
+        start_tx_dma();
     }
 }

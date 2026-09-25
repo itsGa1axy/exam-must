@@ -14,6 +14,7 @@ typedef struct
 static volatile uint8_t rx_ring[RX_RING_SIZE];
 static volatile uint8_t rx_write;
 static volatile uint8_t rx_read;
+static volatile uint32_t rx_bytes;
 static volatile uint32_t rx_overflows;
 static FrameParser parser;
 static BoardLink_Attitude latest_attitude;
@@ -122,6 +123,7 @@ static void accept_frame(void)
     latest_attitude.quaternion.x = quaternion[1];
     latest_attitude.quaternion.y = quaternion[2];
     latest_attitude.quaternion.z = quaternion[3];
+    memcpy(latest_attitude.raw_frame, frame, BOARD_PROTOCOL_MAX_FRAME_SIZE);
     latest_ready = true;
     ++link_stats.valid_frames;
 }
@@ -192,6 +194,7 @@ void BoardLink_Init(GPIO_TypeDef *tx_port, uint16_t tx_pin,
 {
     rx_write = 0u;
     rx_read = 0u;
+    rx_bytes = 0u;
     rx_overflows = 0u;
     latest_ready = false;
     control_sequence = 0u;
@@ -222,7 +225,8 @@ int BoardLink_SendFilterWeight(uint16_t gyro_weight_q15)
 void BoardLink_Process(void)
 {
     uint8_t byte;
-    while (rx_read != rx_write)
+    /* 每次最多交付一帧，避免连收两帧时后一帧覆盖尚未转发的前一帧。 */
+    while (rx_read != rx_write && !latest_ready)
     {
         byte = rx_ring[rx_read];
         rx_read = (uint8_t)((rx_read + 1u) % RX_RING_SIZE);
@@ -245,6 +249,7 @@ void BoardLink_GetStats(BoardLink_Stats *stats)
     if (stats != 0)
     {
         *stats = link_stats;
+        stats->rx_bytes = rx_bytes;
         stats->rx_overflows = rx_overflows;
     }
 }
@@ -254,6 +259,7 @@ void BoardLink_RxIrqHandler(void)
     if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
     {
         uint8_t byte = (uint8_t)USART_ReceiveData(USART1);
+        ++rx_bytes;
         uint8_t next = (uint8_t)((rx_write + 1u) % RX_RING_SIZE);
         if (next != rx_read)
         {

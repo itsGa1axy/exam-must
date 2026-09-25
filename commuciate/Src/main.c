@@ -36,11 +36,9 @@ int main(void)
         if (PcConsole_TakeFilterWeight(&gyro_weight_q15))
             (void)BoardLink_SendFilterWeight(gyro_weight_q15);
 
+        /* CRC 已在板间接收模块验证，原始帧交给电脑端解析。 */
         if (BoardLink_GetLatest(&attitude))
-        {
-            PcConsole_SendAttitude(attitude.sequence,
-                                   attitude.sample_time_ms,
-                                   &attitude.quaternion);
-        }
+            (void)PcConsole_SendFrame(attitude.raw_frame,
+                                      sizeof(attitude.raw_frame));
     }
 }

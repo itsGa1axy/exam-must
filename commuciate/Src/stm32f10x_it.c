@@ -23,6 +23,7 @@
 #include "stm32f10x_it.h"
 #include "board_link.h"
 #include "pc_console.h"
+#include "host_log.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Template  STM32F10x 标准外设库模板
   * @{
@@ -134,6 +135,7 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
+  HostLog_Tick1ms();
 }
 
 /* USART 接收中断只搬运字节，帧解析和 CRC 在主循环完成。 */
@@ -145,6 +147,12 @@ void USART1_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   PcConsole_RxIrqHandler();
+}
+
+/* USART2 的 DMA 完成中断启动队列里的下一帧。 */
+void DMA1_Channel7_IRQHandler(void)
+{
+  PcConsole_TxDmaIrqHandler();
 }
 
 /******************************************************************************/
