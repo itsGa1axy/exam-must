@@ -1,0 +1,319 @@
+<<<COMMENT 0>>>
+/**
+  ******************************************************************************
+  * @file    Project/STM32F10x_StdPeriph_Template/stm32f10x_conf.h
+  * @author  MCD Application Team
+  * @version V3.5.0
+  * @date    08-April-2011
+  * @brief   库配置文件。
+  ******************************************************************************
+  * @attention
+  *
+  * 本固件仅供参考，其目的在于为客户提供有关其产品的编码信息，以帮助客户节省时间。
+  * 因此，对于因本固件的内容和/或客户将其中所含编码信息用于其产品而产生的任何索赔
+  * 所造成的任何直接、间接或后果性损害，STMicroelectronics 概不承担任何责任。
+  *
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  ******************************************************************************
+  */
+<<<COMMENT 1>>>
+/* 定义以下宏，以防止本头文件被递归包含 -------------------------------------*/
+<<<COMMENT 2>>>
+/* 头文件包含 ------------------------------------------------------------------*/
+<<<COMMENT 3>>>
+/* 对下面这行取消注释/加注释，即可启用/禁用外设头文件的包含 */
+<<<COMMENT 4>>>
+/* NVIC 与 SysTick 的高层函数（CMSIS 函数的补充） */
+<<<COMMENT 5>>>
+/* 导出的类型 ------------------------------------------------------------*/
+<<<COMMENT 6>>>
+/* 导出的常量 --------------------------------------------------------*/
+<<<COMMENT 7>>>
+/* 对下面这行取消注释，即可在标准外设库的驱动代码中
+   展开 "assert_param" 宏 */
+<<<COMMENT 8>>>
+/* #define USE_FULL_ASSERT    1    —— 取消注释本行即可启用完整断言 */
+<<<COMMENT 9>>>
+/* 导出的宏 ------------------------------------------------------------*/
+<<<COMMENT 10>>>
+/**
+  * @brief  assert_param 宏用于对函数参数进行检查。
+  * @param  expr: 若 expr 为假，则调用 assert_failed 函数，
+  *         由该函数报告调用失败处的源文件名与源码行号。
+  *         若 expr 为真，则本宏不返回任何值。
+  * @retval 无
+  */
+<<<COMMENT 11>>>
+/* 导出的函数 ------------------------------------------------------- */
+<<<COMMENT 12>>>
+/* USE_FULL_ASSERT */
+<<<COMMENT 13>>>
+/* __STM32F10x_CONF_H */
+<<<COMMENT 14>>>
+/******************* (C) COPYRIGHT 2011 STMicroelectronics *****文件结束****/
+<<<COMMENT 15>>>
+/**
+  ******************************************************************************
+  * @file    Project/STM32F10x_StdPeriph_Template/stm32f10x_it.h
+  * @author  MCD Application Team
+  * @version V3.5.0
+  * @date    08-April-2011
+  * @brief   本文件包含各中断处理函数的声明。
+  ******************************************************************************
+  * @attention
+  *
+  * 本固件仅供参考，其目的在于为客户提供有关其产品的编码信息，以帮助客户节省时间。
+  * 因此，对于因本固件的内容和/或客户将其中所含编码信息用于其产品而产生的任何索赔
+  * 所造成的任何直接、间接或后果性损害，STMicroelectronics 概不承担任何责任。
+  *
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  ******************************************************************************
+  */
+<<<COMMENT 16>>>
+/* __STM32F10x_IT_H */
+<<<COMMENT 17>>>
+/**
+  ******************************************************************************
+  * @file    misc.c
+  * @author  MCD Application Team
+  * @version V3.5.0
+  * @date    11-March-2011
+  * @brief   本文件提供全部杂项固件函数（CMSIS 函数的补充）。
+  ******************************************************************************
+  * @attention
+  *
+  * 本固件仅供参考，其目的在于为客户提供有关其产品的编码信息，以帮助客户节省时间。
+  * 因此，对于因本固件的内容和/或客户将其中所含编码信息用于其产品而产生的任何索赔
+  * 所造成的任何直接、间接或后果性损害，STMicroelectronics 概不承担任何责任。
+  *
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  ******************************************************************************
+  */
+<<<COMMENT 18>>>
+/** @addtogroup STM32F10x_StdPeriph_Driver   STM32F10x 标准外设驱动
+  * @{
+  */
+<<<COMMENT 19>>>
+/** @defgroup MISC   MISC 驱动模块
+  * @brief MISC 驱动模块
+  * @{
+  */
+<<<COMMENT 20>>>
+/** @defgroup MISC_Private_TypesDefinitions   MISC 私有类型定义
+  * @{
+  */
+<<<COMMENT 21>>>
+/**
+  * @}
+  */
+<<<COMMENT 22>>>
+/** @defgroup MISC_Private_Defines   MISC 私有宏定义
+  * @{
+  */
+<<<COMMENT 23>>>
+/** @defgroup MISC_Private_Macros   MISC 私有宏
+  * @{
+  */
+<<<COMMENT 24>>>
+/** @defgroup MISC_Private_Variables   MISC 私有变量
+  * @{
+  */
+<<<COMMENT 25>>>
+/** @defgroup MISC_Private_FunctionPrototypes   MISC 私有函数原型
+  * @{
+  */
+<<<COMMENT 26>>>
+/** @defgroup MISC_Private_Functions   MISC 私有函数
+  * @{
+  */
+<<<COMMENT 27>>>
+/**
+  * @brief  配置优先级分组：抢占优先级与子优先级各占多少位。
+  * @param  NVIC_PriorityGroup: 指定优先级分组的位数分配。
+  *   该参数可取下列值之一：
+  *     @arg NVIC_PriorityGroup_0: 抢占优先级占 0 位
+  *                                 子优先级占 4 位
+  *     @arg NVIC_PriorityGroup_1: 抢占优先级占 1 位
+  *                                 子优先级占 3 位
+  *     @arg NVIC_PriorityGroup_2: 抢占优先级占 2 位
+  *                                 子优先级占 2 位
+  *     @arg NVIC_PriorityGroup_3: 抢占优先级占 3 位
+  *                                 子优先级占 1 位
+  *     @arg NVIC_PriorityGroup_4: 抢占优先级占 4 位
+  *                                 子优先级占 0 位
+  * @retval 无
+  */
+<<<COMMENT 28>>>
+/* 检查参数 */
+<<<COMMENT 29>>>
+/* 根据 NVIC_PriorityGroup 的值设置 PRIGROUP[10:8] 位 */
+<<<COMMENT 30>>>
+/**
+  * @brief  根据 NVIC_InitStruct 中指定的参数初始化 NVIC 外设。
+  * @param  NVIC_InitStruct: 指向 NVIC_InitTypeDef 结构体的指针，
+  *         该结构体包含指定 NVIC 外设的配置信息。
+  * @retval 无
+  */
+<<<COMMENT 31>>>
+/* 计算对应的中断优先级 ------------------------------------------------*/
+<<<COMMENT 32>>>
+/* 使能所选中断通道 --------------------------------------*/
+<<<COMMENT 33>>>
+/* 关闭所选中断通道 -------------------------------------*/
+<<<COMMENT 34>>>
+/**
+  * @brief  设置向量表的位置与偏移量。
+  * @param  NVIC_VectTab: 指定向量表位于 RAM 还是 FLASH 中。
+  *   该参数可取下列值之一：
+  *     @arg NVIC_VectTab_RAM
+  *     @arg NVIC_VectTab_FLASH
+  * @param  Offset: 向量表基址偏移量。该值必须是 0x200 的整数倍。
+  * @retval 无
+  */
+<<<COMMENT 35>>>
+/**
+  * @brief  选择系统进入低功耗模式的条件。
+  * @param  LowPowerMode: 指定系统进入低功耗模式的新方式。
+  *   该参数可取下列值之一：
+  *     @arg NVIC_LP_SEVONPEND
+  *     @arg NVIC_LP_SLEEPDEEP
+  *     @arg NVIC_LP_SLEEPONEXIT
+  * @param  NewState: 低功耗条件的新状态。该参数可取 ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 36>>>
+/**
+  * @brief  配置 SysTick 的时钟源。
+  * @param  SysTick_CLKSource: 指定 SysTick 的时钟源。
+  *   该参数可取下列值之一：
+  *     @arg SysTick_CLKSource_HCLK_Div8: 选择 AHB 时钟 8 分频作为 SysTick 时钟源。
+  *     @arg SysTick_CLKSource_HCLK: 选择 AHB 时钟作为 SysTick 时钟源。
+  * @retval 无
+  */
+<<<COMMENT 37>>>
+/**
+  ******************************************************************************
+  * @file    misc.h
+  * @author  MCD Application Team
+  * @version V3.5.0
+  * @date    11-March-2011
+  * @brief   本文件包含杂项固件库函数的全部函数原型（CMSIS 函数的补充）。
+  ******************************************************************************
+  * @attention
+  *
+  * 本固件仅供参考，其目的在于为客户提供有关其产品的编码信息，以帮助客户节省时间。
+  * 因此，对于因本固件的内容和/或客户将其中所含编码信息用于其产品而产生的任何索赔
+  * 所造成的任何直接、间接或后果性损害，STMicroelectronics 概不承担任何责任。
+  *
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  ******************************************************************************
+  */
+<<<COMMENT 38>>>
+/** @addtogroup MISC   MISC 杂项驱动
+  * @{
+  */
+<<<COMMENT 39>>>
+/** @defgroup MISC_Exported_Types   MISC 导出类型
+  * @{
+  */
+<<<COMMENT 40>>>
+/**
+  * @brief  NVIC 初始化结构体定义
+  */
+<<<COMMENT 41>>>
+/*!< 指定要使能或关闭的中断通道。
+                                                   该参数可取 @ref IRQn_Type 中的值
+                                                   （完整的 STM32 器件中断通道列表请
+                                                   参阅 stm32f10x.h 文件） */
+<<<COMMENT 42>>>
+/*!< 指定 NVIC_IRQChannel 中所列中断通道的抢占优先级。
+                                                   该参数可取 0 到 15 之间的值，
+                                                   详见 @ref NVIC_Priority_Table 表格 */
+<<<COMMENT 43>>>
+/*!< 指定 NVIC_IRQChannel 中所列中断通道的子优先级。
+                                                   该参数可取 0 到 15 之间的值，
+                                                   详见 @ref NVIC_Priority_Table 表格 */
+<<<COMMENT 44>>>
+/*!< 指定 NVIC_IRQChannel 中所定义的中断通道
+                                                   是使能还是关闭。
+                                                   该参数可设为 ENABLE 或 DISABLE */
+<<<COMMENT 45>>>
+/** @defgroup NVIC_Priority_Table   NVIC 优先级表
+  * @{
+  */
+<<<COMMENT 46>>>
+/**
+  * 下表给出在不同优先级分组配置（由 NVIC_PriorityGroupConfig 函数设定）下，
+  * 抢占优先级（pre-emption priority）与子优先级（subpriority）的允许取值范围。
+  * 表头对照：NVIC_PriorityGroup = 优先级分组；
+  *           Description 列中的 "x bits for pre-emption priority" = 抢占优先级占 x 位，
+  *           "x bits for subpriority" = 子优先级占 x 位。
+  * （为保持对齐格式，原表以英文原样保留）
+@code
+ The table below gives the allowed values of the pre-emption priority and subpriority according
+ to the Priority Grouping configuration performed by NVIC_PriorityGroupConfig function
+  ============================================================================================================================
+    NVIC_PriorityGroup   | NVIC_IRQChannelPreemptionPriority | NVIC_IRQChannelSubPriority  | Description
+  ============================================================================================================================
+   NVIC_PriorityGroup_0  |                0                  |            0-15             |   0 bits for pre-emption priority
+                         |                                   |                             |   4 bits for subpriority
+  ----------------------------------------------------------------------------------------------------------------------------
+   NVIC_PriorityGroup_1  |                0-1                |            0-7              |   1 bits for pre-emption priority
+                         |                                   |                             |   3 bits for subpriority
+  ----------------------------------------------------------------------------------------------------------------------------
+   NVIC_PriorityGroup_2  |                0-3                |            0-3              |   2 bits for pre-emption priority
+                         |                                   |                             |   2 bits for subpriority
+  ----------------------------------------------------------------------------------------------------------------------------
+   NVIC_PriorityGroup_3  |                0-7                |            0-1              |   3 bits for pre-emption priority
+                         |                                   |                             |   1 bits for subpriority
+  ----------------------------------------------------------------------------------------------------------------------------
+   NVIC_PriorityGroup_4  |                0-15               |            0                |   4 bits for pre-emption priority
+                         |                                   |                             |   0 bits for subpriority
+  ============================================================================================================================
+@endcode
+*/
+<<<COMMENT 47>>>
+/** @defgroup MISC_Exported_Constants   MISC 导出常量
+  * @{
+  */
+<<<COMMENT 48>>>
+/** @defgroup Vector_Table_Base   向量表基址
+  * @{
+  */
+<<<COMMENT 49>>>
+/** @defgroup System_Low_Power   系统低功耗
+  * @{
+  */
+<<<COMMENT 50>>>
+/** @defgroup Preemption_Priority_Group   抢占优先级分组
+  * @{
+  */
+<<<COMMENT 51>>>
+/*!< 抢占优先级占 0 位
+                                                            子优先级占 4 位 */
+<<<COMMENT 52>>>
+/*!< 抢占优先级占 1 位
+                                                            子优先级占 3 位 */
+<<<COMMENT 53>>>
+/*!< 抢占优先级占 2 位
+                                                            子优先级占 2 位 */
+<<<COMMENT 54>>>
+/*!< 抢占优先级占 3 位
+                                                            子优先级占 1 位 */
+<<<COMMENT 55>>>
+/*!< 抢占优先级占 4 位
+                                                            子优先级占 0 位 */
+<<<COMMENT 56>>>
+/** @defgroup SysTick_clock_source   SysTick 时钟源
+  * @{
+  */
+<<<COMMENT 57>>>
+/** @defgroup MISC_Exported_Macros   MISC 导出宏
+  * @{
+  */
+<<<COMMENT 58>>>
+/** @defgroup MISC_Exported_Functions   MISC 导出函数
+  * @{
+  */
+<<<COMMENT 59>>>
+/* __MISC_H */
