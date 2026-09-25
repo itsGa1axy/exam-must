@@ -1,0 +1,1841 @@
+<<<COMMENT 1250>>>
+/*!< STM32 中容量器件：第 80 至 83 页的写保护 */
+<<<COMMENT 1251>>>
+/*!< STM32 中容量器件：第 84 至 87 页的写保护 */
+<<<COMMENT 1252>>>
+/*!< STM32 中容量器件：第 88 至 91 页的写保护 */
+<<<COMMENT 1253>>>
+/*!< STM32 中容量器件：第 92 至 95 页的写保护 */
+<<<COMMENT 1254>>>
+/*!< STM32 中容量器件：第 96 至 99 页的写保护 */
+<<<COMMENT 1255>>>
+/*!< STM32 中容量器件：第 100 至 103 页的写保护 */
+<<<COMMENT 1256>>>
+/*!< STM32 中容量器件：第 104 至 107 页的写保护 */
+<<<COMMENT 1257>>>
+/*!< STM32 中容量器件：第 108 至 111 页的写保护 */
+<<<COMMENT 1258>>>
+/*!< STM32 中容量器件：第 112 至 115 页的写保护 */
+<<<COMMENT 1259>>>
+/*!< STM32 中容量器件：第 115 至 119 页的写保护 */
+<<<COMMENT 1260>>>
+/*!< STM32 中容量器件：第 120 至 123 页的写保护 */
+<<<COMMENT 1261>>>
+/*!< STM32 中容量器件：第 124 至 127 页的写保护 */
+<<<COMMENT 1262>>>
+/* 用于 STM32 高容量和 STM32F10X 互联型器件的取值 */
+<<<COMMENT 1263>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 0 至 1 页的写保护 */
+<<<COMMENT 1264>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 2 至 3 页的写保护 */
+<<<COMMENT 1265>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 4 至 5 页的写保护 */
+<<<COMMENT 1266>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 6 至 7 页的写保护 */
+<<<COMMENT 1267>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 8 至 9 页的写保护 */
+<<<COMMENT 1268>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 10 至 11 页的写保护 */
+<<<COMMENT 1269>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 12 至 13 页的写保护 */
+<<<COMMENT 1270>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 14 至 15 页的写保护 */
+<<<COMMENT 1271>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 16 至 17 页的写保护 */
+<<<COMMENT 1272>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 18 至 19 页的写保护 */
+<<<COMMENT 1273>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 20 至 21 页的写保护 */
+<<<COMMENT 1274>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 22 至 23 页的写保护 */
+<<<COMMENT 1275>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 24 至 25 页的写保护 */
+<<<COMMENT 1276>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 26 至 27 页的写保护 */
+<<<COMMENT 1277>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 28 至 29 页的写保护 */
+<<<COMMENT 1278>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 30 至 31 页的写保护 */
+<<<COMMENT 1279>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 32 至 33 页的写保护 */
+<<<COMMENT 1280>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 34 至 35 页的写保护 */
+<<<COMMENT 1281>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 36 至 37 页的写保护 */
+<<<COMMENT 1282>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 38 至 39 页的写保护 */
+<<<COMMENT 1283>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 40 至 41 页的写保护 */
+<<<COMMENT 1284>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 42 至 43 页的写保护 */
+<<<COMMENT 1285>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 44 至 45 页的写保护 */
+<<<COMMENT 1286>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 46 至 47 页的写保护 */
+<<<COMMENT 1287>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 48 至 49 页的写保护 */
+<<<COMMENT 1288>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 50 至 51 页的写保护 */
+<<<COMMENT 1289>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 52 至 53 页的写保护 */
+<<<COMMENT 1290>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 54 至 55 页的写保护 */
+<<<COMMENT 1291>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 56 至 57 页的写保护 */
+<<<COMMENT 1292>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 58 至 59 页的写保护 */
+<<<COMMENT 1293>>>
+/*!< STM32 高容量、超大容量和互联型器件：
+                                                                   第 60 至 61 页的写保护 */
+<<<COMMENT 1294>>>
+/*!< STM32 互联型器件：第 62 至 127 页的写保护 */
+<<<COMMENT 1295>>>
+/*!< STM32 中容量器件：第 62 至 255 页的写保护 */
+<<<COMMENT 1296>>>
+/*!< STM32 超大容量器件：第 62 至 511 页的写保护 */
+<<<COMMENT 1297>>>
+/*!< 所有页的写保护 */
+<<<COMMENT 1298>>>
+/** @defgroup Option_Bytes_IWatchdog   独立看门狗选项字节
+  * @{
+  */
+<<<COMMENT 1299>>>
+/*!< 选择软件 IWDG */
+<<<COMMENT 1300>>>
+/*!< 选择硬件 IWDG */
+<<<COMMENT 1301>>>
+/** @defgroup Option_Bytes_nRST_STOP   STOP 模式复位选项字节
+  * @{
+  */
+<<<COMMENT 1302>>>
+/*!< 进入 STOP 模式时不产生复位 */
+<<<COMMENT 1303>>>
+/*!< 进入 STOP 模式时产生复位 */
+<<<COMMENT 1304>>>
+/** @defgroup Option_Bytes_nRST_STDBY   STANDBY 模式复位选项字节
+  * @{
+  */
+<<<COMMENT 1305>>>
+/*!< 进入 STANDBY 模式时不产生复位 */
+<<<COMMENT 1306>>>
+/*!< 进入 STANDBY 模式时产生复位 */
+<<<COMMENT 1307>>>
+/** @defgroup FLASH_Boot  启动配置
+  * @{
+  */
+<<<COMMENT 1308>>>
+/*!< 启动时，若 BOOT 引脚配置为从用户 Flash 启动，
+                                                  且选择该参数，则器件将从 Bank1 启动（默认） */
+<<<COMMENT 1309>>>
+/*!< 启动时，若 BOOT 引脚配置为从用户 Flash 启动，
+                                                  且选择该参数，则器件将从 Bank 2 或 Bank 1 启动，
+                                                  具体取决于 bank 的激活情况 */
+<<<COMMENT 1310>>>
+/** @defgroup FLASH_Interrupts   FLASH 中断
+  * @{
+  */
+<<<COMMENT 1311>>>
+/*!< FPEC BANK2 错误中断源 */
+<<<COMMENT 1312>>>
+/*!< FLASH BANK2 操作结束中断源 */
+<<<COMMENT 1313>>>
+/*!< FPEC BANK1 错误中断源 */
+<<<COMMENT 1314>>>
+/*!< FLASH BANK1 操作结束中断源 */
+<<<COMMENT 1315>>>
+/*!< FPEC 错误中断源 */
+<<<COMMENT 1316>>>
+/*!< FLASH 操作结束中断源 */
+<<<COMMENT 1317>>>
+/** @defgroup FLASH_Flags   FLASH 标志
+  * @{
+  */
+<<<COMMENT 1318>>>
+/*!< FLASH BANK2 忙标志 */
+<<<COMMENT 1319>>>
+/*!< FLASH BANK2 操作结束标志 */
+<<<COMMENT 1320>>>
+/*!< FLASH BANK2 编程错误标志 */
+<<<COMMENT 1321>>>
+/*!< FLASH BANK2 写保护错误标志 */
+<<<COMMENT 1322>>>
+/*!< FLASH BANK1 忙标志*/
+<<<COMMENT 1323>>>
+/*!< FLASH BANK1 操作结束标志 */
+<<<COMMENT 1324>>>
+/*!< FLASH BANK1 编程错误标志 */
+<<<COMMENT 1325>>>
+/*!< FLASH BANK1 写保护错误标志 */
+<<<COMMENT 1326>>>
+/*!< FLASH 忙标志 */
+<<<COMMENT 1327>>>
+/*!< FLASH 操作结束标志 */
+<<<COMMENT 1328>>>
+/*!< FLASH 编程错误标志 */
+<<<COMMENT 1329>>>
+/*!< FLASH 写保护错误标志 */
+<<<COMMENT 1330>>>
+/*!< FLASH 选项字节错误标志 */
+<<<COMMENT 1331>>>
+/** @defgroup FLASH_Exported_Macros   FLASH 导出宏
+  * @{
+  */
+<<<COMMENT 1332>>>
+/** @defgroup FLASH_Exported_Functions   FLASH 导出函数
+  * @{
+  */
+<<<COMMENT 1333>>>
+/*------------ 适用于所有 STM32F10x 器件的函数 -----*/
+<<<COMMENT 1334>>>
+/*------------ 适用于所有 STM32F10x 器件的新函数 -----*/
+<<<COMMENT 1335>>>
+/*---- 仅用于 STM32F10x_XL 密度器件的新函数 -----*/
+<<<COMMENT 1336>>>
+/* __STM32F10x_FLASH_H */
+<<<COMMENT 1337>>>
+/**
+  ******************************************************************************
+  * @file    stm32f10x_fsmc.c
+  * @author  MCD Application Team
+  * @version V3.5.0
+  * @date    11-March-2011
+  * @brief   本文件提供所有 FSMC 固件函数。
+  ******************************************************************************
+  * @attention
+  *
+  * 本固件仅供指引之用，旨在为客户提供有关其产品的编码信息，
+  * 以便客户节省时间。因此，对于因本固件内容及/或客户将本文
+  * 所含编码信息用于其产品而产生的任何索赔所导致的任何直接、
+  * 间接或后果性损害，STMicroelectronics 概不负责。
+  *
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  ******************************************************************************
+  */
+<<<COMMENT 1338>>>
+/** @defgroup FSMC
+  * @brief FSMC 驱动模块
+  * @{
+  */
+<<<COMMENT 1339>>>
+/** @defgroup FSMC_Private_TypesDefinitions   FSMC 私有类型定义
+  * @{
+  */
+<<<COMMENT 1340>>>
+/** @defgroup FSMC_Private_Defines   FSMC 私有宏定义
+  * @{
+  */
+<<<COMMENT 1341>>>
+/* --------------------- FSMC 寄存器位掩码 ---------------------------- */
+<<<COMMENT 1342>>>
+/* FSMC BCRx 掩码 */
+<<<COMMENT 1343>>>
+/* FSMC PCRx 掩码 */
+<<<COMMENT 1344>>>
+/** @defgroup FSMC_Private_Macros   FSMC 私有宏
+  * @{
+  */
+<<<COMMENT 1345>>>
+/** @defgroup FSMC_Private_Variables   FSMC 私有变量
+  * @{
+  */
+<<<COMMENT 1346>>>
+/** @defgroup FSMC_Private_FunctionPrototypes   FSMC 私有函数原型
+  * @{
+  */
+<<<COMMENT 1347>>>
+/** @defgroup FSMC_Private_Functions   FSMC 私有函数
+  * @{
+  */
+<<<COMMENT 1348>>>
+/**
+  * @brief  将 FSMC NOR/SRAM Bank 寄存器反初始化为其默认
+  *         复位值。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank1_NORSRAM1: FSMC Bank1 NOR/SRAM1
+  *     @arg FSMC_Bank1_NORSRAM2: FSMC Bank1 NOR/SRAM2
+  *     @arg FSMC_Bank1_NORSRAM3: FSMC Bank1 NOR/SRAM3
+  *     @arg FSMC_Bank1_NORSRAM4: FSMC Bank1 NOR/SRAM4
+  * @retval 无
+  */
+<<<COMMENT 1349>>>
+/* 检查参数 */
+<<<COMMENT 1350>>>
+/* FSMC_Bank1_NORSRAM1 */
+<<<COMMENT 1351>>>
+/* FSMC_Bank1_NORSRAM2、FSMC_Bank1_NORSRAM3 或 FSMC_Bank1_NORSRAM4 */
+<<<COMMENT 1352>>>
+/**
+  * @brief  将 FSMC NAND Bank 寄存器反初始化为其默认复位值。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND
+  *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+  * @retval 无
+  */
+<<<COMMENT 1353>>>
+/* 将 FSMC_Bank2 寄存器设置为复位值 */
+<<<COMMENT 1354>>>
+/* FSMC_Bank3_NAND */
+<<<COMMENT 1355>>>
+/* 将 FSMC_Bank3 寄存器设置为复位值 */
+<<<COMMENT 1356>>>
+/**
+  * @brief  将 FSMC PCCARD Bank 寄存器反初始化为其默认复位值。
+  * @param  无
+  * @retval 无
+  */
+<<<COMMENT 1357>>>
+/* 将 FSMC_Bank4 寄存器设置为复位值 */
+<<<COMMENT 1358>>>
+/**
+  * @brief  根据 FSMC_NORSRAMInitStruct 中指定的参数初始化
+  *         FSMC NOR/SRAM Bank。
+  * @param  FSMC_NORSRAMInitStruct : 指向 FSMC_NORSRAMInitTypeDef
+  *         结构的指针，该结构包含指定 FSMC NOR/SRAM
+  *        Bank 的配置信息。
+  * @retval 无
+  */
+<<<COMMENT 1359>>>
+/* Bank1 NOR/SRAM 控制寄存器配置 */
+<<<COMMENT 1360>>>
+/* Bank1 NOR/SRAM 时序寄存器配置 */
+<<<COMMENT 1361>>>
+/* 若使用扩展模式，为写操作配置 Bank1 NOR/SRAM 时序寄存器 */
+<<<COMMENT 1362>>>
+/**
+  * @brief  根据 FSMC_NANDInitStruct 中指定的参数初始化
+  *         FSMC NAND Bank。
+  * @param  FSMC_NANDInitStruct : 指向 FSMC_NANDInitTypeDef
+  *         结构的指针，该结构包含指定 FSMC
+  *         NAND Bank 的配置信息。
+  * @retval 无
+  */
+<<<COMMENT 1363>>>
+/* 根据 FSMC_NANDInitStruct 参数设置 tmppcr 值 */
+<<<COMMENT 1364>>>
+/* 根据 FSMC_CommonSpaceTimingStructure 参数设置 tmppmem 值 */
+<<<COMMENT 1365>>>
+/* 根据 FSMC_AttributeSpaceTimingStructure 参数设置 tmppatt 值 */
+<<<COMMENT 1366>>>
+/* FSMC_Bank2_NAND 寄存器配置 */
+<<<COMMENT 1367>>>
+/* FSMC_Bank3_NAND 寄存器配置 */
+<<<COMMENT 1368>>>
+/**
+  * @brief  根据 FSMC_PCCARDInitStruct 中指定的参数初始化
+  *         FSMC PCCARD Bank。
+  * @param  FSMC_PCCARDInitStruct : 指向 FSMC_PCCARDInitTypeDef
+  *         结构的指针，该结构包含 FSMC
+  *         PCCARD Bank 的配置信息。
+  * @retval 无
+  */
+<<<COMMENT 1369>>>
+/* 根据 FSMC_PCCARDInitStruct 参数设置 PCR4 寄存器值 */
+<<<COMMENT 1370>>>
+/* 根据 FSMC_CommonSpaceTimingStructure 参数设置 PMEM4 寄存器值 */
+<<<COMMENT 1371>>>
+/* 根据 FSMC_AttributeSpaceTimingStructure 参数设置 PATT4 寄存器值 */
+<<<COMMENT 1372>>>
+/* 根据 FSMC_IOSpaceTimingStructure 参数设置 PIO4 寄存器值 */
+<<<COMMENT 1373>>>
+/**
+  * @brief  将 FSMC_NORSRAMInitStruct 的每个成员填充为默认值。
+  * @param  FSMC_NORSRAMInitStruct: 指向将被初始化的
+  *         FSMC_NORSRAMInitTypeDef 结构的指针。
+  * @retval 无
+  */
+<<<COMMENT 1374>>>
+/* 复位 NOR/SRAM 初始化结构的参数值 */
+<<<COMMENT 1375>>>
+/**
+  * @brief  将 FSMC_NANDInitStruct 的每个成员填充为默认值。
+  * @param  FSMC_NANDInitStruct: 指向将被初始化的
+  *         FSMC_NANDInitTypeDef 结构的指针。
+  * @retval 无
+  */
+<<<COMMENT 1376>>>
+/* 复位 NAND 初始化结构的参数值 */
+<<<COMMENT 1377>>>
+/**
+  * @brief  将 FSMC_PCCARDInitStruct 的每个成员填充为默认值。
+  * @param  FSMC_PCCARDInitStruct: 指向将被初始化的
+  *         FSMC_PCCARDInitTypeDef 结构的指针。
+  * @retval 无
+  */
+<<<COMMENT 1378>>>
+/* 复位 PCCARD 初始化结构的参数值 */
+<<<COMMENT 1379>>>
+/**
+  * @brief  使能或关闭指定的 NOR/SRAM 存储块。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank1_NORSRAM1: FSMC Bank1 NOR/SRAM1
+  *     @arg FSMC_Bank1_NORSRAM2: FSMC Bank1 NOR/SRAM2
+  *     @arg FSMC_Bank1_NORSRAM3: FSMC Bank1 NOR/SRAM3
+  *     @arg FSMC_Bank1_NORSRAM4: FSMC Bank1 NOR/SRAM4
+  * @param  NewState: FSMC_Bank 的新状态。该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1380>>>
+/* 通过置位 BCRx 寄存器中的 PBKEN 位使能所选 NOR/SRAM Bank */
+<<<COMMENT 1381>>>
+/* 通过清零 BCRx 寄存器中的 PBKEN 位关闭所选 NOR/SRAM Bank */
+<<<COMMENT 1382>>>
+/**
+  * @brief  使能或关闭指定的 NAND 存储块。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND
+  *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+  * @param  NewState: FSMC_Bank 的新状态。该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1383>>>
+/* 通过置位 PCRx 寄存器中的 PBKEN 位使能所选 NAND Bank */
+<<<COMMENT 1384>>>
+/* 通过清零 PCRx 寄存器中的 PBKEN 位关闭所选 NAND Bank */
+<<<COMMENT 1385>>>
+/**
+  * @brief  使能或关闭 PCCARD 存储块。
+  * @param  NewState: PCCARD 存储块的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1386>>>
+/* 通过置位 PCR4 寄存器中的 PBKEN 位使能 PCCARD Bank */
+<<<COMMENT 1387>>>
+/* 通过清零 PCR4 寄存器中的 PBKEN 位关闭 PCCARD Bank */
+<<<COMMENT 1388>>>
+/**
+  * @brief  使能或关闭 FSMC NAND ECC 功能。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND
+  *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+  * @param  NewState: FSMC NAND ECC 功能的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1389>>>
+/* 通过置位 PCRx 寄存器中的 ECCEN 位使能所选 NAND Bank ECC 功能 */
+<<<COMMENT 1390>>>
+/* 通过清零 PCRx 寄存器中的 ECCEN 位关闭所选 NAND Bank ECC 功能 */
+<<<COMMENT 1391>>>
+/**
+  * @brief  返回纠错码寄存器值。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND
+  *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+  * @retval 纠错码 (ECC) 值。
+  */
+<<<COMMENT 1392>>>
+/* 获取 ECCR2 寄存器值 */
+<<<COMMENT 1393>>>
+/* 获取 ECCR3 寄存器值 */
+<<<COMMENT 1394>>>
+/* 返回纠错码值 */
+<<<COMMENT 1395>>>
+/**
+  * @brief  使能或关闭指定的 FSMC 中断。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND
+  *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+  *     @arg FSMC_Bank4_PCCARD: FSMC Bank4 PCCARD
+  * @param  FSMC_IT: 指定要使能或关闭的 FSMC 中断源。
+  *   该参数可取以下值的任意组合：
+  *     @arg FSMC_IT_RisingEdge: 上升沿检测中断。
+  *     @arg FSMC_IT_Level: 电平边沿检测中断。
+  *     @arg FSMC_IT_FallingEdge: 下降沿检测中断。
+  * @param  NewState: 指定 FSMC 中断的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1396>>>
+/* 使能所选的 FSMC_Bank2 中断 */
+<<<COMMENT 1397>>>
+/* 使能所选的 FSMC_Bank3 中断 */
+<<<COMMENT 1398>>>
+/* 使能所选的 FSMC_Bank4 中断 */
+<<<COMMENT 1399>>>
+/* 关闭所选的 FSMC_Bank2 中断 */
+<<<COMMENT 1400>>>
+/* 关闭所选的 FSMC_Bank3 中断 */
+<<<COMMENT 1401>>>
+/* 关闭所选的 FSMC_Bank4 中断 */
+<<<COMMENT 1402>>>
+/**
+  * @brief  检查指定的 FSMC 标志是否置位。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND
+  *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+  *     @arg FSMC_Bank4_PCCARD: FSMC Bank4 PCCARD
+  * @param  FSMC_FLAG: 指定要检查的标志。
+  *   该参数可取以下值之一：
+  *     @arg FSMC_FLAG_RisingEdge: 上升沿检测标志。
+  *     @arg FSMC_FLAG_Level: 电平检测标志。
+  *     @arg FSMC_FLAG_FallingEdge: 下降沿检测标志。
+  *     @arg FSMC_FLAG_FEMPT: FIFO 空标志。
+  * @retval FSMC_FLAG 的新状态（SET 或 RESET）。
+  */
+<<<COMMENT 1403>>>
+/* FSMC_Bank4_PCCARD*/
+<<<COMMENT 1404>>>
+/* 获取标志状态 */
+<<<COMMENT 1405>>>
+/* 返回标志状态 */
+<<<COMMENT 1406>>>
+/**
+  * @brief  清除 FSMC 的挂起标志。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND
+  *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+  *     @arg FSMC_Bank4_PCCARD: FSMC Bank4 PCCARD
+  * @param  FSMC_FLAG: 指定要清除的标志。
+  *   该参数可取以下值的任意组合：
+  *     @arg FSMC_FLAG_RisingEdge: 上升沿检测标志。
+  *     @arg FSMC_FLAG_Level: 电平检测标志。
+  *     @arg FSMC_FLAG_FallingEdge: 下降沿检测标志。
+  * @retval 无
+  */
+<<<COMMENT 1407>>>
+/**
+  * @brief  检查指定的 FSMC 中断是否发生。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND
+  *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+  *     @arg FSMC_Bank4_PCCARD: FSMC Bank4 PCCARD
+  * @param  FSMC_IT: 指定要检查的 FSMC 中断源。
+  *   该参数可取以下值之一：
+  *     @arg FSMC_IT_RisingEdge: 上升沿检测中断。
+  *     @arg FSMC_IT_Level: 电平边沿检测中断。
+  *     @arg FSMC_IT_FallingEdge: 下降沿检测中断。
+  * @retval FSMC_IT 的新状态（SET 或 RESET）。
+  */
+<<<COMMENT 1408>>>
+/**
+  * @brief  清除 FSMC 的中断挂起位。
+  * @param  FSMC_Bank: 指定要使用的 FSMC Bank
+  *   该参数可取以下值之一：
+  *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND
+  *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+  *     @arg FSMC_Bank4_PCCARD: FSMC Bank4 PCCARD
+  * @param  FSMC_IT: 指定要清除的中断挂起位。
+  *   该参数可取以下值的任意组合：
+  *     @arg FSMC_IT_RisingEdge: 上升沿检测中断。
+  *     @arg FSMC_IT_Level: 电平边沿检测中断。
+  *     @arg FSMC_IT_FallingEdge: 下降沿检测中断。
+  * @retval 无
+  */
+<<<COMMENT 1409>>>
+/**
+  ******************************************************************************
+  * @file    stm32f10x_fsmc.h
+  * @author  MCD Application Team
+  * @version V3.5.0
+  * @date    11-March-2011
+  * @brief   本文件包含 FSMC 固件库的所有函数原型。
+  ******************************************************************************
+  * @attention
+  *
+  * 本固件仅供指引之用，旨在为客户提供有关其产品的编码信息，
+  * 以便客户节省时间。因此，对于因本固件内容及/或客户将本文
+  * 所含编码信息用于其产品而产生的任何索赔所导致的任何直接、
+  * 间接或后果性损害，STMicroelectronics 概不负责。
+  *
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  ******************************************************************************
+  */
+<<<COMMENT 1410>>>
+/** @addtogroup FSMC  FSMC 驱动模块
+  * @{
+  */
+<<<COMMENT 1411>>>
+/** @defgroup FSMC_Exported_Types   FSMC 导出类型
+  * @{
+  */
+<<<COMMENT 1412>>>
+/**
+  * @brief  NOR/SRAM Bank 的时序参数
+  */
+<<<COMMENT 1413>>>
+/*!< 定义用于配置地址建立时间持续时间的
+                                             HCLK 周期数。
+                                             该参数可取 0 到 0xF 之间的值。
+                                             @note: 该参数不用于同步 NOR Flash 存储器。 */
+<<<COMMENT 1414>>>
+/*!< 定义用于配置地址保持时间持续时间的
+                                             HCLK 周期数。
+                                             该参数可取 0 到 0xF 之间的值。
+                                             @note: 该参数不用于同步 NOR Flash 存储器。*/
+<<<COMMENT 1415>>>
+/*!< 定义用于配置数据建立时间持续时间的
+                                             HCLK 周期数。
+                                             该参数可取 0 到 0xFF 之间的值。
+                                             @note: 该参数用于 SRAM、ROM 和异步复用 NOR Flash 存储器。 */
+<<<COMMENT 1416>>>
+/*!< 定义用于配置总线周转持续时间的
+                                             HCLK 周期数。
+                                             该参数可取 0 到 0xF 之间的值。
+                                             @note: 该参数仅用于复用 NOR Flash 存储器。 */
+<<<COMMENT 1417>>>
+/*!< 定义 CLK 时钟输出信号的周期，以 HCLK 周期数表示。
+                                             该参数可取 1 到 0xF 之间的值。
+                                             @note: 该参数不用于异步 NOR Flash、SRAM 或 ROM 访问。 */
+<<<COMMENT 1418>>>
+/*!< 定义在获取第一个数据之前向存储器发出的
+                                             存储器时钟周期数。
+                                             该参数的值取决于存储器类型，如下所示：
+                                              - 对于 CRAM，该参数必须设置为 0
+                                              - 在异步 NOR、SRAM 或 ROM 访问中该参数无关紧要
+                                              - 在使能同步突发模式的 NOR Flash 存储器中
+                                                该参数可取 0 到 0xF 之间的值 */
+<<<COMMENT 1419>>>
+/*!< 指定异步访问模式。
+                                             该参数可取 @ref FSMC_Access_Mode 的值 */
+<<<COMMENT 1420>>>
+/**
+  * @brief  FSMC NOR/SRAM 初始化结构定义
+  */
+<<<COMMENT 1421>>>
+/*!< 指定将要使用的 NOR/SRAM 存储块。
+                                          该参数可取 @ref FSMC_NORSRAM_Bank 的值 */
+<<<COMMENT 1422>>>
+/*!< 指定地址和数据值是否
+                                          在数据总线上复用。
+                                          该参数可取 @ref FSMC_Data_Address_Bus_Multiplexing 的值 */
+<<<COMMENT 1423>>>
+/*!< 指定连接到相应存储块的
+                                          外部存储器类型。
+                                          该参数可取 @ref FSMC_Memory_Type 的值 */
+<<<COMMENT 1424>>>
+/*!< 指定外部存储器件的宽度。
+                                          该参数可取 @ref FSMC_Data_Width 的值 */
+<<<COMMENT 1425>>>
+/*!< 使能或关闭 Flash 存储器的突发访问模式，
+                                          仅对同步突发 Flash 存储器有效。
+                                          该参数可取 @ref FSMC_Burst_Access_Mode 的值 */
+<<<COMMENT 1426>>>
+/*!< 使能或关闭异步传输期间的等待信号，
+                                          仅对异步 Flash 存储器有效。
+                                          该参数可取 @ref FSMC_AsynchronousWait 的值 */
+<<<COMMENT 1427>>>
+/*!< 指定等待信号极性，仅在突发模式下
+                                          访问 Flash 存储器时有效。
+                                          该参数可取 @ref FSMC_Wait_Signal_Polarity 的值 */
+<<<COMMENT 1428>>>
+/*!< 使能或关闭 Flash 存储器的回绕突发访问模式，
+                                          仅在突发模式下访问 Flash 存储器时有效。
+                                          该参数可取 @ref FSMC_Wrap_Mode 的值 */
+<<<COMMENT 1429>>>
+/*!< 指定等待信号是由存储器在等待状态前
+                                          一个时钟周期还是在等待状态期间置起，
+                                          仅在突发模式下访问存储器时有效。
+                                          该参数可取 @ref FSMC_Wait_Timing 的值 */
+<<<COMMENT 1430>>>
+/*!< 使能或关闭 FSMC 在所选 bank 中的写操作。
+                                          该参数可取 @ref FSMC_Write_Operation 的值 */
+<<<COMMENT 1431>>>
+/*!< 使能或关闭通过等待信号插入等待状态，
+                                          对突发模式下的 Flash 存储器访问有效。
+                                          该参数可取 @ref FSMC_Wait_Signal 的值 */
+<<<COMMENT 1432>>>
+/*!< 使能或关闭扩展模式。
+                                          该参数可取 @ref FSMC_Extended_Mode 的值 */
+<<<COMMENT 1433>>>
+/*!< 使能或关闭写突发操作。
+                                          该参数可取 @ref FSMC_Write_Burst 的值 */
+<<<COMMENT 1434>>>
+/*!< 未使用 ExtendedMode 时读写访问的时序参数*/
+<<<COMMENT 1435>>>
+/*!< 使用 ExtendedMode 时写访问的时序参数*/
+<<<COMMENT 1436>>>
+/**
+  * @brief  FSMC NAND 和 PCCARD Bank 的时序参数
+  */
+<<<COMMENT 1437>>>
+/*!< 定义对 common/Attribute 或 I/O 存储空间（取决于
+                                     要配置的存储空间时序）进行 NAND-Flash 读或写访问时，
+                                     在命令置起之前建立地址所需的
+                                     HCLK 周期数。
+                                     该参数可取 0 到 0xFF 之间的值。*/
+<<<COMMENT 1438>>>
+/*!< 定义对 common/Attribute 或 I/O 存储空间（取决于
+                                     要配置的存储空间时序）进行 NAND-Flash 读或写访问时
+                                     置起命令所需的最少 HCLK 周期数。
+                                     该参数可取 0x00 到 0xFF 之间的数值 */
+<<<COMMENT 1439>>>
+/*!< 定义对 common/Attribute 或 I/O 存储空间（取决于
+                                     要配置的存储空间时序）进行 NAND-Flash 读或写访问时，
+                                     在命令撤销之后保持地址（写访问时还包括数据）
+                                     所需的 HCLK 时钟周期数。
+                                     该参数可取 0x00 到 0xFF 之间的数值 */
+<<<COMMENT 1440>>>
+/*!< 定义对 common/Attribute 或 I/O 存储空间（取决于
+                                     要配置的存储空间时序）开始 NAND-Flash 写访问之后，
+                                     数据总线保持高阻态的 HCLK 时钟周期数。
+                                     该参数可取 0x00 到 0xFF 之间的数值 */
+<<<COMMENT 1441>>>
+/**
+  * @brief  FSMC NAND 初始化结构定义
+  */
+<<<COMMENT 1442>>>
+/*!< 指定将要使用的 NAND 存储块。
+                                      该参数可取 @ref FSMC_NAND_Bank 的值 */
+<<<COMMENT 1443>>>
+/*!< 使能或关闭 NAND 存储块的等待功能。
+                                       该参数可取 @ref FSMC_Wait_feature 的任意值 */
+<<<COMMENT 1444>>>
+/*!< 指定外部存储器件的宽度。
+                                       该参数可取 @ref FSMC_Data_Width 的任意值 */
+<<<COMMENT 1445>>>
+/*!< 使能或关闭 ECC 计算。
+                                       该参数可取 @ref FSMC_ECC 的任意值 */
+<<<COMMENT 1446>>>
+/*!< 定义扩展 ECC 的页大小。
+                                       该参数可取 @ref FSMC_ECC_Page_Size 的任意值 */
+<<<COMMENT 1447>>>
+/*!< 定义用于配置 CLE 为低与 RE 为低之间
+                                       延迟的 HCLK 周期数。
+                                       该参数可取 0 到 0xFF 之间的值。 */
+<<<COMMENT 1448>>>
+/*!< 定义用于配置 ALE 为低与 RE 为低之间
+                                       延迟的 HCLK 周期数。
+                                       该参数可取 0x0 到 0xFF 之间的数值 */
+<<<COMMENT 1449>>>
+/*!< FSMC 公共空间时序 */
+<<<COMMENT 1450>>>
+/*!< FSMC 属性空间时序 */
+<<<COMMENT 1451>>>
+/**
+  * @brief  FSMC PCCARD 初始化结构定义
+  */
+<<<COMMENT 1452>>>
+/*!< 使能或关闭存储块的等待功能。
+                                    该参数可取 @ref FSMC_Wait_feature 的任意值 */
+<<<COMMENT 1453>>>
+/*!< 定义用于配置 CLE 为低与 RE 为低之间
+                                     延迟的 HCLK 周期数。
+                                     该参数可取 0 到 0xFF 之间的值。 */
+<<<COMMENT 1454>>>
+/*!< 定义用于配置 ALE 为低与 RE 为低之间
+                                     延迟的 HCLK 周期数。
+                                     该参数可取 0x0 到 0xFF 之间的数值 */
+<<<COMMENT 1455>>>
+/*!< FSMC IO 空间时序 */
+<<<COMMENT 1456>>>
+/** @defgroup FSMC_Exported_Constants   FSMC 导出常量
+  * @{
+  */
+<<<COMMENT 1457>>>
+/** @defgroup FSMC_NORSRAM_Bank   FSMC NOR/SRAM Bank
+  * @{
+  */
+<<<COMMENT 1458>>>
+/** @defgroup FSMC_NAND_Bank   FSMC NAND Bank
+  * @{
+  */
+<<<COMMENT 1459>>>
+/** @defgroup FSMC_PCCARD_Bank   FSMC PCCARD Bank
+  * @{
+  */
+<<<COMMENT 1460>>>
+/** @defgroup NOR_SRAM_Controller   NOR/SRAM 控制器
+  * @{
+  */
+<<<COMMENT 1461>>>
+/** @defgroup FSMC_Data_Address_Bus_Multiplexing   FSMC 数据地址总线复用
+  * @{
+  */
+<<<COMMENT 1462>>>
+/** @defgroup FSMC_Memory_Type   FSMC 存储器类型
+  * @{
+  */
+<<<COMMENT 1463>>>
+/** @defgroup FSMC_Data_Width   FSMC 数据宽度
+  * @{
+  */
+<<<COMMENT 1464>>>
+/** @defgroup FSMC_Burst_Access_Mode   FSMC 突发访问模式
+  * @{
+  */
+<<<COMMENT 1465>>>
+/** @defgroup FSMC_AsynchronousWait   FSMC 异步等待
+  * @{
+  */
+<<<COMMENT 1466>>>
+/** @defgroup FSMC_Wait_Signal_Polarity   FSMC 等待信号极性
+  * @{
+  */
+<<<COMMENT 1467>>>
+/** @defgroup FSMC_Wrap_Mode   FSMC 回绕模式
+  * @{
+  */
+<<<COMMENT 1468>>>
+/** @defgroup FSMC_Wait_Timing   FSMC 等待时序
+  * @{
+  */
+<<<COMMENT 1469>>>
+/** @defgroup FSMC_Write_Operation   FSMC 写操作
+  * @{
+  */
+<<<COMMENT 1470>>>
+/** @defgroup FSMC_Wait_Signal   FSMC 等待信号
+  * @{
+  */
+<<<COMMENT 1471>>>
+/** @defgroup FSMC_Extended_Mode   FSMC 扩展模式
+  * @{
+  */
+<<<COMMENT 1472>>>
+/** @defgroup FSMC_Write_Burst   FSMC 写突发
+  * @{
+  */
+<<<COMMENT 1473>>>
+/** @defgroup FSMC_Address_Setup_Time   FSMC 地址建立时间
+  * @{
+  */
+<<<COMMENT 1474>>>
+/** @defgroup FSMC_Address_Hold_Time   FSMC 地址保持时间
+  * @{
+  */
+<<<COMMENT 1475>>>
+/** @defgroup FSMC_Data_Setup_Time   FSMC 数据建立时间
+  * @{
+  */
+<<<COMMENT 1476>>>
+/** @defgroup FSMC_Bus_Turn_around_Duration   FSMC 总线周转持续时间
+  * @{
+  */
+<<<COMMENT 1477>>>
+/** @defgroup FSMC_CLK_Division   FSMC CLK 分频
+  * @{
+  */
+<<<COMMENT 1478>>>
+/** @defgroup FSMC_Data_Latency   FSMC 数据等待周期
+  * @{
+  */
+<<<COMMENT 1479>>>
+/** @defgroup FSMC_Access_Mode   FSMC 访问模式
+  * @{
+  */
+<<<COMMENT 1480>>>
+/** @defgroup NAND_PCCARD_Controller   NAND/PCCARD 控制器
+  * @{
+  */
+<<<COMMENT 1481>>>
+/** @defgroup FSMC_Wait_feature   FSMC 等待功能
+  * @{
+  */
+<<<COMMENT 1482>>>
+/** @defgroup FSMC_ECC   FSMC ECC
+  * @{
+  */
+<<<COMMENT 1483>>>
+/** @defgroup FSMC_ECC_Page_Size   FSMC ECC 页大小
+  * @{
+  */
+<<<COMMENT 1484>>>
+/** @defgroup FSMC_TCLR_Setup_Time   FSMC TCLR 建立时间
+  * @{
+  */
+<<<COMMENT 1485>>>
+/** @defgroup FSMC_TAR_Setup_Time   FSMC TAR 建立时间
+  * @{
+  */
+<<<COMMENT 1486>>>
+/** @defgroup FSMC_Setup_Time   FSMC 建立时间
+  * @{
+  */
+<<<COMMENT 1487>>>
+/** @defgroup FSMC_Wait_Setup_Time   FSMC 等待建立时间
+  * @{
+  */
+<<<COMMENT 1488>>>
+/** @defgroup FSMC_Hold_Setup_Time   FSMC 保持建立时间
+  * @{
+  */
+<<<COMMENT 1489>>>
+/** @defgroup FSMC_HiZ_Setup_Time   FSMC 高阻态建立时间
+  * @{
+  */
+<<<COMMENT 1490>>>
+/** @defgroup FSMC_Interrupt_sources   FSMC 中断源
+  * @{
+  */
+<<<COMMENT 1491>>>
+/** @defgroup FSMC_Flags   FSMC 标志
+  * @{
+  */
+<<<COMMENT 1492>>>
+/** @defgroup FSMC_Exported_Macros   FSMC 导出宏
+  * @{
+  */
+<<<COMMENT 1493>>>
+/** @defgroup FSMC_Exported_Functions   FSMC 导出函数
+  * @{
+  */
+<<<COMMENT 1494>>>
+/*__STM32F10x_FSMC_H */
+<<<COMMENT 1495>>>
+/**
+  ******************************************************************************
+  * @file    stm32f10x_gpio.c
+  * @author  MCD Application Team
+  * @version V3.5.0
+  * @date    11-March-2011
+  * @brief   本文件提供所有 GPIO 固件函数。
+  ******************************************************************************
+  * @attention
+  *
+  * 本固件仅供指引之用，旨在为客户提供有关其产品的编码信息，
+  * 以便客户节省时间。因此，对于因本固件内容及/或客户将本文
+  * 所含编码信息用于其产品而产生的任何索赔所导致的任何直接、
+  * 间接或后果性损害，STMicroelectronics 概不负责。
+  *
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  ******************************************************************************
+  */
+<<<COMMENT 1496>>>
+/** @defgroup GPIO
+  * @brief GPIO 驱动模块
+  * @{
+  */
+<<<COMMENT 1497>>>
+/** @defgroup GPIO_Private_TypesDefinitions   GPIO 私有类型定义
+  * @{
+  */
+<<<COMMENT 1498>>>
+/** @defgroup GPIO_Private_Defines   GPIO 私有宏定义
+  * @{
+  */
+<<<COMMENT 1499>>>
+/* ------------ 别名区中 RCC 寄存器位地址 ----------------*/
+<<<COMMENT 1500>>>
+/* --- EVENTCR 寄存器 -----*/
+<<<COMMENT 1501>>>
+/* EVOE 位的别名字地址 */
+<<<COMMENT 1502>>>
+/* ---  MAPR 寄存器 ---*/
+<<<COMMENT 1503>>>
+/* MII_RMII_SEL 位的别名字地址 */
+<<<COMMENT 1504>>>
+/** @defgroup GPIO_Private_Macros   GPIO 私有宏
+  * @{
+  */
+<<<COMMENT 1505>>>
+/** @defgroup GPIO_Private_Variables   GPIO 私有变量
+  * @{
+  */
+<<<COMMENT 1506>>>
+/** @defgroup GPIO_Private_FunctionPrototypes   GPIO 私有函数原型
+  * @{
+  */
+<<<COMMENT 1507>>>
+/** @defgroup GPIO_Private_Functions   GPIO 私有函数
+  * @{
+  */
+<<<COMMENT 1508>>>
+/**
+  * @brief  将 GPIOx 外设寄存器反初始化为其默认复位值。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @retval 无
+  */
+<<<COMMENT 1509>>>
+/**
+  * @brief  将复用功能（重映射、事件控制和
+  *   EXTI 配置）寄存器反初始化为其默认复位值。
+  * @param  无
+  * @retval 无
+  */
+<<<COMMENT 1510>>>
+/**
+  * @brief  根据 GPIO_InitStruct 中指定的参数
+  *         初始化 GPIOx 外设。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @param  GPIO_InitStruct: 指向 GPIO_InitTypeDef 结构的指针，
+  *         该结构包含指定 GPIO 外设的配置信息。
+  * @retval 无
+  */
+<<<COMMENT 1511>>>
+/*---------------------------- GPIO 模式配置 -----------------------*/
+<<<COMMENT 1512>>>
+/* 输出模式 */
+<<<COMMENT 1513>>>
+/*---------------------------- GPIO CRL 配置 ------------------------*/
+<<<COMMENT 1514>>>
+/* 配置 8 个低端端口引脚 */
+<<<COMMENT 1515>>>
+/* 获取端口引脚位置 */
+<<<COMMENT 1516>>>
+/* 清零相应的低控制寄存器位 */
+<<<COMMENT 1517>>>
+/* 在相应位中写入模式配置 */
+<<<COMMENT 1518>>>
+/* 清零相应的 ODR 位 */
+<<<COMMENT 1519>>>
+/* 置位相应的 ODR 位 */
+<<<COMMENT 1520>>>
+/*---------------------------- GPIO CRH 配置 ------------------------*/
+<<<COMMENT 1521>>>
+/* 配置 8 个高端端口引脚 */
+<<<COMMENT 1522>>>
+/* 清零相应的高控制寄存器位 */
+<<<COMMENT 1523>>>
+/**
+  * @brief  将 GPIO_InitStruct 的每个成员填充为默认值。
+  * @param  GPIO_InitStruct : 指向将被初始化的 GPIO_InitTypeDef
+  *         结构的指针。
+  * @retval 无
+  */
+<<<COMMENT 1524>>>
+/* 复位 GPIO 初始化结构的参数值 */
+<<<COMMENT 1525>>>
+/**
+  * @brief  读取指定的输入端口引脚。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @param  GPIO_Pin:  指定要读取的端口位。
+  *   该参数可取 GPIO_Pin_x，x 可取 (0..15)。
+  * @retval 输入端口引脚值。
+  */
+<<<COMMENT 1526>>>
+/**
+  * @brief  读取指定的 GPIO 输入数据端口。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @retval GPIO 输入数据端口值。
+  */
+<<<COMMENT 1527>>>
+/**
+  * @brief  读取指定的输出数据端口位。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @param  GPIO_Pin:  指定要读取的端口位。
+  *   该参数可取 GPIO_Pin_x，x 可取 (0..15)。
+  * @retval 输出端口引脚值。
+  */
+<<<COMMENT 1528>>>
+/**
+  * @brief  读取指定的 GPIO 输出数据端口。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @retval GPIO 输出数据端口值。
+  */
+<<<COMMENT 1529>>>
+/**
+  * @brief  置位选定的数据端口位。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @param  GPIO_Pin: 指定要写入的端口位。
+  *   该参数可为 GPIO_Pin_x 的任意组合，x 可取 (0..15)。
+  * @retval 无
+  */
+<<<COMMENT 1530>>>
+/**
+  * @brief  清零选定的数据端口位。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @param  GPIO_Pin: 指定要写入的端口位。
+  *   该参数可为 GPIO_Pin_x 的任意组合，x 可取 (0..15)。
+  * @retval 无
+  */
+<<<COMMENT 1531>>>
+/**
+  * @brief  置位或清零选定的数据端口位。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @param  GPIO_Pin: 指定要写入的端口位。
+  *   该参数可取 GPIO_Pin_x 之一，x 可取 (0..15)。
+  * @param  BitVal: 指定要写入所选位的值。
+  *   该参数可取 BitAction 枚举值之一：
+  *     @arg Bit_RESET: 清零端口引脚
+  *     @arg Bit_SET: 置位端口引脚
+  * @retval 无
+  */
+<<<COMMENT 1532>>>
+/**
+  * @brief  向指定的 GPIO 数据端口写入数据。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @param  PortVal: 指定要写入端口输出数据寄存器的值。
+  * @retval 无
+  */
+<<<COMMENT 1533>>>
+/**
+  * @brief  锁定 GPIO 引脚配置寄存器。
+  * @param  GPIOx: x 可取 (A..G)，用于选择 GPIO 外设。
+  * @param  GPIO_Pin: 指定要写入的端口位。
+  *   该参数可为 GPIO_Pin_x 的任意组合，x 可取 (0..15)。
+  * @retval 无
+  */
+<<<COMMENT 1534>>>
+/* 置位 LCKK 位 */
+<<<COMMENT 1535>>>
+/* 清零 LCKK 位 */
+<<<COMMENT 1536>>>
+/* 读取 LCKK 位*/
+<<<COMMENT 1537>>>
+/**
+  * @brief  选择用作事件输出的 GPIO 引脚。
+  * @param  GPIO_PortSource: 选择用作事件输出源的
+  *   GPIO 端口。
+  *   该参数可取 GPIO_PortSourceGPIOx，x 可取 (A..E)。
+  * @param  GPIO_PinSource: 指定用于事件输出的引脚。
+  *   该参数可取 GPIO_PinSourcex，x 可取 (0..15)。
+  * @retval 无
+  */
+<<<COMMENT 1538>>>
+/* 清零 PORT[6:4] 和 PIN[3:0] 位 */
+<<<COMMENT 1539>>>
+/**
+  * @brief  使能或关闭事件输出。
+  * @param  NewState: 事件输出的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1540>>>
+/**
+  * @brief  更改指定引脚的映射。
+  * @param  GPIO_Remap: 选择要重映射的引脚。
+  *   该参数可取以下值之一：
+  *     @arg GPIO_Remap_SPI1             : SPI1 复用功能映射
+  *     @arg GPIO_Remap_I2C1             : I2C1 复用功能映射
+  *     @arg GPIO_Remap_USART1           : USART1 复用功能映射
+  *     @arg GPIO_Remap_USART2           : USART2 复用功能映射
+  *     @arg GPIO_PartialRemap_USART3    : USART3 部分复用功能映射
+  *     @arg GPIO_FullRemap_USART3       : USART3 完全复用功能映射
+  *     @arg GPIO_PartialRemap_TIM1      : TIM1 部分复用功能映射
+  *     @arg GPIO_FullRemap_TIM1         : TIM1 完全复用功能映射
+  *     @arg GPIO_PartialRemap1_TIM2     : TIM2 部分复用功能映射 1
+  *     @arg GPIO_PartialRemap2_TIM2     : TIM2 部分复用功能映射 2
+  *     @arg GPIO_FullRemap_TIM2         : TIM2 完全复用功能映射
+  *     @arg GPIO_PartialRemap_TIM3      : TIM3 部分复用功能映射
+  *     @arg GPIO_FullRemap_TIM3         : TIM3 完全复用功能映射
+  *     @arg GPIO_Remap_TIM4             : TIM4 复用功能映射
+  *     @arg GPIO_Remap1_CAN1            : CAN1 复用功能映射
+  *     @arg GPIO_Remap2_CAN1            : CAN1 复用功能映射
+  *     @arg GPIO_Remap_PD01             : PD01 复用功能映射
+  *     @arg GPIO_Remap_TIM5CH4_LSI      : LSI 连接到 TIM5 通道 4 输入捕获用于校准
+  *     @arg GPIO_Remap_ADC1_ETRGINJ     : ADC1 外部触发注入转换重映射
+  *     @arg GPIO_Remap_ADC1_ETRGREG     : ADC1 外部触发规则转换重映射
+  *     @arg GPIO_Remap_ADC2_ETRGINJ     : ADC2 外部触发注入转换重映射
+  *     @arg GPIO_Remap_ADC2_ETRGREG     : ADC2 外部触发规则转换重映射
+  *     @arg GPIO_Remap_ETH              : 以太网重映射（仅适用于互联型器件）
+  *     @arg GPIO_Remap_CAN2             : CAN2 重映射（仅适用于互联型器件）
+  *     @arg GPIO_Remap_SWJ_NoJTRST      : 使能全部 SWJ（JTAG-DP + SW-DP）但不含 JTRST
+  *     @arg GPIO_Remap_SWJ_JTAGDisable  : 关闭 JTAG-DP 并使能 SW-DP
+  *     @arg GPIO_Remap_SWJ_Disable      : 关闭全部 SWJ（JTAG-DP + SW-DP）
+  *     @arg GPIO_Remap_SPI3             : SPI3/I2S3 复用功能映射（仅适用于互联型器件）
+  *                                        当使用本函数重映射 SPI3/I2S3 时，SWJ 被配置为
+  *                                        使能全部 SWJ（JTAG-DP + SW-DP）但不含 JTRST。
+  *     @arg GPIO_Remap_TIM2ITR1_PTP_SOF : 以太网 PTP 输出或 USB OTG SOF（帧起始）连接到
+  *                                        TIM2 内部触发 1 用于校准（仅适用于互联型器件）
+  *                                        若使能 GPIO_Remap_TIM2ITR1_PTP_SOF，则 TIM2 ITR1 连接到
+  *                                        以太网 PTP 输出。复位时 TIM2 ITR1 连接到 USB OTG SOF 输出。
+  *     @arg GPIO_Remap_PTP_PPS          : PB05 上的以太网 MAC PPS_PTS 输出（仅适用于互联型器件）
+  *     @arg GPIO_Remap_TIM15            : TIM15 复用功能映射（仅适用于超值型器件）
+  *     @arg GPIO_Remap_TIM16            : TIM16 复用功能映射（仅适用于超值型器件）
+  *     @arg GPIO_Remap_TIM17            : TIM17 复用功能映射（仅适用于超值型器件）
+  *     @arg GPIO_Remap_CEC              : CEC 复用功能映射（仅适用于超值型器件）
+  *     @arg GPIO_Remap_TIM1_DMA         : TIM1 DMA 请求映射（仅适用于超值型器件）
+  *     @arg GPIO_Remap_TIM9             : TIM9 复用功能映射（仅适用于超大容量器件）
+  *     @arg GPIO_Remap_TIM10            : TIM10 复用功能映射（仅适用于超大容量器件）
+  *     @arg GPIO_Remap_TIM11            : TIM11 复用功能映射（仅适用于超大容量器件）
+  *     @arg GPIO_Remap_TIM13            : TIM13 复用功能映射（仅适用于高容量超值型和超大容量器件）
+  *     @arg GPIO_Remap_TIM14            : TIM14 复用功能映射（仅适用于高容量超值型和超大容量器件）
+  *     @arg GPIO_Remap_FSMC_NADV        : FSMC_NADV 复用功能映射（仅适用于高容量超值型和超大容量器件）
+  *     @arg GPIO_Remap_TIM67_DAC_DMA    : TIM6/TIM7 和 DAC DMA 请求重映射（仅适用于高容量超值型器件）
+  *     @arg GPIO_Remap_TIM12            : TIM12 复用功能映射（仅适用于高容量超值型器件）
+  *     @arg GPIO_Remap_MISC             : 杂项重映射（DMA2 通道 5 位置和 DAC 触发重映射，
+  *                                        仅适用于高容量超值型器件）
+  * @param  NewState: 端口引脚重映射的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1541>>>
+/**
+  * @brief  选择用作 EXTI 线的 GPIO 引脚。
+  * @param  GPIO_PortSource: 选择用作 EXTI 线源的 GPIO 端口。
+  *   该参数可取 GPIO_PortSourceGPIOx，x 可取 (A..G)。
+  * @param  GPIO_PinSource: 指定要配置的 EXTI 线。
+  *   该参数可取 GPIO_PinSourcex，x 可取 (0..15)。
+  * @retval 无
+  */
+<<<COMMENT 1542>>>
+/**
+  * @brief  选择以太网媒体接口。
+  * @note   本函数仅适用于 STM32 互联型器件。
+  * @param  GPIO_ETH_MediaInterface: 指定媒体接口模式。
+  *   该参数可取以下值之一：
+  *     @arg GPIO_ETH_MediaInterface_MII: MII 模式
+  *     @arg GPIO_ETH_MediaInterface_RMII: RMII 模式
+  * @retval 无
+  */
+<<<COMMENT 1543>>>
+/* 配置 MII_RMII 选择位 */
+<<<COMMENT 1544>>>
+/**
+  ******************************************************************************
+  * @file    stm32f10x_gpio.h
+  * @author  MCD Application Team
+  * @version V3.5.0
+  * @date    11-March-2011
+  * @brief   本文件包含 GPIO 固件库的所有函数原型。
+  ******************************************************************************
+  * @attention
+  *
+  * 本固件仅供指引之用，旨在为客户提供有关其产品的编码信息，
+  * 以便客户节省时间。因此，对于因本固件内容及/或客户将本文
+  * 所含编码信息用于其产品而产生的任何索赔所导致的任何直接、
+  * 间接或后果性损害，STMicroelectronics 概不负责。
+  *
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  ******************************************************************************
+  */
+<<<COMMENT 1545>>>
+/** @addtogroup GPIO  GPIO 驱动模块
+  * @{
+  */
+<<<COMMENT 1546>>>
+/** @defgroup GPIO_Exported_Types   GPIO 导出类型
+  * @{
+  */
+<<<COMMENT 1547>>>
+/**
+  * @brief  输出最高频率选择
+  */
+<<<COMMENT 1548>>>
+/**
+  * @brief  配置模式枚举
+  */
+<<<COMMENT 1549>>>
+/**
+  * @brief  GPIO 初始化结构定义
+  */
+<<<COMMENT 1550>>>
+/*!< 指定要配置的 GPIO 引脚。
+                                      该参数可取 @ref GPIO_pins_define 的任意值 */
+<<<COMMENT 1551>>>
+/*!< 指定所选引脚的速度。
+                                      该参数可取 @ref GPIOSpeed_TypeDef 的值 */
+<<<COMMENT 1552>>>
+/*!< 指定所选引脚的工作模式。
+                                      该参数可取 @ref GPIOMode_TypeDef 的值 */
+<<<COMMENT 1553>>>
+/**
+  * @brief  Bit_SET 和 Bit_RESET 枚举
+  */
+<<<COMMENT 1554>>>
+/** @defgroup GPIO_Exported_Constants   GPIO 导出常量
+  * @{
+  */
+<<<COMMENT 1555>>>
+/** @defgroup GPIO_pins_define   GPIO 引脚定义
+  * @{
+  */
+<<<COMMENT 1556>>>
+/*!< 已选择引脚 0 */
+<<<COMMENT 1557>>>
+/*!< 已选择引脚 1 */
+<<<COMMENT 1558>>>
+/*!< 已选择引脚 2 */
+<<<COMMENT 1559>>>
+/*!< 已选择引脚 3 */
+<<<COMMENT 1560>>>
+/*!< 已选择引脚 4 */
+<<<COMMENT 1561>>>
+/*!< 已选择引脚 5 */
+<<<COMMENT 1562>>>
+/*!< 已选择引脚 6 */
+<<<COMMENT 1563>>>
+/*!< 已选择引脚 7 */
+<<<COMMENT 1564>>>
+/*!< 已选择引脚 8 */
+<<<COMMENT 1565>>>
+/*!< 已选择引脚 9 */
+<<<COMMENT 1566>>>
+/*!< 已选择引脚 10 */
+<<<COMMENT 1567>>>
+/*!< 已选择引脚 11 */
+<<<COMMENT 1568>>>
+/*!< 已选择引脚 12 */
+<<<COMMENT 1569>>>
+/*!< 已选择引脚 13 */
+<<<COMMENT 1570>>>
+/*!< 已选择引脚 14 */
+<<<COMMENT 1571>>>
+/*!< 已选择引脚 15 */
+<<<COMMENT 1572>>>
+/*!< 已选择所有引脚 */
+<<<COMMENT 1573>>>
+/** @defgroup GPIO_Remap_define   GPIO 重映射定义
+  * @{
+  */
+<<<COMMENT 1574>>>
+/*!< SPI1 复用功能映射 */
+<<<COMMENT 1575>>>
+/*!< I2C1 复用功能映射 */
+<<<COMMENT 1576>>>
+/*!< USART1 复用功能映射 */
+<<<COMMENT 1577>>>
+/*!< USART2 复用功能映射 */
+<<<COMMENT 1578>>>
+/*!< USART3 部分复用功能映射 */
+<<<COMMENT 1579>>>
+/*!< USART3 完全复用功能映射 */
+<<<COMMENT 1580>>>
+/*!< TIM1 部分复用功能映射 */
+<<<COMMENT 1581>>>
+/*!< TIM1 完全复用功能映射 */
+<<<COMMENT 1582>>>
+/*!< TIM2 部分复用功能映射 1 */
+<<<COMMENT 1583>>>
+/*!< TIM2 部分复用功能映射 2 */
+<<<COMMENT 1584>>>
+/*!< TIM2 完全复用功能映射 */
+<<<COMMENT 1585>>>
+/*!< TIM3 部分复用功能映射 */
+<<<COMMENT 1586>>>
+/*!< TIM3 完全复用功能映射 */
+<<<COMMENT 1587>>>
+/*!< TIM4 复用功能映射 */
+<<<COMMENT 1588>>>
+/*!< CAN1 复用功能映射 */
+<<<COMMENT 1589>>>
+/*!< PD01 复用功能映射 */
+<<<COMMENT 1590>>>
+/*!< LSI 连接到 TIM5 通道 4 输入捕获用于校准 */
+<<<COMMENT 1591>>>
+/*!< ADC1 外部触发注入转换重映射 */
+<<<COMMENT 1592>>>
+/*!< ADC1 外部触发规则转换重映射 */
+<<<COMMENT 1593>>>
+/*!< ADC2 外部触发注入转换重映射 */
+<<<COMMENT 1594>>>
+/*!< ADC2 外部触发规则转换重映射 */
+<<<COMMENT 1595>>>
+/*!< 以太网重映射（仅适用于互联型器件） */
+<<<COMMENT 1596>>>
+/*!< CAN2 重映射（仅适用于互联型器件） */
+<<<COMMENT 1597>>>
+/*!< 使能全部 SWJ（JTAG-DP + SW-DP）但不含 JTRST */
+<<<COMMENT 1598>>>
+/*!< 关闭 JTAG-DP 并使能 SW-DP */
+<<<COMMENT 1599>>>
+/*!< 关闭全部 SWJ（JTAG-DP + SW-DP） */
+<<<COMMENT 1600>>>
+/*!< SPI3/I2S3 复用功能映射（仅适用于互联型器件） */
+<<<COMMENT 1601>>>
+/*!< 以太网 PTP 输出或 USB OTG SOF（帧起始）连接到
+                                                                 TIM2 内部触发 1 用于校准
+                                                                 （仅适用于互联型器件） */
+<<<COMMENT 1602>>>
+/*!< PB05 上的以太网 MAC PPS_PTS 输出（仅适用于互联型器件） */
+<<<COMMENT 1603>>>
+/*!< TIM15 复用功能映射（仅适用于超值型器件） */
+<<<COMMENT 1604>>>
+/*!< TIM16 复用功能映射（仅适用于超值型器件） */
+<<<COMMENT 1605>>>
+/*!< TIM17 复用功能映射（仅适用于超值型器件） */
+<<<COMMENT 1606>>>
+/*!< CEC 复用功能映射（仅适用于超值型器件） */
+<<<COMMENT 1607>>>
+/*!< TIM1 DMA 请求映射（仅适用于超值型器件） */
+<<<COMMENT 1608>>>
+/*!< TIM9 复用功能映射（仅适用于超大容量器件） */
+<<<COMMENT 1609>>>
+/*!< TIM10 复用功能映射（仅适用于超大容量器件） */
+<<<COMMENT 1610>>>
+/*!< TIM11 复用功能映射（仅适用于超大容量器件） */
+<<<COMMENT 1611>>>
+/*!< TIM13 复用功能映射（仅适用于高容量超值型和超大容量器件） */
+<<<COMMENT 1612>>>
+/*!< TIM14 复用功能映射（仅适用于高容量超值型和超大容量器件） */
+<<<COMMENT 1613>>>
+/*!< FSMC_NADV 复用功能映射（仅适用于高容量超值型和超大容量器件） */
+<<<COMMENT 1614>>>
+/*!< TIM6/TIM7 和 DAC DMA 请求重映射（仅适用于高容量超值型器件） */
+<<<COMMENT 1615>>>
+/*!< TIM12 复用功能映射（仅适用于高容量超值型器件） */
+<<<COMMENT 1616>>>
+/*!< 杂项重映射（DMA2 通道 5 位置和 DAC 触发重映射，
+                                                                 仅适用于高容量超值型器件） */
+<<<COMMENT 1617>>>
+/** @defgroup GPIO_Port_Sources   GPIO 端口源
+  * @{
+  */
+<<<COMMENT 1618>>>
+/** @defgroup GPIO_Pin_sources   GPIO 引脚源
+  * @{
+  */
+<<<COMMENT 1619>>>
+/** @defgroup Ethernet_Media_Interface   以太网媒体接口
+  * @{
+  */
+<<<COMMENT 1620>>>
+/** @defgroup GPIO_Exported_Macros   GPIO 导出宏
+  * @{
+  */
+<<<COMMENT 1621>>>
+/** @defgroup GPIO_Exported_Functions   GPIO 导出函数
+  * @{
+  */
+<<<COMMENT 1622>>>
+/* __STM32F10x_GPIO_H */
+<<<COMMENT 1623>>>
+/**
+  ******************************************************************************
+  * @file    stm32f10x_i2c.c
+  * @author  MCD Application Team
+  * @version V3.5.0
+  * @date    11-March-2011
+  * @brief   本文件提供所有 I2C 固件函数。
+  ******************************************************************************
+  * @attention
+  *
+  * 本固件仅供指引之用，旨在为客户提供有关其产品的编码信息，
+  * 以便客户节省时间。因此，对于因本固件内容及/或客户将本文
+  * 所含编码信息用于其产品而产生的任何索赔所导致的任何直接、
+  * 间接或后果性损害，STMicroelectronics 概不负责。
+  *
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  ******************************************************************************
+  */
+<<<COMMENT 1624>>>
+/** @defgroup I2C
+  * @brief I2C 驱动模块
+  * @{
+  */
+<<<COMMENT 1625>>>
+/** @defgroup I2C_Private_TypesDefinitions   I2C 私有类型定义
+  * @{
+  */
+<<<COMMENT 1626>>>
+/** @defgroup I2C_Private_Defines   I2C 私有宏定义
+  * @{
+  */
+<<<COMMENT 1627>>>
+/* I2C SPE 掩码 */
+<<<COMMENT 1628>>>
+/* I2C START 掩码 */
+<<<COMMENT 1629>>>
+/* I2C STOP 掩码 */
+<<<COMMENT 1630>>>
+/* I2C ACK 掩码 */
+<<<COMMENT 1631>>>
+/* I2C ENGC 掩码 */
+<<<COMMENT 1632>>>
+/* I2C SWRST 掩码 */
+<<<COMMENT 1633>>>
+/* I2C PEC 掩码 */
+<<<COMMENT 1634>>>
+/* I2C ENPEC 掩码 */
+<<<COMMENT 1635>>>
+/* I2C ENARP 掩码 */
+<<<COMMENT 1636>>>
+/* I2C NOSTRETCH 掩码 */
+<<<COMMENT 1637>>>
+/* I2C 寄存器掩码 */
+<<<COMMENT 1638>>>
+/* I2C DMAEN 掩码 */
+<<<COMMENT 1639>>>
+/* I2C LAST 掩码 */
+<<<COMMENT 1640>>>
+/* I2C FREQ 掩码 */
+<<<COMMENT 1641>>>
+/* I2C ADD0 掩码 */
+<<<COMMENT 1642>>>
+/* I2C ENDUAL 掩码 */
+<<<COMMENT 1643>>>
+/* I2C ADD2 掩码 */
+<<<COMMENT 1644>>>
+/* I2C F/S 掩码 */
+<<<COMMENT 1645>>>
+/* I2C CCR 掩码 */
+<<<COMMENT 1646>>>
+/* I2C FLAG 掩码 */
+<<<COMMENT 1647>>>
+/* I2C 中断使能掩码 */
+<<<COMMENT 1648>>>
+/** @defgroup I2C_Private_Macros   I2C 私有宏
+  * @{
+  */
+<<<COMMENT 1649>>>
+/** @defgroup I2C_Private_Variables   I2C 私有变量
+  * @{
+  */
+<<<COMMENT 1650>>>
+/** @defgroup I2C_Private_FunctionPrototypes   I2C 私有函数原型
+  * @{
+  */
+<<<COMMENT 1651>>>
+/** @defgroup I2C_Private_Functions   I2C 私有函数
+  * @{
+  */
+<<<COMMENT 1652>>>
+/**
+  * @brief  将 I2Cx 外设寄存器反初始化为其默认复位值。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @retval 无
+  */
+<<<COMMENT 1653>>>
+/* 使 I2C1 进入复位状态 */
+<<<COMMENT 1654>>>
+/* 将 I2C1 从复位状态释放 */
+<<<COMMENT 1655>>>
+/* 使 I2C2 进入复位状态 */
+<<<COMMENT 1656>>>
+/* 将 I2C2 从复位状态释放 */
+<<<COMMENT 1657>>>
+/**
+  * @brief  根据 I2C_InitStruct 中指定的
+  *   参数初始化 I2Cx 外设。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  I2C_InitStruct: 指向 I2C_InitTypeDef 结构的指针，
+  *   该结构包含指定 I2C 外设的配置信息。
+  * @retval 无
+  */
+<<<COMMENT 1658>>>
+/*---------------------------- I2Cx CR2 配置 ------------------------*/
+<<<COMMENT 1659>>>
+/* 获取 I2Cx CR2 值 */
+<<<COMMENT 1660>>>
+/* 清零频率 FREQ[5:0] 位 */
+<<<COMMENT 1661>>>
+/* 获取 pclk1 频率值 */
+<<<COMMENT 1662>>>
+/* 根据 pclk1 值设置频率位 */
+<<<COMMENT 1663>>>
+/* 写入 I2Cx CR2 */
+<<<COMMENT 1664>>>
+/*---------------------------- I2Cx CCR 配置 ------------------------*/
+<<<COMMENT 1665>>>
+/* 关闭所选 I2C 外设以配置 TRISE */
+<<<COMMENT 1666>>>
+/* 复位 tmpreg 值 */
+<<<COMMENT 1667>>>
+/* 清零 F/S、DUTY 和 CCR[11:0] 位 */
+<<<COMMENT 1668>>>
+/* 配置标准模式下的速度 */
+<<<COMMENT 1669>>>
+/* 标准模式速度计算 */
+<<<COMMENT 1670>>>
+/* 判断 CCR 值是否小于 0x4*/
+<<<COMMENT 1671>>>
+/* 设置允许的最小值 */
+<<<COMMENT 1672>>>
+/* 设置标准模式的速度值 */
+<<<COMMENT 1673>>>
+/* 设置标准模式的最大上升时间 */
+<<<COMMENT 1674>>>
+/* 配置快速模式下的速度 */
+<<<COMMENT 1675>>>
+/*(I2C_InitStruct->I2C_ClockSpeed <= 400000)*/
+<<<COMMENT 1676>>>
+/* 快速模式速度计算：Tlow/Thigh = 2 */
+<<<COMMENT 1677>>>
+/*I2C_InitStruct->I2C_DutyCycle == I2C_DutyCycle_16_9*/
+<<<COMMENT 1678>>>
+/* 快速模式速度计算：Tlow/Thigh = 16/9 */
+<<<COMMENT 1679>>>
+/* 置位 DUTY 位 */
+<<<COMMENT 1680>>>
+/* 判断 CCR 值是否小于 0x1*/
+<<<COMMENT 1681>>>
+/* 设置快速模式的速度值并置位 F/S 位 */
+<<<COMMENT 1682>>>
+/* 设置快速模式的最大上升时间 */
+<<<COMMENT 1683>>>
+/* 写入 I2Cx CCR */
+<<<COMMENT 1684>>>
+/* 使能所选 I2C 外设 */
+<<<COMMENT 1685>>>
+/*---------------------------- I2Cx CR1 配置 ------------------------*/
+<<<COMMENT 1686>>>
+/* 获取 I2Cx CR1 值 */
+<<<COMMENT 1687>>>
+/* 清零 ACK、SMBTYPE 和 SMBUS 位 */
+<<<COMMENT 1688>>>
+/* 配置 I2Cx：模式和应答 */
+<<<COMMENT 1689>>>
+/* 根据 I2C_Mode 值设置 SMBTYPE 和 SMBUS 位 */
+<<<COMMENT 1690>>>
+/* 根据 I2C_Ack 值设置 ACK 位 */
+<<<COMMENT 1691>>>
+/* 写入 I2Cx CR1 */
+<<<COMMENT 1692>>>
+/*---------------------------- I2Cx OAR1 配置 -----------------------*/
+<<<COMMENT 1693>>>
+/* 设置 I2Cx 自身地址 1 和应答地址 */
+<<<COMMENT 1694>>>
+/**
+  * @brief  将 I2C_InitStruct 的每个成员填充为默认值。
+  * @param  I2C_InitStruct: 指向将被初始化的 I2C_InitTypeDef 结构的指针。
+  * @retval 无
+  */
+<<<COMMENT 1695>>>
+/*---------------- 复位 I2C 初始化结构的参数值 ----------------*/
+<<<COMMENT 1696>>>
+/* 初始化 I2C_ClockSpeed 成员 */
+<<<COMMENT 1697>>>
+/* 初始化 I2C_Mode 成员 */
+<<<COMMENT 1698>>>
+/* 初始化 I2C_DutyCycle 成员 */
+<<<COMMENT 1699>>>
+/* 初始化 I2C_OwnAddress1 成员 */
+<<<COMMENT 1700>>>
+/* 初始化 I2C_Ack 成员 */
+<<<COMMENT 1701>>>
+/* 初始化 I2C_AcknowledgedAddress 成员 */
+<<<COMMENT 1702>>>
+/**
+  * @brief  使能或关闭指定的 I2C 外设。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  NewState: I2Cx 外设的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1703>>>
+/* 关闭所选 I2C 外设 */
+<<<COMMENT 1704>>>
+/**
+  * @brief  使能或关闭指定的 I2C DMA 请求。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  NewState: I2C DMA 传输的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1705>>>
+/* 使能所选 I2C DMA 请求 */
+<<<COMMENT 1706>>>
+/* 关闭所选 I2C DMA 请求 */
+<<<COMMENT 1707>>>
+/**
+  * @brief  指定下一次 DMA 传输是否为最后一次。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  NewState: I2C DMA 最后一次传输的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1708>>>
+/* 下一次 DMA 传输为最后一次传输 */
+<<<COMMENT 1709>>>
+/* 下一次 DMA 传输不是最后一次传输 */
+<<<COMMENT 1710>>>
+/**
+  * @brief  产生 I2Cx 通信 START 条件。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  NewState: I2C START 条件产生的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1711>>>
+/* 产生 START 条件 */
+<<<COMMENT 1712>>>
+/* 关闭 START 条件产生 */
+<<<COMMENT 1713>>>
+/**
+  * @brief  产生 I2Cx 通信 STOP 条件。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  NewState: I2C STOP 条件产生的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1714>>>
+/* 产生 STOP 条件 */
+<<<COMMENT 1715>>>
+/* 关闭 STOP 条件产生 */
+<<<COMMENT 1716>>>
+/**
+  * @brief  使能或关闭指定的 I2C 应答功能。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  NewState: I2C 应答的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1717>>>
+/* 使能应答 */
+<<<COMMENT 1718>>>
+/* 关闭应答 */
+<<<COMMENT 1719>>>
+/**
+  * @brief  配置指定的 I2C 自身地址 2。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  Address: 指定 7 位 I2C 自身地址 2。
+  * @retval 无
+  */
+<<<COMMENT 1720>>>
+/* 复位 I2Cx 自身地址 2 的位 [7:1] */
+<<<COMMENT 1721>>>
+/* 设置 I2Cx 自身地址 2 */
+<<<COMMENT 1722>>>
+/**
+  * @brief  使能或关闭指定的 I2C 双地址模式。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  NewState: I2C 双地址模式的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1723>>>
+/* 使能双地址模式 */
+<<<COMMENT 1724>>>
+/* 关闭双地址模式 */
+<<<COMMENT 1725>>>
+/**
+  * @brief  使能或关闭指定的 I2C 广播呼叫功能。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  NewState: I2C 广播呼叫的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1726>>>
+/* 使能广播呼叫 */
+<<<COMMENT 1727>>>
+/* 关闭广播呼叫 */
+<<<COMMENT 1728>>>
+/**
+  * @brief  使能或关闭指定的 I2C 中断。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  I2C_IT: 指定要使能或关闭的 I2C 中断源。
+  *   该参数可取以下值的任意组合：
+  *     @arg I2C_IT_BUF: 缓冲中断掩码
+  *     @arg I2C_IT_EVT: 事件中断掩码
+  *     @arg I2C_IT_ERR: 错误中断掩码
+  * @param  NewState: 指定 I2C 中断的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1729>>>
+/* 使能所选 I2C 中断 */
+<<<COMMENT 1730>>>
+/* 关闭所选 I2C 中断 */
+<<<COMMENT 1731>>>
+/**
+  * @brief  通过 I2Cx 外设发送一个数据字节。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  Data: 要发送的字节。
+  * @retval 无
+  */
+<<<COMMENT 1732>>>
+/* 将要发送的数据写入 DR 寄存器 */
+<<<COMMENT 1733>>>
+/**
+  * @brief  返回 I2Cx 外设最近接收到的数据。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @retval 接收数据的值。
+  */
+<<<COMMENT 1734>>>
+/* 返回 DR 寄存器中的数据 */
+<<<COMMENT 1735>>>
+/**
+  * @brief  发送地址字节以选择从器件。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  Address: 指定将要发送的从机地址
+  * @param  I2C_Direction: 指定 I2C 器件将作为
+  *   发送器还是接收器。该参数可取以下值之一
+  *     @arg I2C_Direction_Transmitter: 发送器模式
+  *     @arg I2C_Direction_Receiver: 接收器模式
+  * @retval 无
+  */
+<<<COMMENT 1736>>>
+/* 判断方向以置位/清零读/写位 */
+<<<COMMENT 1737>>>
+/* 置位地址位 0 表示读 */
+<<<COMMENT 1738>>>
+/* 清零地址位 0 表示写 */
+<<<COMMENT 1739>>>
+/* 发送地址 */
+<<<COMMENT 1740>>>
+/**
+  * @brief  读取指定的 I2C 寄存器并返回其值。
+  * @param  I2C_Register: 指定要读取的寄存器。
+  *   该参数可取以下值之一：
+  *     @arg I2C_Register_CR1:  CR1 寄存器。
+  *     @arg I2C_Register_CR2:   CR2 寄存器。
+  *     @arg I2C_Register_OAR1:  OAR1 寄存器。
+  *     @arg I2C_Register_OAR2:  OAR2 寄存器。
+  *     @arg I2C_Register_DR:    DR 寄存器。
+  *     @arg I2C_Register_SR1:   SR1 寄存器。
+  *     @arg I2C_Register_SR2:   SR2 寄存器。
+  *     @arg I2C_Register_CCR:   CCR 寄存器。
+  *     @arg I2C_Register_TRISE: TRISE 寄存器。
+  * @retval 所读寄存器的值。
+  */
+<<<COMMENT 1741>>>
+/* 返回所选寄存器的值 */
+<<<COMMENT 1742>>>
+/**
+  * @brief  使能或关闭指定的 I2C 软件复位。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  NewState: I2C 软件复位的新状态。
+  *   该参数可取：ENABLE 或 DISABLE。
+  * @retval 无
+  */
+<<<COMMENT 1743>>>
+/* 外设处于复位状态 */
+<<<COMMENT 1744>>>
+/* 外设未处于复位状态 */
+<<<COMMENT 1745>>>
+/**
+  * @brief  选择主接收模式下指定的 I2C NACK 位置。
+  *         当要接收的数据个数等于 2 时，本函数在 I2C 主接收模式下很有用。
+  *         此时应在数据接收开始之前调用本函数（参数为 I2C_NACKPosition_Next），
+  *         具体方式如参考手册“主接收”一节中推荐的 2 字节接收流程所述。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  I2C_NACKPosition: 指定 NACK 位置。
+  *   该参数可取以下值之一：
+  *     @arg I2C_NACKPosition_Next: 表示下一个字节将是最后
+  *          接收的字节。
+  *     @arg I2C_NACKPosition_Current: 表示当前字节是最后
+  *          接收的字节。
+  *
+  * @note    本函数配置的位 (POS) 与 I2C_PECPositionConfig() 相同，
+  *          但本函数用于 I2C 模式，而 I2C_PECPositionConfig()
+  *          用于 SMBUS 模式。
+  *
+  * @retval 无
+  */
+<<<COMMENT 1746>>>
+/* 检查输入参数 */
+<<<COMMENT 1747>>>
+/* 移位寄存器中的下一个字节是最后接收的字节 */
+<<<COMMENT 1748>>>
+/* 移位寄存器中的当前字节是最后接收的字节 */
+<<<COMMENT 1749>>>
+/**
+  * @brief  为指定的 I2C 将 SMBusAlert 引脚驱动为高电平或低电平。
+  * @param  I2Cx: x 可取 1 或 2，用于选择 I2C 外设。
+  * @param  I2C_SMBusAlert: 指定 SMBAlert 引脚电平。
+  *   该参数可取以下值之一：
+  *     @arg I2C_SMBusAlert_Low: SMBAlert 引脚驱动为低电平
+  *     @arg I2C_SMBusAlert_High: SMBAlert 引脚驱动为高电平
+  * @retval 无
+  */
