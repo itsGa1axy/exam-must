@@ -1,0 +1,51 @@
+# STM32 build directories and generated binaries
+**/build/
+**/cmake-build-*/
+**/CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+build.ninja
+.ninja_deps
+.ninja_log
+*.elf
+*.hex
+*.bin
+*.map
+*.o
+*.obj
+*.exe
+*.d
+*.su
+*.lst
+*.srec
+*.s19
+
+# IDE, OS, and temporary files
+**/.idea/
+**/.settings/
+**/.vscode/
+*.user
+*.launch
+*.log
+.cache/
+**/.cache/
+.DS_Store
+Thumbs.db
+desktop.ini
+mx.scratch
+
+# Python monitor environments and caches
+**/.venv/
+**/venv/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Temporary translation and diagnostic material
+**/tools/
+**/.codex-emd-source/
+**/.git-standalone-backup/
