@@ -113,12 +113,14 @@ class AttitudeMonitor:
             return
         try:
             self.serial_port = serial.Serial(port_name, BAUD_RATE, timeout=0.1)
-        except serial.SerialException as exc:
+        except (OSError, serial.SerialException) as exc:
             messagebox.showerror("串口打开失败", str(exc))
             self.serial_port = None
             return
 
-        self.stop_event.clear()
+        # Each connection gets its own event so an old reader cannot be
+        # reactivated when the user disconnects and reconnects quickly.
+        self.stop_event = threading.Event()
         self.reader_thread = threading.Thread(target=self._read_serial, daemon=True)
         self.reader_thread.start()
         self.connect_button.configure(text="断开")
@@ -129,8 +131,9 @@ class AttitudeMonitor:
         port = self.serial_port
         if port is None:
             return
+        stop_event = self.stop_event
         buffer = bytearray()
-        while not self.stop_event.is_set():
+        while not stop_event.is_set():
             try:
                 waiting = port.in_waiting
                 buffer.extend(port.read(max(waiting, 1)))
@@ -156,10 +159,25 @@ class AttitudeMonitor:
                     sample = decode_attitude_frame(frame)
                     if sample is not None:
                         self.data_queue.put(sample)
-            except (ValueError, serial.SerialException):
-                if not self.stop_event.is_set():
-                    self.root.after(0, lambda: self.status_label.configure(text="串口读取异常"))
+            except (OSError, ValueError, serial.SerialException):
+                if not stop_event.is_set():
+                    self.root.after(0, self._handle_serial_error, port, stop_event)
                 break
+
+    def _handle_serial_error(self, port: serial.Serial, stop_event: threading.Event) -> None:
+        """Reset the UI only when the failed reader is still the active one."""
+        if self.serial_port is not port or self.stop_event is not stop_event:
+            return
+        stop_event.set()
+        try:
+            port.close()
+        except (OSError, serial.SerialException):
+            pass
+        self.serial_port = None
+        self.reader_thread = None
+        self.connect_button.configure(text="连接")
+        self.send_button.configure(state=tk.DISABLED)
+        self.status_label.configure(text="串口读取异常")
 
     def _send_weight(self) -> None:
         if self.serial_port is None or not self.serial_port.is_open:
@@ -168,7 +186,7 @@ class AttitudeMonitor:
         try:
             self.serial_port.write(f"K,{value:.3f}\n".encode("ascii"))
             self.status_label.configure(text=f"已下发 K={value:.3f}")
-        except serial.SerialException as exc:
+        except (OSError, serial.SerialException) as exc:
             messagebox.showerror("下发失败", str(exc))
 
     def _weight_changed(self, _value: str) -> None:
@@ -230,12 +248,14 @@ class AttitudeMonitor:
 
     def close_serial(self) -> None:
         self.stop_event.set()
-        if self.serial_port is not None:
+        port = self.serial_port
+        if port is not None:
             try:
-                self.serial_port.close()
-            except serial.SerialException:
+                port.close()
+            except (OSError, serial.SerialException):
                 pass
         self.serial_port = None
+        self.reader_thread = None
         self.connect_button.configure(text="连接")
         self.send_button.configure(state=tk.DISABLED)
         self.status_label.configure(text="未连接")

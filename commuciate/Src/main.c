@@ -1,5 +1,6 @@
 #include "board_link.h"
 #include "pc_console.h"
+#include "watchdog.h"
 
 /* 主机 USART1 默认引脚：PA9 为 TX、PA10 为 RX。 */
 #define HOST_UART_TX_PORT GPIOA
@@ -21,6 +22,7 @@ int main(void)
     uint16_t gyro_weight_q15;
 
     SystemCoreClockUpdate();
+    Watchdog_Init();
     BoardLink_Init(HOST_UART_TX_PORT, HOST_UART_TX_PIN,
                    HOST_UART_RX_PORT, HOST_UART_RX_PIN,
                    HOST_USART1_REMAP);
@@ -40,5 +42,8 @@ int main(void)
         if (BoardLink_GetLatest(&attitude))
             (void)PcConsole_SendFrame(attitude.raw_frame,
                                       sizeof(attitude.raw_frame));
+
+        /* 只有主循环完整跑完一轮才喂狗，卡死时交给硬件复位。 */
+        Watchdog_Feed();
     }
 }
